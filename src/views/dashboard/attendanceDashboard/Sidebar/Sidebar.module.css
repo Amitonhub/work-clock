@@ -1,4 +1,4 @@
-.sidebar {
+.drawer {
   width: 300px;
   height: 100vh;
   background-color: #f5f5f5;
@@ -13,26 +13,71 @@
 }
 
 .drawerPaper {
-  width: 300px;
+  width: 400px;
 }
 
 .sidebarHeader {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   padding: 10px;
 }
 
-.arrowIcon {
+.closeIcon {
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  margin-bottom: 8px;
 }
 
-.arrowIconImage {
+.closeIconImage {
   transform: rotate(180deg);
 }
-.notificationDiv{
+.NotificationsIcon{
+  color: black;
+}
+.NotificationsText{
+  color: #777;
+}
+.notificationDiv {
   font-weight: bold;
+}
+
+.notificationItem {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.notificationItem.exit {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+.notificationItem.exit-active {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.notificationItem:hover {
+  background-color: #d3d3d3;
+}
+
+.closeButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-left: auto;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.notificationItem:hover .closeButton {
+  opacity: 1;
 }
