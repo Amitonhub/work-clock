@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import styles from "./AttendanceDashboard.module.css";
-import {DatePick} from "@/views/dashboard/attendanceDashboard/date";
-import {ProfileInfo} from "@/views/dashboard/attendanceDashboard/profileInfo";
+import { DatePick } from "@/views/dashboard/attendanceDashboard/date";
+import { ProfileInfo } from "@/views/dashboard/attendanceDashboard/profileInfo";
 import Divider from "@mui/material/Divider";
 import { Modal } from "react-bootstrap";
-import {QrCode} from "@/views/dashboard/attendanceDashboard/qrCode";
-import {DailyAttendance} from "@/views/dashboard/attendanceDashboard/DailyAttendance";
-import {DailyAttendanceBreakDown} from "@/views/dashboard/attendanceDashboard/DailyAttendanceBreakDown";
-import {AddOvertimeButton} from "@/views/dashboard/attendanceDashboard/Buttons";
-import {AddTimeOffButton} from "@/views/dashboard/attendanceDashboard/Buttons";
-import { Icon } from "@mui/material";
+import { QrCode } from "@/views/dashboard/attendanceDashboard/qrCode";
+import { DailyAttendance } from "@/views/dashboard/attendanceDashboard/DailyAttendance";
+import { DailyAttendanceBreakDown } from "@/views/dashboard/attendanceDashboard/DailyAttendanceBreakDown";
+import { AddOvertimeButton } from "@/views/dashboard/attendanceDashboard/Buttons";
+import { AddTimeOffButton } from "@/views/dashboard/attendanceDashboard/Buttons";
+import { Badge, Icon } from "@mui/material";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import QrCodeScannerIcon from "@mui/icons-material/QrCodeScanner";
-import {Sidebar} from "@/views/dashboard/attendanceDashboard/Sidebar";
+import { Sidebar } from "@/views/dashboard/attendanceDashboard/Sidebar";
 
 function AttendanceDashBoard() {
   const [show, setShow] = useState(false);
@@ -55,12 +55,14 @@ function AttendanceDashBoard() {
                 </Modal>
               </div>
               <div className={styles.bellIcon}>
-                <Icon
-                  component={NotificationsIcon}
-                  fontSize="large"
-                  color="inherit"
-                  onClick={handleToggleSidebar}
-                />
+                <Badge color="secondary" badgeContent={4} >
+                  <Icon
+                    component={NotificationsIcon}
+                    fontSize="large"
+                    color="inherit"
+                    onClick={handleToggleSidebar}
+                  />
+                </Badge>
               </div>
             </div>
           </div>

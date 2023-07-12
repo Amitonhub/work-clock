@@ -12,7 +12,7 @@ import styles from "./AddOvertimeButton.module.css";
 
 const AddOvertimeButton = () => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [overtimeValue, setOvertimeValue] = useState("");
+  const [overtimeValue, setOvertimeValue] = useState("00:00");
   const [projectManager, setProjectManager] = useState("");
   const [projectName, setProjectName] = useState("");
   const [isValidationVisible, setValidationVisible] = useState(false);
@@ -100,11 +100,11 @@ const AddOvertimeButton = () => {
           <form>
             <div className={styles.formGroup}>
               <TextField
-                label="Overtime Value (HH:MM)"
+                label="Overtime (HH:MM)"
                 value={overtimeValue}
                 onChange={handleChangeOvertime}
                 onFocus={() => setValidationVisible(true)}
-                onBlur={() => setValidationVisible(false)}
+                onBlur={() => setValidationVisible(true)}
                 fullWidth
                 margin="normal"
                 error={
@@ -146,7 +146,7 @@ const AddOvertimeButton = () => {
               </Button>
               <Button
                 variant="contained"
-                color="secondary"
+                color="error"
                 className={styles.secondaryButton}
                 onClick={handleClose}
               >

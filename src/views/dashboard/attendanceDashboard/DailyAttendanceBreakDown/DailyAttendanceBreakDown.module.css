@@ -8,10 +8,11 @@
   margin-bottom: 20px;
 }
 .attendanceTableTr {
-  font-weight: bold
+  font-weight: bold;
 }
 
 .attendanceTable td {
+  text-align: center;
   border-right: none;
   border-left: none;
 }

@@ -12,7 +12,7 @@ function DailyAttendanceBreakDown() {
   return (
     <>
       <div className={styles.mainDiv}>
-        <Table striped bordered hover className={styles.attendanceTable}>
+        <Table striped="columns" bordered hover responsive="sm" className={styles.attendanceTable} >
           <thead>
             <tr className={styles.attendanceTableTr}>
               <td>Date</td>

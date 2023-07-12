@@ -1,25 +1,51 @@
 'use client'
-import React, { useState } from 'react'
-import styles from "./date.module.css"
+import React, { useRef, useState } from 'react'
+import styles from "./datePick.module.scss"
+import ReactDatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css';
 
 function DatePick() {
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [startDate, setStartDate] = useState<Date>(new Date())
+  const [endDate, setEndDate] = useState<Date>(new Date())
+  const endDateRef = useRef() as React.RefObject<ReactDatePicker>
 
-  const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedDate = new Date(event.target.value);
-    setSelectedDate(selectedDate);
-  };
+  const handleStartDateChange = (date: Date) => {
+    setStartDate(date)
+    if (date.getTime() > endDate.getTime()) {
+      setEndDate(date)
+    }
+    console.log(date)
+  }
 
-  const currentDate = new Date().toISOString().split('T')[0];
+  const handleEndDateChange = (date: Date) => {
+    setEndDate(date)
+    console.log(date)
+  }
 
   return (
-    <div className={styles.mainDiv}>
-      <input
-        type="date"
-        className={styles.dateDiv}
-        max={currentDate}
-        value={selectedDate.toISOString().split('T')[0]}
-        onChange={handleDateChange}
+    <div className={styles.holidayDateSection}>
+      <ReactDatePicker
+        dateFormat="dd-MM-yyyy"
+        selected={startDate}
+        onChange={handleStartDateChange}
+        selectsStart
+        startDate={startDate}
+        endDate={endDate}
+        className={styles.dateInput}
+        placeholderText="DD-MM-YYYY"
+      />
+      <span className={styles.to}>To</span>
+      <ReactDatePicker
+        dateFormat="dd-MM-yyyy"
+        selected={endDate}
+        onChange={handleEndDateChange}
+        selectsEnd
+        startDate={startDate}
+        endDate={endDate}
+        minDate={startDate}
+        className={styles.dateInput}
+        placeholderText="DD-MM-YYYY"
+        ref={endDateRef}
       />
     </div>
   );

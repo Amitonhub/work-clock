@@ -27,7 +27,7 @@ function AddTimeOffButton() {
     const confirmed = await ShowConfirmationAlert(breakType);
     if (confirmed) {
       const currentTime = new Date().toLocaleTimeString();
-      console.log(`${breakType} Break: ${currentTime}`);
+      console.log(`${breakType} : ${currentTime}`);
       Swal.fire(`${breakType} Saved!`, currentTime, "success");
     }
   };
@@ -81,7 +81,6 @@ function AddTimeOffButton() {
             <div className={styles.formGroup}>
               <Button
                 variant="contained"
-                color="primary"
                 className={styles.primaryButton}
                 onClick={() => handleBreakIn(selectedOption)}
               >
@@ -91,7 +90,7 @@ function AddTimeOffButton() {
             <div className={styles.buttonGroup}>
               <Button
                 variant="contained"
-                color="secondary"
+                color="error"
                 className={styles.secondaryButton}
                 onClick={handleClose}
               >

@@ -1,6 +1,6 @@
 {
-    "name": "Test PWA",
-    "short_name": "Test PWA",
+    "name": "Work Clock",
+    "short_name": "Work Clock",
     "display": "standalone",
     "orientation": "portrait",
     "purpose": "any maskable",
