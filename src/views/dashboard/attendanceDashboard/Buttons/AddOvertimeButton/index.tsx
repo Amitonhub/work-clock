@@ -100,7 +100,7 @@ const AddOvertimeButton = () => {
           <form>
             <div className={styles.formGroup}>
               <TextField
-                label="Overtime Value (HH:MM)"
+                label="Overtime (HH:MM)"
                 value={overtimeValue}
                 onChange={handleChangeOvertime}
                 onFocus={() => setValidationVisible(true)}
@@ -146,7 +146,7 @@ const AddOvertimeButton = () => {
               </Button>
               <Button
                 variant="contained"
-                color="secondary"
+                color="error"
                 className={styles.secondaryButton}
                 onClick={handleClose}
               >
