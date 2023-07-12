@@ -1,0 +1,21 @@
+.mainDiv {
+  padding: 10px;
+  width: 100%;
+}
+
+.attendanceTable {
+  width: 100%;
+  margin-bottom: 20px;
+}
+.attendanceTableTr {
+  font-weight: bold
+}
+
+.attendanceTable td {
+  border-right: none;
+  border-left: none;
+}
+.icons{
+  margin-bottom: 4px;
+  margin-right: 3px;
+}

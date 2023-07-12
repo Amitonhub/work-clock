@@ -1,0 +1,10 @@
+.header {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: xxx-large
+}
+
+.Divider {
+  width: 98%;
+  margin: 20px 0;
+  border-top: 1px solid grey;
+}

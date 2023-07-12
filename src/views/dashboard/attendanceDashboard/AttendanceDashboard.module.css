@@ -1,0 +1,87 @@
+.container {
+  /* display: flex; */
+  flex-direction: column;
+  /* align-items: center; */
+}
+
+.mainDiv {
+  width: 1150px;
+}
+
+.maindivHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.maindivHeadersub {
+  display: flex;
+}
+
+.box {
+  width: 270px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  padding: 3px;
+  background-color: #f0f0f0;
+  border-radius: 3px
+}
+
+.Divider {
+  border: 1px solid black;
+}
+
+.navBar {
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+  justify-content: space-between;
+  position: relative;
+}
+
+.profileInfo {
+  display: flex;
+}
+
+.bellIcon {
+  margin-right: 10px;
+  margin-left: 15px;
+  margin-top: 8px;
+  cursor: pointer;
+}
+
+.bellIcon:hover {
+  color: #777;
+}
+
+.profileInfoWrapper {
+  margin-right: 30px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.roundButton {
+  border-radius: 50%;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  width: 50px;
+  height: 50px;
+  display: flex;
+  font-size: 20px;
+  color: white;
+}
+
+.QRCodeMain {
+  margin-right: 10px;
+}
+
+.dailyAttendanceContainer {
+  margin-top: 20px;
+}
+
+.addTimeOffButton {
+  margin-top: 15px;
+  margin-bottom: 20px;
+  margin-right: 10px;
+  float: right;
+}

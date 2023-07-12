@@ -1,0 +1,133 @@
+.container {
+    position: relative;
+    overflow: hidden;
+    max-width: 700px;
+    margin: 100px 441px;
+    padding: 52px;
+    background-color: #275BC4;
+    border-radius: 20px;
+    color: white;
+    font-family: Roboto, sans-serif;
+    animation: formAnimation 1s ease-in-out;
+
+    .ellipse1 {
+        position: absolute;
+        width: 70px;
+        height: 70px;
+        border-radius: 70px;
+        background: #3263C7;
+    }
+
+    .ellipse2 {
+        margin-left: 450px;
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        border-radius: 40px;
+        background: #3263C7;
+    }
+
+    .ellipse3 {
+        margin-left: 600px;
+        position: absolute;
+        width: 100px;
+        height: 200px;
+        border-radius: 200px 0 0 200px;
+        background: #3263C7;
+        z-index: 0;
+    }
+
+    .ellipse4 {
+        margin-top: 10px;
+        margin-left: 200px;
+        position: absolute;
+        width: 70px;
+        height: 41px;
+        border-radius: 70px 70px 0 0;
+        background: #3263C7;
+    }
+
+    .logoContainer {
+        display: flex;
+        justify-content: center;
+        margin: 20px;
+        color: white;
+        z-index: 10;
+    }
+
+    .workClockHeading {
+        padding: 0px 12px;
+        font-size: xx-large;
+        font-weight: 600;
+    }
+
+    .title {
+        color: #333;
+        text-align: center;
+    }
+
+    .form {
+        display: flex;
+        flex-direction: column;
+        margin-top: 20px;
+        position: relative;
+        z-index: 10;
+
+        .label {
+            margin-bottom: 5px;
+            color: white;
+        }
+
+        .input {
+            padding: 10px;
+            background-color: #F6F8FF;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            color: black;
+
+            &:focus {
+                outline: none;
+            }
+
+            &::placeholder {
+                font-size: large;
+            }
+        }
+
+        .error {
+            color: #ff6060
+        }
+
+    }
+
+    .button {
+        background-color: rgb(59 130 246 / 0.5);
+        border: none;
+        border-radius: 5px;
+        color: #fff;
+        font-size: 22px;
+        font-style: normal;
+        font-weight: 700;
+        height: 55px;
+        margin-top: 20px;
+        display: inline;
+    }
+
+    .SignInText {
+        font-weight: 700;
+        font-size: x-large;
+    }
+}
+
+@keyframes formAnimation {
+    0% {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

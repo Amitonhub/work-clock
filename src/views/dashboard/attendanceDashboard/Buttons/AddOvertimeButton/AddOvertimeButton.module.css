@@ -1,0 +1,53 @@
+.overtimeButton {
+    margin-right: 20px;
+  }
+  
+  .popoverContent {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    width: 290px;
+  }
+  
+  .headerPopOver {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    font-family: "Times New Roman", Times, serif;
+    font-weight: bold;
+    font-size: 26px;
+    margin-bottom: 16px;
+  }
+  
+  .formGroup {
+    margin-bottom: 10px;
+  }
+  
+  .buttonGroup {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 16px;
+  }
+  
+  .buttonGroup button {
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .buttonGroup button:hover {
+    transform: scale(1.1);
+  }
+  
+  .primaryButton {
+    background-color: #2c82e0;
+    color: #fff;
+  }
+  
+  .secondaryButton {
+    background-color: #e53935;
+    color: #fff;
+  }
+  
