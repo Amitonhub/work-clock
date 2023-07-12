@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-  Button,
-  Popover,
-  Box,
-  Typography,
-  MenuItem,
-  Select,
-} from "@mui/material";
+import { Button, Popover, Box, Typography, MenuItem, Select } from "@mui/material";
 import Swal from "sweetalert2";
 import styles from "./AddTimeOffButton.module.css";
 import { ShowConfirmationAlert } from "@/common";
@@ -15,7 +8,7 @@ function AddTimeOffButton() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedOption, setSelectedOption] = useState("Lunch Break");
 
-  const handleClick = (event: any) => {
+  const handleClick = (event:any) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -24,15 +17,17 @@ function AddTimeOffButton() {
   };
 
   const handleBreakIn = async (breakType: string) => {
+    handleClose();
     const confirmed = await ShowConfirmationAlert(breakType);
     if (confirmed) {
       const currentTime = new Date().toLocaleTimeString();
       console.log(`${breakType} : ${currentTime}`);
       Swal.fire(`${breakType} Saved!`, currentTime, "success");
+      
     }
   };
 
-  const handleChangeOption = (event: any) => {
+  const handleChangeOption = (event:any) => {
     setSelectedOption(event.target.value);
   };
 
@@ -103,4 +98,5 @@ function AddTimeOffButton() {
     </>
   );
 }
+
 export default AddTimeOffButton;
