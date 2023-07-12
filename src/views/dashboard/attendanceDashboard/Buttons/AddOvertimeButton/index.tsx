@@ -26,6 +26,7 @@ const AddOvertimeButton = () => {
   };
 
   const handleAddOvertime = () => {
+    handleClose();
     if (!isValidOvertimeFormat(overtimeValue)) {
       Swal.fire(
         "Invalid Input",
@@ -35,29 +36,33 @@ const AddOvertimeButton = () => {
       return;
     }
 
-    const currentTime = new Date().toLocaleTimeString();
-    console.log("Overtime:", overtimeValue);
-    console.log("Project Manager:", projectManager);
-    console.log("Project Name:", projectName);
-    Swal.fire("Overtime Added!", `Overtime: ${overtimeValue}`, "success");
-    handleClose();
+    Swal.fire({
+      title: "Confirm Overtime",
+      text: `Add overtime: ${overtimeValue}?`,
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Add",
+      cancelButtonText: "Cancel",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const currentTime = new Date().toLocaleTimeString();
+        console.log("Overtime:", overtimeValue);
+        console.log("Project Manager:", projectManager);
+        console.log("Project Name:", projectName);
+        Swal.fire("Overtime Added!", `Overtime: ${overtimeValue}`, "success");
+      }
+    });
   };
 
-  const handleChangeOvertime = (event: {
-    target: { value: React.SetStateAction<string> };
-  }) => {
+  const handleChangeOvertime = (event: any) => {
     setOvertimeValue(event.target.value);
   };
 
-  const handleChangeProjectManager = (event: {
-    target: { value: React.SetStateAction<string> };
-  }) => {
+  const handleChangeProjectManager = (event: any) => {
     setProjectManager(event.target.value);
   };
 
-  const handleChangeProjectName = (event: {
-    target: { value: React.SetStateAction<string> };
-  }) => {
+  const handleChangeProjectName = (event: any) => {
     setProjectName(event.target.value);
   };
 
