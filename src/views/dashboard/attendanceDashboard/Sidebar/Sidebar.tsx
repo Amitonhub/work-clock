@@ -10,7 +10,8 @@ import {
 } from "@mui/material";
 import { Notifications, Close } from "@mui/icons-material";
 import styles from "./Sidebar.module.css";
-
+import MessageIcon from '@mui/icons-material/Message';
+import FaceIcon from '@mui/icons-material/Face';
 interface SidebarProps {
   isOpen: boolean;
   onClose: () => void;
@@ -63,8 +64,8 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
         textColor="inherit"
         indicatorColor="secondary"
       >
-        <Tab label="Recent" />
-        <Tab label="HR Approved" />
+        <Tab icon={<MessageIcon />} iconPosition="start" label="Recents" />
+        <Tab icon={<FaceIcon />} iconPosition="start" label="HR Approved" />
       </Tabs>
       <List>
         {activeTab === 0 &&
