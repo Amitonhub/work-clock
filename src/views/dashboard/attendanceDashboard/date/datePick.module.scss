@@ -1,0 +1,44 @@
+@mixin fontStyle() {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 18px;
+}
+
+.holidayDateSection {
+  display: flex;
+  width: 270px;
+  height: 35px;
+
+  .holidayDateSection {
+    display: flex;
+    z-index: 9;
+  }
+
+  @media (max-width: 999px) {
+    margin-left: 0;
+  }
+
+  .dateInput {
+    @include fontStyle();
+    line-height: 18px;
+    color: #353c48;
+    width: 115px;
+    height: 35px;
+    text-align: center;
+    border: none;
+    background-color: lightgray;
+    border-radius: 18px;
+  }
+
+  .to {
+    @include fontStyle();
+    color: white;
+    text-align: center;
+    padding: 10px;
+    background: crimson;
+    border-radius: 18px;
+    margin: 0 5px;
+  }
+}

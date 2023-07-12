@@ -87,7 +87,7 @@ const loginUser = asyncHandler(async (req, res) => {
         //     httpOnly: true, expires: new Date(Date.now() + 24 * 60 * 60 * 1000)
         // });
         // refresh token ends
-        res.status(200).json(accessToken);
+        res.status(200).json("access token has been generated successfully.");
     } else {
         res.status(401);
         throw new Error("Email or password is not valid");
