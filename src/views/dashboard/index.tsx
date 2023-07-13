@@ -5,12 +5,12 @@ import {AttendanceDashBoard} from '@/views/dashboard/attendanceDashboard'
 import Divider from '@mui/material/Divider'
 
 const Dashboard = () => {
-  return (<>
+  return (<div className={styles.mainDiv}>
   <div className={styles.header}>Time & Attendance</div>
   <Divider variant="middle" className={styles.Divider}/>
     {/*  */}
     <AttendanceDashBoard/>
-    </>
+    </div>
   )
 }
 

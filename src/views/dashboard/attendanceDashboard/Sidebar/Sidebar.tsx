@@ -11,7 +11,7 @@ import {
 import { Notifications, Close } from "@mui/icons-material";
 import styles from "./Sidebar.module.css";
 import MessageIcon from '@mui/icons-material/Message';
-import FaceIcon from '@mui/icons-material/Face';
+import PersonIcon from '@mui/icons-material/Person';
 interface SidebarProps {
   isOpen: boolean;
   onClose: () => void;
@@ -65,7 +65,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
         indicatorColor="secondary"
       >
         <Tab icon={<MessageIcon />} iconPosition="start" label="Recents" />
-        <Tab icon={<FaceIcon />} iconPosition="start" label="HR Approved" />
+        <Tab icon={<PersonIcon />} iconPosition="start" label="Project Head" />
       </Tabs>
       <List>
         {activeTab === 0 &&
@@ -94,7 +94,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                 <Notifications className={styles.NotificationsIcon} />
               </ListItemIcon>
               <ListItemText
-                primary="HR Approved 1"
+                primary="Time Approved 1"
                 className={styles.NotificationsText}
               />
             </ListItem>
@@ -103,7 +103,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                 <Notifications className={styles.NotificationsIcon} />
               </ListItemIcon>
               <ListItemText
-                primary="HR Approved 2"
+                primary="Time Approved 2"
                 className={styles.NotificationsText}
               />
             </ListItem>
