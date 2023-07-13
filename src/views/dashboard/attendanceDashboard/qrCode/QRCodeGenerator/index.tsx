@@ -10,7 +10,6 @@ const QRCodeGenerator: React.FC<QRCodeGeneratorProps> = ({ information }) => {
   return (
     <div className={styles.qrCodeContainer}>
     <QRCode value={information} className={styles.qrCode} />
-    <p className={styles.information}>{information}</p>
   </div>
   );
 };
