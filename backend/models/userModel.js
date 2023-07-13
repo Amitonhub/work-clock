@@ -47,6 +47,10 @@ const userSchema = mongoose.Schema(
             type: String,
             required: [true, "please add the user password"]
         },
+        ipAddress: {
+            type: String,
+            required: [false]
+        },
     },
     {
         timestamps: true

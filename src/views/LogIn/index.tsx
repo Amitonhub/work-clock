@@ -6,31 +6,43 @@ import { BASE_URL } from "@/constants"
 import { useRouter } from "next/navigation"
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { LoginForm } from "./types"
+import { getUserLocation } from "@/utils/getUserLocation"
 
 function LogIn() {
     const router = useRouter()
     const { register, handleSubmit, formState: { errors } } = useForm<LoginForm>()
   
     const onSubmit: SubmitHandler<LoginForm> = async (formData) => {
-      const res = await fetch(`${BASE_URL}/users/login`, {
-        credentials: 'include',
-        method: "POST",
-        body: JSON.stringify(formData),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-      const data = await res.json()
+        const { latitude, longitude } = await getUserLocation();
 
-      if (data.status === 401 || !data) {
-          alert("Invalid Registration")
-          console.log("Invalid Registration")
-      } else {
-          alert("Signed in Successful")
-          console.log("Signed in Successful")
-          router.push('/dashboard')
-      }
-    }
+        const updatedFormData = {
+          ...formData,
+          latitude,
+          longitude,
+        };
+      
+        const res = await fetch(`${BASE_URL}/users/login`, {
+          credentials: 'include',
+          method: "POST",
+          body: JSON.stringify(updatedFormData),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        const data = await res.json();
+      
+        if (data.status === 401 || !data) {
+          alert("Invalid Registration");
+          console.log("Invalid Registration");
+        } else {
+          alert("Signed in Successful");
+          console.log(updatedFormData)
+          console.log("Signed in Successful");
+          router.push('/dashboard');
+        }
+      };
+      
 
     return (
         <div className={styles.container}>
