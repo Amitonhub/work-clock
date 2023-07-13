@@ -5,7 +5,6 @@ import MoreTimeIcon from "@mui/icons-material/MoreTime";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import RestaurantIcon from "@mui/icons-material/Restaurant";
 import NoMealsIcon from "@mui/icons-material/NoMeals";
-import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import { Icon } from "@mui/material";
 
 function DailyAttendanceBreakDown() {
@@ -21,7 +20,6 @@ function DailyAttendanceBreakDown() {
               <td>Meal Out</td>
               <td>Overtime</td>
               <td>Check Out</td>
-              <td>Approval</td>
             </tr>
           </thead>
           <tbody>
@@ -73,15 +71,7 @@ function DailyAttendanceBreakDown() {
                 />
                 08:00 PM
               </td>
-              <td>
-                <Icon
-                  component={TaskAltIcon}
-                  fontSize="inherit"
-                  color="info"
-                  className={styles.icons}
-                />
-                Approved
-              </td>
+             
             </tr>
             <tr>
               <td>Wed 05-07-2023</td>
@@ -131,15 +121,7 @@ function DailyAttendanceBreakDown() {
                 />
                 08:00 PM
               </td>
-              <td>
-                <Icon
-                  component={TaskAltIcon}
-                  fontSize="inherit"
-                  color="info"
-                  className={styles.icons}
-                />
-                Approved
-              </td>
+              
             </tr>
           </tbody>
         </Table>

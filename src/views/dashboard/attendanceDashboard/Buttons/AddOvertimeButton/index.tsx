@@ -1,14 +1,7 @@
-import React, { useState } from "react";
-import {
-  Button,
-  Popover,
-  Box,
-  Typography,
-  TextField,
-  MenuItem,
-} from "@mui/material";
-import Swal from "sweetalert2";
+import React, { useState, useEffect } from "react";
+import { Button, Popover, Box, Typography, TextField } from "@mui/material";
 import styles from "./AddOvertimeButton.module.css";
+import { ShowAlert } from "@/common";
 
 const AddOvertimeButton = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -16,6 +9,7 @@ const AddOvertimeButton = () => {
   const [projectManager, setProjectManager] = useState("");
   const [projectName, setProjectName] = useState("");
   const [isValidationVisible, setValidationVisible] = useState(false);
+  const [disableButton, setDisableButton] = useState(false);
 
   const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
@@ -28,7 +22,7 @@ const AddOvertimeButton = () => {
   const handleAddOvertime = () => {
     handleClose();
     if (!isValidOvertimeFormat(overtimeValue)) {
-      Swal.fire(
+      ShowAlert.fire(
         "Invalid Input",
         "Please enter a valid overtime format (HH:MM)",
         "error"
@@ -36,20 +30,21 @@ const AddOvertimeButton = () => {
       return;
     }
 
-    Swal.fire({
+    ShowAlert.confirm({
       title: "Confirm Overtime",
       text: `Add overtime: ${overtimeValue}?`,
-      icon: "question",
-      showCancelButton: true,
-      confirmButtonText: "Add",
-      cancelButtonText: "Cancel",
     }).then((result) => {
       if (result.isConfirmed) {
         const currentTime = new Date().toLocaleTimeString();
         console.log("Overtime:", overtimeValue);
         console.log("Project Manager:", projectManager);
         console.log("Project Name:", projectName);
-        Swal.fire("Overtime Added!", `Overtime: ${overtimeValue}`, "success");
+        ShowAlert.fire(
+          "Overtime Added!",
+          `Overtime: ${overtimeValue}`,
+          "success"
+        );
+        setDisableButton(true); 
       }
     });
   };
@@ -71,6 +66,19 @@ const AddOvertimeButton = () => {
     return overtimeRegex.test(value);
   };
 
+  useEffect(() => {
+    const currentTime = new Date();
+    const currentHour = currentTime.getHours();
+    const currentMinutes = currentTime.getMinutes();
+
+    // Check if the current time is between 7:00 PM and 11:00 PM
+    if (currentHour >= 19 && currentHour <= 23) {
+      setDisableButton(false);
+    } else {
+      setDisableButton(true);
+    }
+  }, []);
+
   const open = Boolean(anchorEl);
   const id = open ? "popover-add-overtime" : undefined;
 
@@ -81,6 +89,7 @@ const AddOvertimeButton = () => {
         color="inherit"
         className={styles.overtimeButton}
         onClick={handleClick}
+        disabled={disableButton}
       >
         Add Overtime
       </Button>

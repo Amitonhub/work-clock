@@ -7,7 +7,7 @@ import { Modal } from "react-bootstrap";
 import { QrCode } from "@/views/dashboard/attendanceDashboard/qrCode";
 import { DailyAttendance } from "@/views/dashboard/attendanceDashboard/DailyAttendance";
 import { DailyAttendanceBreakDown } from "@/views/dashboard/attendanceDashboard/DailyAttendanceBreakDown";
-import { AddOvertimeButton } from "@/views/dashboard/attendanceDashboard/Buttons";
+import { AddOvertimeButton, PunchInOutButton } from "@/views/dashboard/attendanceDashboard/Buttons";
 import { AddTimeOffButton } from "@/views/dashboard/attendanceDashboard/Buttons";
 import { Badge, Icon } from "@mui/material";
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -55,13 +55,14 @@ function AttendanceDashBoard() {
                 </Modal>
               </div>
               <div className={styles.bellIcon}>
-                <Badge color="secondary" badgeContent={4} >
+               
                   <Icon
                     component={NotificationsIcon}
                     fontSize="large"
                     color="inherit"
                     onClick={handleToggleSidebar}
-                  />
+                  /> 
+                  <Badge color="secondary" badgeContent={4} className={styles.badge}>
                 </Badge>
               </div>
             </div>
@@ -70,6 +71,7 @@ function AttendanceDashBoard() {
             <DailyAttendance />
           </div>
           <div className={styles.addTimeOffButton}>
+            <PunchInOutButton/>
             <AddTimeOffButton />
             <AddOvertimeButton />
           </div>

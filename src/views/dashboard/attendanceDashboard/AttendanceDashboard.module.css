@@ -48,10 +48,17 @@
   margin-left: 15px;
   margin-top: 8px;
   cursor: pointer;
+  position: relative;
+  display: inline-block;
 }
 
 .bellIcon:hover {
   color: #777;
+}
+.badge {
+  position: absolute;
+  top: 5px;
+  right: 6px;
 }
 
 .profileInfoWrapper {
