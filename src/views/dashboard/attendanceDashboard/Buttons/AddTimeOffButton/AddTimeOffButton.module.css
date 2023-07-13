@@ -1,5 +1,6 @@
 .mainButton{
     margin-right: 20px;
+    font-weight: bold;
 }
 .popoverContent {
   display: flex;

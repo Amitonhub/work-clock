@@ -1,1 +1,1 @@
-export { default as ShowConfirmationAlert } from './showConfirmationAlert'
+export { default as ShowAlert } from './ShowAlert'
