@@ -1,9 +1,7 @@
 import { getServerIp, getServerSession } from "@/utils/getServerSession"
+import { LogIn } from "@/views"
 import { redirect } from "next/navigation"
 import { NextRequest } from "next/server"
-import dynamic from 'next/dynamic';
-
-const LogIn = dynamic(() => import('@/views/LogIn/LogIn'));
 
 async function Page(request: NextRequest) {
 
