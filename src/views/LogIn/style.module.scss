@@ -52,6 +52,7 @@
         justify-content: center;
         margin: 20px;
         color: white;
+        position: relative;
         z-index: 10;
     }
 
@@ -129,5 +130,24 @@
     100% {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+@media (max-width: 1556px) {
+    .container {
+        margin: 50px auto;
+        padding: 32px;
+    }
+
+    .logoContainer {
+        margin: 10px;
+    }
+
+    .workClockHeading {
+        font-size: large;
+    }
+
+    .SignInText {
+        font-size: large;
     }
 }

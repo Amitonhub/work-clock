@@ -8,6 +8,8 @@ async function Page(request: NextRequest) {
   const session = await getServerSession()
   // const userIp = await getServerIp(request)
   // console.log(userIp)
+  // replace if line with below line for IP verification 
+  // if (session && userIp) {
   if (session) {
     redirect('/dashboard')
   }else{

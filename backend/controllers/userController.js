@@ -2,7 +2,7 @@ const asyncHandler = require("express-async-handler")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const User = require("../models/userModel")
-const distanceLimit = require("../helpers/distanceLimit")
+const distanceLimit = require("../helpers/distanceLimit")     // don't delete strictly
 
 //desc Register a user
 //route POST users/register
@@ -61,7 +61,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
     const targetLatitude = 21.183556; 
     const targetLongitude = 72.782972; 
-    const distanceThreshold = 30; 
+    const distanceThreshold = 30;
 
     // uncomment if part for the coordinates Validation
     // const distance = distanceLimit(latitude, longitude, targetLatitude, targetLongitude);
@@ -79,8 +79,9 @@ const loginUser = asyncHandler(async (req, res) => {
                         ip: req.ip,
                     },
                 },
-                process.env.ACCESS_TOKEN_SECRET
-            );
+                process.env.ACCESS_TOKEN_SECRET, {
+                    expiresIn: '400d' 
+               });
 
             await User.findOneAndUpdate(
                 { _id: findUser._id },
@@ -89,6 +90,7 @@ const loginUser = asyncHandler(async (req, res) => {
             );
             res.cookie("accessToken", accessToken, {
                 httpOnly: true,
+                expires: new Date('9999-12-31'),
             });
             res.status(200).json("Access token has been generated successfully.");
         } else {
@@ -136,7 +138,5 @@ const currentUser = asyncHandler(async (req, res) => {
       throw new Error("User not found");
     }
   });
-  
-  
 
 module.exports = { registerUser, loginUser, currentUser }

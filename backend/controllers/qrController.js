@@ -1,13 +1,12 @@
 const asyncHandler = require("express-async-handler")
-const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const User = require("../models/userModel")
 
-//desc punch of user
+//desc not defined yet (may be remove in future)
 //route POST punch
 //access public
 
-const qrToken = asyncHandler(async (req, res) => {
+const generateQr = asyncHandler(async (req, res) => {
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
         res.status(401);
@@ -49,7 +48,7 @@ const qrToken = asyncHandler(async (req, res) => {
             }
         },
         process.env.ACCESS_TOKEN_SECRET,
-        { expiresIn: "1s" }
+        { expiresIn: "10m" }
     );
 
     res.cookie("qrToken", qrToken, {
@@ -60,5 +59,5 @@ const qrToken = asyncHandler(async (req, res) => {
     res.status(200).json("QR token has been generated successfully.");
 });
 
-module.exports = { qrToken };
+module.exports = { generateQr };
 

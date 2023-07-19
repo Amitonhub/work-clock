@@ -13,13 +13,8 @@ function LogIn() {
     const { register, handleSubmit, formState: { errors } } = useForm<LoginForm>()
   
     const onSubmit: SubmitHandler<LoginForm> = async (formData) => {
-        const { latitude, longitude } = await getUserLocation();
-
-        const updatedFormData = {
-          ...formData,
-          latitude,
-          longitude,
-        };
+        const { latitude, longitude } = await getUserLocation()
+        const updatedFormData = {...formData, latitude, longitude}
       
         const res = await fetch(`${BASE_URL}/users/login`, {
           credentials: 'include',
@@ -28,29 +23,28 @@ function LogIn() {
           headers: {
             'Content-Type': 'application/json',
           },
-        });
+        })
 
-        const data = await res.json();
+        const data = await res.json()
       
         if (data.status === 401 || !data) {
-          alert("Invalid Registration");
-          console.log("Invalid Registration");
+          alert("Invalid Registration")
+          console.log("Invalid Registration")
         } else {
-          alert("Signed in Successful");
+          alert("Signed in Successful")
           console.log(updatedFormData)
-          console.log("Signed in Successful");
-          router.push('/dashboard');
+          console.log("Signed in Successful")
+          router.push('/dashboard')
         }
-      };
+      }
       
-
     return (
         <div className={styles.container}>
             <div className={styles.ellipse1} />
             <div className={styles.ellipse2} />
             <div className={styles.logoContainer}>
                 <div>
-                    <Image className="w-100 h-100 mr-2" src={Natrix_Mini_Logo} width={100} height={100} alt="logo" />
+                    <Image className="w-100 h-100 mr-2" src={Natrix_Mini_Logo} width={100} height={100} alt="Natrix_Mini_Logo" />
                 </div>
                 <div className={styles.workClockHeading}>
                     Work Clock
