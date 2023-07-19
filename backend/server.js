@@ -16,7 +16,7 @@ app.use((req, res, next) => {
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }))
 app.use(express.json())
 app.use("/api/users", require("./routes/userRoutes"))
-app.use("/api/punch", require("./routes/punchRoutes"))
+app.use("/api/attendance", require("./routes/attendanceRoutes"))
 
 app.listen(port, () => {
     console.log('Server is running on port: ', port);

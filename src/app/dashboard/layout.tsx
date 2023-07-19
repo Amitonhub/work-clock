@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation'
 
 export const metadata = {
   title: 'Work Clock',
-  description: 'Attendance System for Natrix Software Private Limited',
+  description: 'Attendance Application Using QR Code',
 }
 
 export default async function RootLayout({
