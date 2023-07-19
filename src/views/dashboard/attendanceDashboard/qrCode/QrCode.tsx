@@ -3,23 +3,23 @@ import React, { useState } from "react";
 import QRCodeGenerator from "./QRCodeGenerator";
 
 function QrCode() {
-  const webUrl = "http://localhost:3000/dashboard"
+  const webUrl = " "
   const [information, setInformation] = useState((webUrl));
 
   const handleInformationChange = (event: {
     target: { value: React.SetStateAction<string> };
   }) => {
-    // setInformation(event.target.value);
+    setInformation(event.target.value);
   };
 
   return (
     <>
       <div>
-        {/* <input
-          type="text"
+        <input 
+          type="http://localhost:3000/dashboard"
           value={information}
           onChange={handleInformationChange}
-        /> */}
+        />
         <QRCodeGenerator information={information} />
       </div>
     </>

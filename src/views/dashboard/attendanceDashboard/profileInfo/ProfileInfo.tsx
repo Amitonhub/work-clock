@@ -26,14 +26,14 @@ function ProfileInfo() {
       </div>
       <Divider variant="middle" className={styles.Divider} />
       <div className={styles.timeInfo}>
-        <h3 className={styles.timeInfoHeaderMain}>
+        <strong className={styles.timeInfoHeaderMain}>
           <Icon 
           component={AccessTimeIcon}
           fontSize="large"
           color="inherit"/>
           &nbsp; &nbsp; &nbsp;{" "}
           <span className={styles.timeInfoHeader}>180.00 Total Hrs </span>
-        </h3>
+        </strong>
       </div>
       <div className={styles.timeInfoSubMain}>
         <div className={styles.timeInfoSub}>

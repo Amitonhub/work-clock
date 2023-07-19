@@ -19,36 +19,50 @@ function DailyAttendance() {
           Hour Breakdown - &nbsp;
           <span className={styles.timeInfoHeader}>{totalHours} Total Hrs</span>
         </h4>
-        <Tooltip
-        className={styles.progressBar}
-          title={`Approved: ${approvedHours} Hrs\nUnapproved: ${unapprovedHours} Hrs\nHolidays: ${holidayHours} Hrs`}
-          arrow
-          placement="top"
-        >
-          <div className={styles.progressBarContainer}>
-            <div
+        <div className={styles.progressBarContainer}>
+          <Tooltip
+            title={`Approved: ${approvedHours} Hrs`}
+            arrow
+            placement="top-end"
+          >
+            <button
               className={styles.progressBarSegment}
               style={{
                 width: `${getProgressBarValue(approvedHours)}%`,
                 backgroundColor: "green",
               }}
-            ></div>
-            <div
+              aria-label={`Approved: ${approvedHours} Hrs`}
+            />
+          </Tooltip>
+          <Tooltip
+            title={`Unapproved: ${unapprovedHours} Hrs`}
+            arrow
+            placement="top"
+          >
+            <button
               className={styles.progressBarSegment}
               style={{
                 width: `${getProgressBarValue(unapprovedHours)}%`,
                 backgroundColor: "crimson",
               }}
-            ></div>
-            <div
+              aria-label={`Unapproved: ${unapprovedHours} Hrs`}
+            />
+          </Tooltip>
+          <Tooltip
+            title={`Holidays: ${holidayHours} Hrs`}
+            arrow
+            placement="top"
+          >
+            <button
               className={styles.progressBarSegment}
               style={{
                 width: `${getProgressBarValue(holidayHours)}%`,
                 backgroundColor: "grey",
               }}
-            ></div>
-          </div>
-        </Tooltip>
+              aria-label={`Holidays: ${holidayHours} Hrs`}
+            />
+          </Tooltip>
+        </div>
       </div>
     </div>
   );
