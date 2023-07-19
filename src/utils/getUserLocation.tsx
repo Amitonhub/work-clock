@@ -13,6 +13,5 @@ export const getUserLocation = () => {
       } else {
         reject(new Error('Geolocation is not supported'));
       }
-    });
+    }); 
   };
-  

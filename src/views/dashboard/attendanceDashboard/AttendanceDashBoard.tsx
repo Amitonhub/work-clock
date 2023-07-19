@@ -1,18 +1,23 @@
 import React, { useState } from "react";
 import styles from "./AttendanceDashboard.module.css";
-import { DatePick } from "@/views/dashboard/attendanceDashboard/date";
-import { ProfileInfo } from "@/views/dashboard/attendanceDashboard/profileInfo";
 import Divider from "@mui/material/Divider";
+import dynamic from "next/dynamic";
 import { Modal } from "react-bootstrap";
-import { QrCode } from "@/views/dashboard/attendanceDashboard/qrCode";
-import { DailyAttendance } from "@/views/dashboard/attendanceDashboard/DailyAttendance";
-import { DailyAttendanceBreakDown } from "@/views/dashboard/attendanceDashboard/DailyAttendanceBreakDown";
-import { AddOvertimeButton, PunchInOutButton } from "@/views/dashboard/attendanceDashboard/Buttons";
-import { AddTimeOffButton } from "@/views/dashboard/attendanceDashboard/Buttons";
+import AddOvertimeButton from "./Buttons/AddOvertimeButton";
 import { Badge, Icon } from "@mui/material";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import QrCodeScannerIcon from "@mui/icons-material/QrCodeScanner";
-import { Sidebar } from "@/views/dashboard/attendanceDashboard/Sidebar";
+import QRCodeScanner from "./QRCodeScanner";
+
+const DatePick = dynamic(() => import("@/views/dashboard/attendanceDashboard/date/DatePick"));
+const ProfileInfo = dynamic(() => import("@/views/dashboard/attendanceDashboard/profileInfo/ProfileInfo"));
+const QrCode = dynamic(() => import("@/views/dashboard/attendanceDashboard/qrCode/QrCode"));
+const DailyAttendance = dynamic(() => import("@/views/dashboard/attendanceDashboard/DailyAttendance/DailyAttendance"));
+const DailyAttendanceBreakDown = dynamic(() => import("@/views/dashboard/attendanceDashboard/DailyAttendanceBreakDown/DailyAttendanceBreakDown"));
+const PunchInOutButton = dynamic(() => import("@/views/dashboard/attendanceDashboard/Buttons").then((module) => module.PunchInOutButton));
+const AddTimeOffButton = dynamic(() => import("@/views/dashboard/attendanceDashboard/Buttons").then((module) => module.AddTimeOffButton));
+const NotificationsIcon = dynamic(() => import("@mui/icons-material/Notifications"));
+const QrCodeScannerIcon = dynamic(() => import("@mui/icons-material/QrCodeScanner"));
+const QrCodeIcon = dynamic(() => import("@mui/icons-material/QrCode"));
+const Sidebar = dynamic(() => import("@/views/dashboard/attendanceDashboard/Sidebar/Sidebar"), { loading: () => <div>Loading...</div> });
 
 function AttendanceDashBoard() {
   const [show, setShow] = useState(false);
@@ -20,6 +25,17 @@ function AttendanceDashBoard() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleToggleSidebar = () => setSidebarOpen(!isSidebarOpen);
+
+  const [showQRCodeScanner, setShowQRCodeScanner] = useState(false);
+
+  const handleOpenQRCodeScanner = () => {
+    setShowQRCodeScanner(true);
+  };
+
+  const handleCloseQRCodeScanner = () => {
+    setShowQRCodeScanner(false);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.navBar}>
@@ -30,13 +46,42 @@ function AttendanceDashBoard() {
               <DatePick />
             </div>
             <div className={styles.maindivHeadersub}>
-              <div className={styles.QRCodeMain}>
+              <div className={styles.QRCodeScannerMain}>
                 <button
                   className={`btn btn-secondary rounded-circle ${styles.roundButton}`}
-                  onClick={handleShow}
+                  aria-label="QRCode Scanner"
+                  onClick={handleOpenQRCodeScanner}
                 >
                   <Icon
                     component={QrCodeScannerIcon}
+                    fontSize="medium"
+                    color="inherit"
+                  />
+                </button>
+                <Modal
+                  show={showQRCodeScanner}
+                  onHide={handleCloseQRCodeScanner}
+                  className={styles.modalDiv}
+                >
+                  <Modal.Header closeButton>
+                    <Modal.Title>QR Scanner For Attendance</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <QRCodeScanner
+                      onScan={(data) => console.log(data)}
+                      delay={500}
+                    />
+                  </Modal.Body>
+                </Modal>
+              </div>
+              <div className={styles.QRCodeMain}>
+                <button
+                  className={`btn btn-secondary rounded-circle ${styles.roundButton}`}
+                  aria-label="QRCode"
+                  onClick={handleShow}
+                >
+                  <Icon
+                    component={QrCodeIcon}
                     fontSize="medium"
                     color="inherit"
                   />
@@ -55,15 +100,17 @@ function AttendanceDashBoard() {
                 </Modal>
               </div>
               <div className={styles.bellIcon}>
-               
-                  <Icon
-                    component={NotificationsIcon}
-                    fontSize="large"
-                    color="inherit"
-                    onClick={handleToggleSidebar}
-                  /> 
-                  <Badge color="secondary" badgeContent={4} className={styles.badge}>
-                </Badge>
+                <Icon
+                  component={NotificationsIcon}
+                  fontSize="large"
+                  color="inherit"
+                  onClick={handleToggleSidebar}
+                />
+                <Badge
+                  color="secondary"
+                  badgeContent={4}
+                  className={styles.badge}
+                />
               </div>
             </div>
           </div>
@@ -71,7 +118,7 @@ function AttendanceDashBoard() {
             <DailyAttendance />
           </div>
           <div className={styles.addTimeOffButton}>
-            <PunchInOutButton/>
+            <PunchInOutButton />
             <AddTimeOffButton />
             <AddOvertimeButton />
           </div>
