@@ -1,0 +1,51 @@
+version: "3"
+services:
+  
+  ui:
+   build:
+      context: ./
+      dockerfile: Dockerfile.dev
+   ports:
+    -  3000:3000
+   container_name: work-clock-ui
+   networks:
+    -  mern-stack-net
+   volumes:
+    -  ./ui/src:/usr/app/src
+    -  ./ui/public:/usr/app/public
+   depends_on:
+    - api
+   stdin_open: true
+   tty: true
+
+  api:
+   build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+   ports:
+     - 5000:5000
+   container_name: work-clock-api
+   networks:
+     - mern-stack-net
+   volumes:
+    - ./api/src:/usr/app/src
+   depends_on:
+    - db
+
+  db:
+    image: mongo
+    ports:
+      - 27017:27017
+    container_name: work-clock-db
+    networks:
+      - mern-stack-net
+    volumes:
+      - mongo-data:/data/db
+
+networks:
+  mern-stack-net:
+    driver: bridge
+
+volumes:
+  mongo-data:
+    driver: local
