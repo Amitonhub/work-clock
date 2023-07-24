@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation';
-import { getServerSession } from '@/utils/getServerSession';
+import { getServerSession } from '../utils/getServerSession';
 
 async function Page() {
 
