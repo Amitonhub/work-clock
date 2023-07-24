@@ -1,5 +1,5 @@
-import { getServerIp, getServerSession } from "@/utils/getServerSession"
-import { LogIn } from "@/views"
+import { getServerIp, getServerSession } from "../../utils/getServerSession"
+import { LogIn } from "../../views"
 import { redirect } from "next/navigation"
 import { NextRequest } from "next/server"
 
