@@ -1,51 +1,60 @@
 version: "3"
 services:
-  
+
   ui:
-   build:
+    build:
       context: ./
       dockerfile: Dockerfile.dev
-   ports:
-    -  3000:3000
-   container_name: work-clock-ui
-   networks:
-    -  mern-stack-net
-   volumes:
-    -  ./ui/src:/usr/app/src
-    -  ./ui/public:/usr/app/public
-   depends_on:
-    - api
-   stdin_open: true
-   tty: true
+    ports:
+      - "3000:3000"
+    container_name: work-clock-ui
+    image: work-clock-ui
+    networks:
+      - work-clock-net
+    environment:
+      - NODE_OPTIONS=--max-old-space-size=8192
+    volumes:
+      - ./src:/usr/app/src 
+      - /usr/app/node_modules
+    expose:
+      - 3000
 
   api:
-   build:
+    build:
       context: ./backend
       dockerfile: Dockerfile.dev
-   ports:
-     - 5000:5000
-   container_name: work-clock-api
-   networks:
-     - mern-stack-net
-   volumes:
-    - ./api/src:/usr/app/src
-   depends_on:
-    - db
+    ports:
+      - "5000:5000"
+    container_name: work-clock-api
+    image: work-clock-api
+    networks:
+      - work-clock-net
+    volumes:
+      - type: bind
+        source: ./backend
+        target: /usr/server
+      - /usr/server/node_modules
+    env_file:
+    - ./backend/.env
+    expose:
+      - 5000
 
   db:
     image: mongo
     ports:
-      - 27017:27017
+      - "27017:27017"
     container_name: work-clock-db
     networks:
-      - mern-stack-net
+      - work-clock-net
     volumes:
       - mongo-data:/data/db
 
 networks:
-  mern-stack-net:
+  work-clock-net:
     driver: bridge
 
 volumes:
   mongo-data:
     driver: local
+    
+  

@@ -11,6 +11,7 @@
 .maindivHeader {
   display: flex;
   justify-content: space-between;
+  align-items: baseline;
 }
 
 .maindivHeadersub {
@@ -21,7 +22,7 @@
   width: 270px;
   height: 35px;
   display: flex;
-  align-items: center;
+  align-items: baseline;
   padding: 3px;
   border-radius: 3px;
   gap: 10px;

@@ -31,7 +31,7 @@ const generateQr = asyncHandler(async (req, res) => {
 
     const currentTime = new Date();
     const startOfValidity = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate(), 9, 0, 0);
-    const endOfValidity = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate(), 11, 0, 0);
+    const endOfValidity = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate(), 19, 0, 0);
 
     if (currentTime < startOfValidity || currentTime > endOfValidity) {
         res.status(423);
@@ -48,12 +48,12 @@ const generateQr = asyncHandler(async (req, res) => {
             }
         },
         process.env.ACCESS_TOKEN_SECRET,
-        { expiresIn: "10m" }
+        { expiresIn: "2h" }
     );
 
     res.cookie("qrToken", qrToken, {
         httpOnly: true,
-        maxAge: 15 * 60 * 1000
+        maxAge: 7200
     });
     
     res.status(200).json("QR token has been generated successfully.");

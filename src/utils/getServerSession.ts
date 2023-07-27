@@ -8,9 +8,11 @@ export const getServerSession = async () => {
     return accessToken;
 };
 
+
+// getserverIp not working have to make api for this
+
 export async function getServerIp(request: NextRequest) {
   const res = NextResponse.next();
-  const cookie = cookies()
   let ip = request.ip ?? request.headers.get('x-real-ip')
   const forwardedFor = request.headers.get('x-forwarded-for')
   if(!ip && forwardedFor){
