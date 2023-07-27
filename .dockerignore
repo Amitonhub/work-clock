@@ -1,3 +1,5 @@
 node_modules
+backend/**/*
+backend
 README.md
 .gitignore

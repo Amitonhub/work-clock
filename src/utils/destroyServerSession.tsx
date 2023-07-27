@@ -6,7 +6,7 @@ export const destroyServerSession = async () => {
         name: 'accessToken',
         value: '',
         expires: 0,
-        path: '/', // For all paths
+        path: '/',
       })
     return accessToken;
 };
