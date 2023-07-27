@@ -1,14 +1,15 @@
 const mongoose = require('mongoose');
+const moment = require('moment')
 
 const attendanceSchema = new mongoose.Schema({
   user_id: {
     type: String,
     required: [true, "please add user_id"],
-    unique: true,
   },
   date: {
     type: Date,
-    required: [true, "please add Date"]
+    required: [true, "please add Date"],
+    default: moment().utc(new Date()).format(),
   },
   punches: [
     {
@@ -19,7 +20,7 @@ const attendanceSchema = new mongoose.Schema({
       },
       timestamp: {
         type: Date,
-        default: Date.now,
+        default: moment().utc(new Date()).format(),
       },
     },
   ],

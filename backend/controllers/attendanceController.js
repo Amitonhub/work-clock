@@ -1,7 +1,7 @@
 const asyncHandler = require("express-async-handler")
 const jwt = require("jsonwebtoken")
 const Attendance = require('../models/attendanceModel')
-
+const moment = require('moment')
 
 //desc Attendance for the day
 //route POST /attendance
@@ -10,7 +10,6 @@ const Attendance = require('../models/attendanceModel')
 const attendance = asyncHandler(async (req, res) => {
   const { punchType } = req.body;
   const today = new Date();
-  today.setHours(0, 0, 0, 0);
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -25,19 +24,17 @@ const attendance = asyncHandler(async (req, res) => {
   try {
     let attendance = await Attendance.findOne({ user_id: id, date: { $gte: today } });
     if (!attendance) {
-      attendance = new Attendance({ user_id: id, date: today, punches: [] });
+      attendance = new Attendance({ user_id: id, date: moment().utc(today).format(), punches: [] });
     }
 
-    attendance.punches.push({ type: punchType });
+    attendance.punches.push({ type: punchType, timestamp: moment().utc(today).format() });
     await attendance.save();
 
     res.status(201).json(attendance);
   } catch (error) {
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json(error);
   }
 });
-
-
 
 //desc get attendance by date of user
 //route GET /attendance/:user_id/:date
@@ -58,7 +55,6 @@ const getAllAttendanceById = asyncHandler(async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
-
 
 //desc get attendance by date of user
 //route GET /attendance/:user_id/:date

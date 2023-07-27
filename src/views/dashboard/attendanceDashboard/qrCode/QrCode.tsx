@@ -1,25 +1,22 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import QRCodeGenerator from "./QRCodeGenerator";
 
 function QrCode() {
-  const webUrl = " "
-  const [information, setInformation] = useState((webUrl));
+  const [information, setInformation] = useState(() => new Date().toString());
 
-  const handleInformationChange = (event: {
-    target: { value: React.SetStateAction<string> };
-  }) => {
-    setInformation(event.target.value);
-  };
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const currentDate = new Date().toString();
+      setInformation(currentDate);
+    }, 60000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <>
       <div>
-        <input 
-          type="http://localhost:3000/dashboard"
-          value={information}
-          onChange={handleInformationChange}
-        />
         <QRCodeGenerator information={information} />
       </div>
     </>
