@@ -2,14 +2,6 @@
 
 const withPWA = require('next-pwa');
 const nextConfig = {
-  async rewrites() {
-    return [
-      {
-        source: '/api/:path*',
-        destination: 'http://localhost:5000/:path*' // Proxy to Backend
-      }
-    ]
-  },
   experimental: {
     appDir: true,
   },
@@ -24,3 +16,21 @@ module.exports = nextConfig, withPWA({
     swSrc: 'serviceWorker.js',
   },
 });
+
+// module.exports = (phase, { defaultConfig }) => {
+//   return {
+//     ...defaultConfig,
+
+//     webpack: (config) => {
+//       config.resolve = {
+//         ...config.resolve,
+//         fallback: {
+//           "fs": false,
+//           "path": false,
+//           "os": false,
+//         }
+//       }
+//       return config
+//     },
+//   }
+// }
