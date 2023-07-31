@@ -1,1 +1,2 @@
-export const BASE_URL = "http://localhost:5000/api"
+export const BASE_URL = process.env.NEXT_PUBLIC_API_URL
+export const SESSION_EXPIRED = "Session Expired!"
