@@ -1,19 +1,41 @@
-import { getServerIp, getServerSession } from "../../utils/getServerSession"
-import { LogIn } from "../../views"
-import { redirect } from "next/navigation"
-import { NextRequest } from "next/server"
+'use client'
+import { useState, useEffect } from 'react';
+import { getServerSession } from '../../utils/getServerSession';
+import LogIn from '../../views/LogIn';
+import { useRouter } from 'next/navigation'; 
+import Loader from '@/components/Loader/Loader';
 
-async function Page(request: NextRequest) {
+function Page() {
+  const router = useRouter();
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [loading, setLoading] = useState(true);
 
-  const session = await getServerSession()
-  // const userIp = await getServerIp(request)
-  // console.log(userIp)
-  // replace if line with below line for IP verification 
-  // if (session && userIp) {
-  if (session) {
-    redirect('/dashboard')
-  }else{
-    return <LogIn />
+  useEffect(() => {
+    async function checkSession() {
+      const session = await getServerSession();
+      if (session) {
+        router.push('/dashboard');
+      } else {
+        setIsLoggedIn(false);
+      }
+      setLoading(false);
+    }
+
+    checkSession(); 
+
+  }, [router]);
+
+  useEffect(() => {
+    if (!loading && !isLoggedIn) {
+      <LogIn />
+    }
+  }, [loading, isLoggedIn, router]);
+
+  if (loading) {
+    return <Loader />;
   }
+
+  return isLoggedIn ? null : <LogIn />;
 }
-export default Page
+
+export default Page;

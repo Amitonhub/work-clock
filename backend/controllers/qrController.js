@@ -53,7 +53,7 @@ const generateQr = asyncHandler(async (req, res) => {
 
     res.cookie("qrToken", qrToken, {
         httpOnly: true,
-        maxAge: 7200
+        maxAge: 64800000
     });
     
     res.status(200).json("QR token has been generated successfully.");
