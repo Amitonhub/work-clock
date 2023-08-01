@@ -91,6 +91,8 @@ const loginUser = asyncHandler(async (req, res) => {
         res.cookie("accessToken", accessToken, {
             httpOnly: true,
             expires: new Date('9999-12-31'),
+            secure: true,
+            sameSite: 'none'
         });
         res.status(200).json("Access token has been generated successfully.");
     } else {
@@ -139,18 +141,4 @@ const currentUser = asyncHandler(async (req, res) => {
     }
 });
 
-//desc To check accessToken in cookies 
-//route GET users/auth
-//access public
-
-const authUser = asyncHandler(async (req, res) => {
-    const cookie = req.cookies;
-    const accessToken = cookie['accessToken']
-    if (accessToken) {
-        res.status(200).json("Access-Token Found!")
-    } else {
-        res.status(200).json(null)
-    }
-});
-
-module.exports = { registerUser, loginUser, currentUser, authUser }
+module.exports = { registerUser, loginUser, currentUser }
