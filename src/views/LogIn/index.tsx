@@ -1,42 +1,45 @@
 'use client'
 import styles from "./style.module.scss"
 import Image from "next/image"
-import Natrix_Mini_Logo from './icons/natrix_mini_logo.svg'
-import { BASE_URL } from "@/constants"
+import {Natrix_Mini_Logo} from '@/assets/icons'
+import {BASE_URL} from "@/constants"
 import { useRouter } from "next/navigation"
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { LoginForm } from "./types"
 import { getUserLocation } from "@/utils/getUserLocation"
+import axios from 'axios';
+import { INVALID_REGISTRAION, LOGIN_ERROR, SIGNED_IN } from "./constants"
+import { ToastError, ToastSuccess } from "@/utils/showToastAlerts"
 
 function LogIn() {
     const router = useRouter()
     const { register, handleSubmit, formState: { errors } } = useForm<LoginForm>()
   
     const onSubmit: SubmitHandler<LoginForm> = async (formData) => {
-        const { latitude, longitude } = await getUserLocation()
-        const updatedFormData = {...formData, latitude, longitude}
+        console.log(process.env.customKey);
+        const { latitude, longitude } = await getUserLocation();
+        const updatedFormData = { ...formData, latitude, longitude };
       
-        const res = await fetch(`${BASE_URL}/users/login`, {
-          credentials: 'include',
-          method: "POST",
-          body: JSON.stringify(updatedFormData),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
-
-        const data = await res.json()
+        try {
+          const response = await axios.post(`${BASE_URL}/users/login`, updatedFormData, {
+            withCredentials: true,
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
       
-        if (data.status === 401 || !data) {
-          alert("Invalid Registration")
-          console.log("Invalid Registration")
-        } else {
-          alert("Signed in Successful")
-          console.log(updatedFormData)
-          console.log("Signed in Successful")
-          router.push('/dashboard')
+          const data = response.data;
+      
+          if (!data) {
+            ToastError(LOGIN_ERROR);
+          } else {
+            router.push('/dashboard');
+            ToastSuccess(SIGNED_IN)
+          }
+        } catch (error) {
+          ToastError(INVALID_REGISTRAION)
         }
-      }
+      };
       
     return (
         <div className={styles.container}>
@@ -44,7 +47,7 @@ function LogIn() {
             <div className={styles.ellipse2} />
             <div className={styles.logoContainer}>
                 <div>
-                    <Image className="w-100 h-100 mr-2" src={Natrix_Mini_Logo} width={100} height={100} alt="Natrix_Mini_Logo" />
+                    <Image className="w-100 h-100 mr-2" src={Natrix_Mini_Logo} width={100} height={100} priority alt="Natrix_Mini_Logo" />
                 </div>
                 <div className={styles.workClockHeading}>
                     Work Clock
@@ -64,6 +67,7 @@ function LogIn() {
                     className={styles.input}
                     placeholder="name@natrixsoftware.com"
                     {...register("email", { required: true })}
+                    autoComplete="on"
                 />
                 {errors.email && <span className={styles.error}>email is required</span>}
 
@@ -76,6 +80,7 @@ function LogIn() {
                     className={styles.input}
                     placeholder="********"
                     {...register("password", { required: true })}
+                    autoComplete="on"
                 />
                 {errors.password && <span className={styles.error}>password is required</span>}
 
