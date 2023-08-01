@@ -1,5 +1,5 @@
 const corsOptions ={
-    origin:process.env.HOST_URL, 
+    origin:process.env.VERCEL_URL, 
     credentials:true,           
     optionSuccessStatus:200
 }

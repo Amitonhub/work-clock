@@ -91,6 +91,8 @@ const loginUser = asyncHandler(async (req, res) => {
         res.cookie("accessToken", accessToken, {
             httpOnly: true,
             expires: new Date('9999-12-31'),
+            sameSite: 'none',
+            secure: true
         });
         res.status(200).json("Access token has been generated successfully.");
     } else {
