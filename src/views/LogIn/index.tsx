@@ -47,7 +47,7 @@ function LogIn() {
             <div className={styles.ellipse2} />
             <div className={styles.logoContainer}>
                 <div>
-                    <Image className="w-100 h-100 mr-2" src={Natrix_Mini_Logo} width={100} height={100} priority alt="Natrix_Mini_Logo" />
+                    <Image className={`${styles.logoImage} w-100 h-100 mr-2`} src={Natrix_Mini_Logo} width={100} height={100} priority alt="Natrix_Mini_Logo" />
                 </div>
                 <div className={styles.workClockHeading}>
                     Work Clock

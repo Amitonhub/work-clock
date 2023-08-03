@@ -4,5 +4,14 @@
 
 body {
     margin: 50px 100px;
-    background-color: #F6F8FF;
+    background-color: #F1F2F7;
+}
+html{
+    background-color: #F1F2F7;
+}
+.dashboard-layout{
+    background-color: #F1F2F7;
+}
+.login-layout{
+    background-color: #F1F2F7;
 }

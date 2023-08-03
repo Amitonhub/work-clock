@@ -10,7 +10,7 @@ export const metadata = {
   }) {
       
     return (
-      <div className='Login-layout'>
+      <div className='login-layout'>
         {children}
       </div>
     )
