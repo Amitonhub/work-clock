@@ -1,9 +1,12 @@
 .header {
   font-family: 'Times New Roman', Times, serif;
-  font-size: xxx-large
+  font-size: xxx-large;
+  background-color: #353C48;
+  color: white;
+  padding: 0 10px;
 }
 .mainDiv{
-  margin:1rem;
+  background-color: #F1F2F7;
 }
 .Divider {
   width: 98%;
@@ -15,4 +18,8 @@
   .mainDiv {
     margin: 0.5rem;
   }
+}
+
+.qrScanner{
+  background-color: black;
 }
