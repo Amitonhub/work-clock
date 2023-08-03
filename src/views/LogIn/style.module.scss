@@ -49,11 +49,13 @@
 
     .logoContainer {
         display: flex;
+        align-items: center;
         justify-content: center;
         margin: 20px;
         color: white;
         position: relative;
         z-index: 10;
+        gap: 15px;
     }
 
     .workClockHeading {
@@ -149,5 +151,20 @@
 
     .SignInText {
         font-size: large;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        margin: 50px 20px;
+    }
+
+    .logoContainer img {
+        height: 100px !important;
+        width: 100px !important;
+    }
+
+    .workClockHeading {
+        font-size: xxx-large !important;
     }
 }

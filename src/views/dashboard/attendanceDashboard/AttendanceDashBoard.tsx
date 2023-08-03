@@ -15,16 +15,20 @@ const DailyAttendanceBreakDown = dynamic(() => import("@/views/dashboard/attenda
 const PunchInOutButton = dynamic(() => import("@/views/dashboard/attendanceDashboard/Buttons").then((module) => module.PunchInOutButton));
 const AddTimeOffButton = dynamic(() => import("@/views/dashboard/attendanceDashboard/Buttons").then((module) => module.AddTimeOffButton));
 const NotificationsIcon = dynamic(() => import("@mui/icons-material/Notifications"));
+const AccountCircleIcon = dynamic(() => import('@mui/icons-material/AccountCircle'));
 const QrCodeScannerIcon = dynamic(() => import("@mui/icons-material/QrCodeScanner"));
 const QrCodeIcon = dynamic(() => import("@mui/icons-material/QrCode"));
 const Sidebar = dynamic(() => import("@/views/dashboard/attendanceDashboard/Sidebar/Sidebar"), { loading: () => <div>Loading...</div> });
+const ProfileSidebar = dynamic(() => import("@/views/dashboard/attendanceDashboard/ProfileSidebar/ProfileSidebar"), { loading: () => <div>Loading...</div> });
 
 function AttendanceDashBoard() {
   const [show, setShow] = useState(false);
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [isProfileSidebarOpen, setProfileSidebarOpen] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleToggleSidebar = () => setSidebarOpen(!isSidebarOpen);
+  const handleToggleProfileSidebar = () => setProfileSidebarOpen(!isProfileSidebarOpen);
 
   const [showQRCodeScanner, setShowQRCodeScanner] = useState(false);
 
@@ -63,13 +67,12 @@ function AttendanceDashBoard() {
                   onHide={handleCloseQRCodeScanner}
                   className={styles.modalDiv}
                 >
-                  <Modal.Header closeButton>
-                    <Modal.Title>QR Scanner For Attendance</Modal.Title>
+                  <Modal.Header closeButton className={styles.modalHeader}>
+                    <Modal.Title className={styles.modalTitle}>QR Scanner For Attendance</Modal.Title>
                   </Modal.Header>
-                  <Modal.Body>
+                  <Modal.Body className={styles.modalBody}>
                     <QRCodeScanner
-                      onScan={(data) => console.log(data)}
-                      delay={500}
+                    setShowQRCodeScanner={setShowQRCodeScanner}
                     />
                   </Modal.Body>
                 </Modal>
@@ -91,10 +94,10 @@ function AttendanceDashBoard() {
                   onHide={handleClose}
                   className={styles.modalDiv}
                 >
-                  <Modal.Header closeButton>
-                    <Modal.Title>QR Code For Attendance</Modal.Title>
+                  <Modal.Header closeButton className={styles.qrModalHeader}>
+                    <Modal.Title className={styles.qrModalTitle}>QR Code For Attendance</Modal.Title>
                   </Modal.Header>
-                  <Modal.Body>
+                  <Modal.Body className={styles.qrCodeBody}>
                     <QrCode />
                   </Modal.Body>
                 </Modal>
@@ -107,9 +110,15 @@ function AttendanceDashBoard() {
                   onClick={handleToggleSidebar}
                 />
                 <Badge
-                  color="secondary"
                   badgeContent={4}
                   className={styles.badge}
+                />
+              </div>
+              <div className={styles.profileIcon}>
+                <Icon
+                  component={AccountCircleIcon}
+                  color="inherit"
+                  onClick={handleToggleProfileSidebar}
                 />
               </div>
             </div>
@@ -134,6 +143,7 @@ function AttendanceDashBoard() {
         </div>
       </div>
       <Sidebar isOpen={isSidebarOpen} onClose={handleToggleSidebar} />
+      <ProfileSidebar isOpen={isProfileSidebarOpen} onClose={handleToggleProfileSidebar} />
     </div>
   );
 }

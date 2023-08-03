@@ -1,6 +1,11 @@
 .container {
-  align-items: center;
-  width: 350px;
+  padding: 0px 11px;
+  display: grid;
+  row-gap: 20px;
+  background-color: white;
+  left: 9%;
+  padding-top: 20px;
+  padding-bottom: 80px;
 }
 
 .info {
