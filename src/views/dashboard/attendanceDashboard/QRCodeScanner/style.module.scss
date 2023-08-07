@@ -1,0 +1,23 @@
+.qrHeading{
+    text-align: center;
+}
+
+.qrScanner {
+    background-color: #02A4EF;
+    img {
+        display: initial
+    }
+    button{
+        color: white;
+        background-color: #353C48;
+        padding: 12px;
+        margin-bottom: 13px;
+        border-radius: 12px;
+        font-size: larger;
+    }
+    span{
+        color: white;
+        text-decoration: none !important;
+        font-size: larger;
+    }
+}

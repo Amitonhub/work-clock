@@ -1,9 +1,10 @@
 .qrCodeContainer {
-  text-align: center;
   display: flex;
+  padding: 50px;
   justify-content: center;
+  background-color: #F1F2F7;
 }
 
 .qrCode {
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
 }

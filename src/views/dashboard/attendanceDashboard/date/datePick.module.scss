@@ -1,7 +1,6 @@
 @mixin fontStyle() {
   font-family: "Roboto";
   font-style: normal;
-  font-weight: 600;
   font-size: 18px;
   line-height: 18px;
 }
@@ -28,8 +27,7 @@
     height: 35px;
     text-align: center;
     border: none;
-    background-color: lightgray;
-    border-radius: 18px;
+    background-color: white;
   }
 
   .to {
@@ -37,8 +35,15 @@
     color: white;
     text-align: center;
     padding: 10px;
-    background: black;
-    border-radius: 18px;
+    background-color: #02A4EF;
     margin: 0 5px;
   }
+}
+
+@media (max-width: 767px) {
+.holidayDateSection{
+  display: flex;
+  position: absolute;
+  margin: 31px 0px;
+}
 }
