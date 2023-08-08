@@ -48,7 +48,7 @@ function ProfileInfo() {
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    });
+    },3000);
     return () => {
       setIsLoading(false);
     };
@@ -104,7 +104,7 @@ function ProfileInfo() {
       </div>
       <div className={styles.timeInfoSubMain}>
       {isLoading ? (
-          <Box sx={{ display: "flex", alignItems: "center"}}>
+          <Box sx={{ display: "flex", alignItems: "center", gap : "150px"}}>
             <Skeleton variant="rectangular" width={75} height={60} />
             <Skeleton variant="rectangular" width={75} height={60} />
           </Box>
@@ -123,7 +123,7 @@ function ProfileInfo() {
       </div>
       <div className={styles.timeInfoSubMain}>
       {isLoading ? (
-          <Box sx={{ display: "flex", alignItems: "center"}}>
+          <Box sx={{ display: "flex", alignItems: "center", gap : "150px"}}>
             <Skeleton variant="rectangular" width={75} height={60} />
             <Skeleton variant="rectangular" width={75} height={60} />
           </Box>
