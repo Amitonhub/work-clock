@@ -1,22 +1,53 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./profileInfo.module.css";
 import Avatar from "@mui/material/Avatar";
 import Divider from "@mui/material/Divider";
-
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { Icon } from "@mui/material";
+import axios from "axios";
+import { BASE_URL } from "@/constants";
+import { getServerSession } from "@/utils/getServerSession";
+import { UserType } from "../../types/userType";
 
 function ProfileInfo() {
-  const name = "Karun Gupta";
-  const designation = "Software Engineer";
+  const [currentUserData, setCurrentUserData] = useState<UserType | undefined>()
+
+  useEffect(() => {
+    const currentUser = (async () => {
+      try {
+        let globalToken = 'token';
+        const getAccessToken = (async () => {
+          const res = await getServerSession()
+          globalToken = res
+          return globalToken
+        })
+        await getAccessToken()
+        const response = await axios.get(`${BASE_URL}/users/current`, {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${globalToken}`
+          }
+        });
+        const data = response.data;
+        setCurrentUserData(data)
+      } catch (err) {
+        console.log("punch err", err)
+      }
+    })
+    currentUser()
+  }, [])
+
+  const name = currentUserData && currentUserData.firstname + ' ' + currentUserData.lastname;
+  const designation = currentUserData && currentUserData.designation;
 
   return (
     <div className={styles.container}>
       <div className={styles.profileInfo}>
         <div className={styles.avatar}>
           <Avatar sx={{ width: 80, height: 80, fontSize: 40 }}>
-            {name[0]}
+            {name && name[0]}
           </Avatar>
         </div>
         <div className={styles.info}>
@@ -27,10 +58,10 @@ function ProfileInfo() {
       <Divider variant="middle" className={styles.Divider} />
       <div className={styles.timeInfo}>
         <strong className={styles.timeInfoHeaderMain}>
-          <Icon 
-          component={AccessTimeIcon}
-          fontSize="large"
-          color="inherit"/>
+          <Icon
+            component={AccessTimeIcon}
+            fontSize="large"
+            color="inherit" />
           &nbsp; &nbsp; &nbsp;{" "}
           <span className={styles.timeInfoHeader}>180.00 Total Hrs </span>
         </strong>

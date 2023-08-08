@@ -1,7 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react';
 import { getServerSession } from '../../utils/getServerSession';
-import LogIn from '../../views/LogIn';
+import LogInPage from '../../views/LogIn';
 import { useRouter } from 'next/navigation'; 
 import Loader from '@/components/Loader/Loader';
 
@@ -27,7 +27,7 @@ function Page() {
 
   useEffect(() => {
     if (!loading && !isLoggedIn) {
-      <LogIn />
+      <LogInPage />
     }
   }, [loading, isLoggedIn, router]);
 
@@ -35,7 +35,7 @@ function Page() {
     return <Loader />;
   }
 
-  return isLoggedIn ? null : <LogIn />;
+  return isLoggedIn ? null : <LogInPage />;
 }
 
 export default Page;

@@ -1,4 +1,6 @@
 export interface LoginForm {
     email: string,
-    password: string
+    password?: string,
+    latitude: number,
+    longitude: number
 }

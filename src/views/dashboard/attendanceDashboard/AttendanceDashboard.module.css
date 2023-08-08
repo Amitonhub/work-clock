@@ -7,6 +7,7 @@
 .mainDiv {
   width: 1192px;
   padding: 0 15px;
+  font-family: system-ui;
 }
 
 .maindivHeader {
@@ -33,7 +34,9 @@
 }
 
 .Divider {
+  right: 7px;
   border: 1px solid black;
+  position: relative;
 }
 
 .navBar {
@@ -122,21 +125,21 @@
 .modalTitle{
   color: white !important;
 }
-
-.qrModalHeader{
-  background-color: #353C48;
-}
-.qrModalHeader button{
-  background-color: aliceblue;
-}
 .qrModalTitle{
   color: white !important;
 }
-.qrCodeBody{
-  background-color: #f1f2f7;
-}
 
 @media (max-width: 1554px) {
+
+  .profileInfoWrapper{
+    position: absolute;
+    right: 7px;
+  }
+  .mainDiv {
+    width: 72%;
+  }
+}
+@media (max-width: 1350px) {
 
   .profileInfoWrapper{
     display: none;
@@ -158,7 +161,14 @@
 @media (max-width: 767px) {
   .maindivHeader {
     flex-direction: column-reverse;
-    gap: 15px;
+    gap: 5px;
+  }
+  .mainDiv{
+    padding: 0;
+  }
+  .maindivHeadersub{
+    width: -webkit-fill-available;
+    justify-content: end;
   }
   .box{
     flex-direction: column;
@@ -166,5 +176,25 @@
   .addTimeOffButton {
   justify-content: center;
   flex-wrap: wrap;
+  }
+  .timesheetHeader{
+    font-size: 16px;
+  }
+  .roundButton{
+    height: 37px;
+    width: 37px;
+    display: inline-flex !important;
+    justify-content: center !important;
+  }
+  .bellIcon{
+    height: 37px;
+    width: 37px;
+  }
+  .badge{
+    top: 10px;
+    left: 35px;
+  }
+  .profileIcon svg{
+    font-size: 43px !important;
   }
 }

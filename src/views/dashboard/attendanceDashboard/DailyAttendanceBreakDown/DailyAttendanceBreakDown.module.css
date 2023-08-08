@@ -23,3 +23,17 @@
   display: flex;
   justify-content: flex-end;
 }
+
+@media (max-width: 767px) {
+  .pagination{
+    display: flex !important;
+    align-items: center !important;
+    margin: 25px 0;
+  }
+  .tableHead{
+    font-size: 16px !important
+  }
+  .tableBody{
+    font-size: 14px !important
+  }
+}
