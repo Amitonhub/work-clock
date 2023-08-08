@@ -36,7 +36,7 @@ function QrScanner(props: QrCodeScannerProps) {
             ToastError('Error in Punched In')
             props.setShowQRCodeScanner(false)
         }
-    }, [])
+    })
 
     return <>
     <h3 className={styles.qrHeading}>Scan Qr to Punch In </h3>
