@@ -103,7 +103,7 @@
 }
 .addTimeOffButton {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   gap: 15px;
   margin: 25px 0;
 }
