@@ -96,7 +96,7 @@ function QrScanner(props: QrCodeScannerProps) {
         function error(err: any) {
             console.warn(err)
         }
-    }, [])
+    })
 
     return <>
         <h1>Qr Scanner</h1>

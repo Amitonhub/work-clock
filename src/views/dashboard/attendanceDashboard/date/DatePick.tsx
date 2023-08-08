@@ -14,16 +14,15 @@ function DatePick() {
     if (date.getTime() > endDate.getTime()) {
       setEndDate(date)
     }
-    console.log(date)
   }
 
   const handleEndDateChange = (date: Date) => {
     setEndDate(date)
-    console.log(date)
   }
 
   return (
     <div className={styles.holidayDateSection}>
+      <h5 className={styles.headingDatePick}>TimeSheets: </h5>
       <ReactDatePicker
         dateFormat="dd-MM-yyyy"
         selected={startDate}
