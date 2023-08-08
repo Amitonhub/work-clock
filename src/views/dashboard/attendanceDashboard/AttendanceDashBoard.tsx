@@ -50,7 +50,6 @@ const AccountCircleIcon = dynamic(
 const QrCodeScannerIcon = dynamic(
   () => import("@mui/icons-material/QrCodeScanner")
 );
-const QrCodeIcon = dynamic(() => import("@mui/icons-material/QrCode"));
 const Sidebar = dynamic(
   () => import("@/views/dashboard/attendanceDashboard/Sidebar/Sidebar")
 );
@@ -64,7 +63,7 @@ const ProfileSidebar = dynamic(
 function AttendanceDashBoard() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [isProfileSidebarOpen, setProfileSidebarOpen] = useState(false);
-  const qrCodeScannerValue = useRef<any>() 
+  const qrCodeScannerValue = useRef<any>()
   const handleToggleSidebar = () => setSidebarOpen(!isSidebarOpen);
   const handleToggleProfileSidebar = () =>
     setProfileSidebarOpen(!isProfileSidebarOpen);
@@ -72,26 +71,26 @@ function AttendanceDashBoard() {
   const [showQRCodeScanner, setShowQRCodeScanner] = useState(false);
 
   useEffect(() => {
-    const checkCamera = (async() => {
-      try{
-          if(await navigator.mediaDevices.getUserMedia({video: true})){
-              return 'camera detected'
-          }
-      }catch(err){
-          qrCodeScannerValue.current.style.display = 'none';        // uncomment for hiding qr scanner in desktop
-          console.log("err", err)
-          return "err"
+    const checkCamera = (async () => {
+      try {
+        if (await navigator.mediaDevices.getUserMedia({ video: true })) {
+          return 'camera detected'
+        }
+      } catch (err) {
+        qrCodeScannerValue.current.style.display = "none"      // uncomment for hiding qr scanner in desktop
+        console.log("err", err)
+        return "err"
       }
-  })
+    })
     checkCamera()
-}, [])
-    
+  }, [])
+
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    });
+    }, 3000);
     return () => {
       setIsLoading(false);
     };
@@ -111,21 +110,22 @@ function AttendanceDashBoard() {
         <div className={styles.mainDiv}>
           <div className={styles.maindivHeader}>
             <div className={styles.box}>
+      <h5 >TimeSheets: </h5>
+
               {isLoading ? (
                 <Box
                   sx={{ display: "flex", alignItems: "center", gap: "10px" }}
                 >
-                  <Skeleton variant="rectangular" width={115} height={30} />
-                  <Skeleton variant="text" width={115} height={35} />
-                  <Skeleton variant="rectangular" width={40} height={40} />
-                  <Skeleton variant="text" width={115} height={35} />
+                  <Skeleton variant="text" width={115} height={20} />
+                  <Skeleton variant="rectangular" width={40} height={25} />
+                  <Skeleton variant="text" width={115} height={20} />
                 </Box>
               ) : (
                 <DatePick />
               )}
             </div>
             <div className={styles.maindivHeadersub}>
-              {isLoading ? (
+              {/* {isLoading ? (
                 <Box
                   sx={{ display: "flex", alignItems: "center", gap: "10px" }}
                 >
@@ -135,6 +135,54 @@ function AttendanceDashBoard() {
                     width={55}
                     height={55}
                   />
+                  <Skeleton
+                    variant="circular"
+                    animation="wave"
+                    width={55}
+                    height={55}
+                  />
+                  <Skeleton
+                    variant="circular"
+                    animation="wave"
+                    width={55}
+                    height={55}
+                  />
+                </Box>
+              ) : (
+                <> */}
+              <div className={styles.QRCodeScannerMain} ref={qrCodeScannerValue}>
+                <button
+                  className={`btn btn-secondary rounded-circle ${styles.roundButton}`}
+                  aria-label="QRCode Scanner"
+                  onClick={handleOpenQRCodeScanner}
+                >
+                  <Icon
+                    component={QrCodeScannerIcon}
+                    fontSize="medium"
+                    color="inherit"
+                  />
+                </button>
+                <Modal
+                  show={showQRCodeScanner}
+                  onHide={handleCloseQRCodeScanner}
+                  className={styles.modalDiv}
+                >
+                  <Modal.Header closeButton className={styles.modalHeader}>
+                    <Modal.Title className={styles.modalTitle}>
+                      QR Scanner For Attendance
+                    </Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body className={styles.modalBody}>
+                    <QRCodeScanner
+                      setShowQRCodeScanner={setShowQRCodeScanner}
+                    />
+                  </Modal.Body>
+                </Modal>
+              </div>
+              {isLoading ? (
+                <Box
+                  sx={{ display: "flex", alignItems: "center", gap: "10px" }}
+                >
                   <Skeleton
                     variant="circular"
                     animation="wave"
@@ -150,65 +198,6 @@ function AttendanceDashBoard() {
                 </Box>
               ) : (
                 <>
-                  <div className={styles.QRCodeScannerMain}>
-                    <button
-                      className={`btn btn-secondary rounded-circle ${styles.roundButton}`}
-                      aria-label="QRCode Scanner"
-                      onClick={handleOpenQRCodeScanner}
-                    >
-                      <Icon
-                        component={QrCodeScannerIcon}
-                        fontSize="medium"
-                        color="inherit"
-                      />
-                    </button>
-                    <Modal
-                      show={showQRCodeScanner}
-                      onHide={handleCloseQRCodeScanner}
-                      className={styles.modalDiv}
-                    >
-                      <Modal.Header closeButton className={styles.modalHeader}>
-                        <Modal.Title className={styles.modalTitle}>
-                          QR Scanner For Attendance
-                        </Modal.Title>
-                      </Modal.Header>
-                      <Modal.Body className={styles.modalBody}>
-                        <QRCodeScanner
-                          setShowQRCodeScanner={setShowQRCodeScanner}
-                        />
-                      </Modal.Body>
-                    </Modal>
-                  </div>
-                  <div className={styles.QRCodeMain}>
-                    <button
-                      className={`btn btn-secondary rounded-circle ${styles.roundButton}`}
-                      aria-label="QRCode"
-                      onClick={handleShow}
-                    >
-                      <Icon
-                        component={QrCodeIcon}
-                        fontSize="medium"
-                        color="inherit"
-                      />
-                    </button>
-                    <Modal
-                      show={show}
-                      onHide={handleClose}
-                      className={styles.modalDiv}
-                    >
-                      <Modal.Header
-                        closeButton
-                        className={styles.qrModalHeader}
-                      >
-                        <Modal.Title className={styles.qrModalTitle}>
-                          QR Code For Attendance
-                        </Modal.Title>
-                      </Modal.Header>
-                      <Modal.Body className={styles.qrCodeBody}>
-                        <QrCode />
-                      </Modal.Body>
-                    </Modal>
-                  </div>
                   <div className={styles.bellIcon}>
                     <Icon
                       component={NotificationsIcon}
@@ -227,9 +216,12 @@ function AttendanceDashBoard() {
                   </div>
                 </>
               )}
+
+              {/* </>
+              )} */}
             </div>
           </div>
-          
+
           <div className={styles.dailyAttendanceContainer}>
             {isLoading ? (
               <Box sx={{ alignItems: "center" }}>
@@ -239,7 +231,7 @@ function AttendanceDashBoard() {
                   width={380}
                   height={40}
                 />
-                <Skeleton variant="text" animation="wave" width={1400} />
+                <Skeleton variant="text" animation="wave" width={1165} />
               </Box>
             ) : (
               <DailyAttendance />
