@@ -5,14 +5,45 @@ import Avatar from "@mui/material/Avatar";
 import Divider from "@mui/material/Divider";
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { Icon } from "@mui/material";
+import axios from "axios";
+import { BASE_URL } from "@/constants";
+import { getServerSession } from "@/utils/getServerSession";
+import { UserType } from "../../types/userType";
 import Skeleton from "@mui/material/Skeleton";
 import Box from "@mui/material/Box";
 
 function ProfileInfo() {
+  const [currentUserData, setCurrentUserData] = useState<UserType | undefined>()
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const name = "Karun Gupta";
-  const designation = "Software Engineer";
+  useEffect(() => {
+    const currentUser = (async () => {
+      try {
+        let globalToken = 'token';
+        const getAccessToken = (async () => {
+          const res = await getServerSession()
+          globalToken = res
+          return globalToken
+        })
+        await getAccessToken()
+        const response = await axios.get(`${BASE_URL}/users/current`, {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${globalToken}`
+          }
+        });
+        const data = response.data;
+        setCurrentUserData(data)
+      } catch (err) {
+        console.log("punch err", err)
+      }
+    })
+    currentUser()
+  }, [])
+
+  const name = currentUserData && currentUserData.firstname + ' ' + currentUserData.lastname;
+  const designation = currentUserData && currentUserData.designation;
 
   useEffect(() => {
     setTimeout(() => {
@@ -33,7 +64,7 @@ function ProfileInfo() {
           </Box>
           ) : (
           <Avatar sx={{ width: 80, height: 80, fontSize: 40 }}>
-            {name[0]}
+            {name && name[0]}
           </Avatar>
         )}
         </div> 

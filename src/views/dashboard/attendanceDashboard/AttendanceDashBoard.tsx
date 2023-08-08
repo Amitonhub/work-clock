@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styles from "./AttendanceDashboard.module.css";
 import Divider from "@mui/material/Divider";
 import dynamic from "next/dynamic";
@@ -6,6 +6,7 @@ import { Modal } from "react-bootstrap";
 import AddOvertimeButton from "./Buttons/AddOvertimeButton";
 import { Badge, Icon } from "@mui/material";
 import QRCodeScanner from "./QRCodeScanner";
+
 import Skeleton from "@mui/material/Skeleton";
 import Box from "@mui/material/Box";
 
@@ -61,17 +62,30 @@ const ProfileSidebar = dynamic(
 );
 
 function AttendanceDashBoard() {
-  const [show, setShow] = useState(false);
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [isProfileSidebarOpen, setProfileSidebarOpen] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const qrCodeScannerValue = useRef<any>() 
   const handleToggleSidebar = () => setSidebarOpen(!isSidebarOpen);
   const handleToggleProfileSidebar = () =>
     setProfileSidebarOpen(!isProfileSidebarOpen);
 
   const [showQRCodeScanner, setShowQRCodeScanner] = useState(false);
 
+  useEffect(() => {
+    const checkCamera = (async() => {
+      try{
+          if(await navigator.mediaDevices.getUserMedia({video: true})){
+              return 'camera detected'
+          }
+      }catch(err){
+          qrCodeScannerValue.current.style.display = 'none';        // uncomment for hiding qr scanner in desktop
+          console.log("err", err)
+          return "err"
+      }
+  })
+    checkCamera()
+}, [])
+    
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -215,6 +229,7 @@ function AttendanceDashBoard() {
               )}
             </div>
           </div>
+          
           <div className={styles.dailyAttendanceContainer}>
             {isLoading ? (
               <Box sx={{ alignItems: "center" }}>

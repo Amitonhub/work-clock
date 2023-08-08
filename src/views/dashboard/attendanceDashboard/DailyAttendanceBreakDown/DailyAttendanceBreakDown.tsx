@@ -51,7 +51,7 @@ function DailyAttendanceBreakDown() {
           responsive="sm"
           className={styles.attendanceTable}
         >
-          <thead>
+          <thead className={styles.tableHead}>
             <tr className={styles.attendanceTableTr}>
               <td>Date</td>
               <td>Check In</td>
@@ -61,7 +61,7 @@ function DailyAttendanceBreakDown() {
               <td>Check Out</td>
             </tr>
           </thead>
-          <tbody>
+          <tbody className={styles.tableBody}>
             {currentRows.map((row, index) => (
               <tr key={index}>
                 <td>{row.date}</td>

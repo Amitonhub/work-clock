@@ -2,15 +2,33 @@
 import React, { useEffect, useState } from "react";
 import { Html5QrcodeScanner } from "html5-qrcode";
 import Link from "next/link";
-import { ToastError, ToastSuccess } from "@/utils/showToastAlerts";
 import styles from './style.module.scss'
+import { ToastError, ToastSuccess } from "@/utils/showToastAlerts";
+import axios from "axios";
+import { BASE_URL } from "@/constants";
+import { getUserLocation } from "@/utils/getUserLocation";
+import distanceLimit from "@/utils/distanceLimit";
+import { getServerSession } from "@/utils/getServerSession";
 
 interface QrCodeScannerProps {
-  setShowQRCodeScanner: React.Dispatch<React.SetStateAction<boolean>>
+    setShowQRCodeScanner: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 function QrScanner(props: QrCodeScannerProps) {
     const [scanResult, setScanResult] = useState()
+    const targetLatitude = 21.183556;
+    const targetLongitude = 72.782972;
+    const distanceThreshold = 1;
+
+   
+
+    // uncomment if part for the coordinates Validation
+    // const distance = distanceLimit(latitude, longitude, targetLatitude, targetLongitude);
+    // if (distance >= distanceThreshold) {
+    //     console.log("you are in good distance")
+    // }else{
+    //     console.log('you are out of distance')
+    // }
 
     useEffect(() => {
         const scanner = new Html5QrcodeScanner('reader', {
@@ -23,27 +41,69 @@ function QrScanner(props: QrCodeScannerProps) {
             showTorchButtonIfSupported: true
         }, false)
         scanner.render(success, error)
-    
-        function success(result: any) {
+
+        async function success(result: any) {
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(success, error);
+              } else {
+                console.log("Geolocation not supported");
+              }
+              
+              function success(position: any) {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+                console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+              }
+              
+              function error() {
+                console.log("Unable to retrieve your location");
+              }
+
+
+            const { latitude, longitude } = await getUserLocation();
+            console.log(latitude, longitude)
             scanner.clear()
+            console.log(result)
             setScanResult(result)
-            ToastSuccess('Punched In')
-            props.setShowQRCodeScanner(false)
-        }
-    
+            let globalToken = 'token';
+            const getAccessToken = (async () => {
+              const res = await getServerSession()
+              globalToken = res
+              return globalToken
+            })
+            await getAccessToken()
+                try {
+                    const response = await axios.post(`${BASE_URL}/attendance`, {
+                        "punchType": "punch-in"
+                    }, {
+                        withCredentials: true,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${globalToken}`
+                        }
+                    });
+                    const data = response.data;
+                    console.log(data)
+                    ToastSuccess('Punched In')
+                    props.setShowQRCodeScanner(false)
+                } catch (err) {
+                    ToastError('You have already punched today.')
+                    console.log("punch err", err)
+                }
+            }
+
         function error(err: any) {
             console.warn(err)
-            ToastError('Error in Punched In')
-            props.setShowQRCodeScanner(false)
         }
     })
 
     return <>
-    <h3 className={styles.qrHeading}>Scan Qr to Punch In </h3>
-    {scanResult
-    ? <div>Success: <Link href={`/${scanResult}`}>{scanResult}</Link></div>
-    : <div id="reader" className={styles.qrScanner}></div>
-    }
+        <h1>Qr Scanner</h1>
+        {scanResult
+            ? props.setShowQRCodeScanner(false)
+            : <div id="reader" className={styles.qrScanner}></div>
+        }
     </>;
 }
 
