@@ -22,7 +22,6 @@ function DatePick() {
 
   return (
     <div className={styles.holidayDateSection}>
-      <h5 className={styles.headingDatePick}>TimeSheets: </h5>
       <ReactDatePicker
         dateFormat="dd-MM-yyyy"
         selected={startDate}
