@@ -6,11 +6,14 @@ import { useRouter } from 'next/navigation';
 import Loader from '@/components/Loader/Loader';
 import { ToastError } from '@/utils/showToastAlerts';
 import { SESSION_EXPIRED } from '@/constants';
+import { useDispatch } from 'react-redux';
+import { token } from '@/redux/features/tokenSlice';
 
 function Page() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const dispatch = useDispatch()
 
   useEffect(() => {
     checkSession();
@@ -18,6 +21,7 @@ function Page() {
 
   async function checkSession() {
     const session = await getServerSession();
+    dispatch(token(session))
     if (!session) {
       setIsLoggedIn(false);
       ToastError(SESSION_EXPIRED)

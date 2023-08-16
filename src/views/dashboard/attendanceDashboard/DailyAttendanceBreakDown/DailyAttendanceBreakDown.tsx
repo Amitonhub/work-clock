@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./DailyAttendanceBreakDown.module.css";
 import { Table } from "react-bootstrap";
 import MoreTimeIcon from "@mui/icons-material/MoreTime";
@@ -6,35 +6,55 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import RestaurantIcon from "@mui/icons-material/Restaurant";
 import NoMealsIcon from "@mui/icons-material/NoMeals";
 import { Icon, Pagination, Stack } from "@mui/material";
+import { useGetAllAttendanceByIdQuery } from "@/redux/services/attendanceApi";
+import { useAppSelector } from "@/redux/store";
+import { AttendanceDataType } from "../../types/attendanceDataType";
+import { useDispatch } from "react-redux";
+import { attendanceData } from "@/redux/features/attendanceSlice";
+import moment from "moment";
 
 function DailyAttendanceBreakDown() {
-  const rows = [
-    {
-      date: "Tue 04-07-2023",
-      checkIn: "09:00 AM",
-      mealIn: "12:00 PM",
-      mealOut: "01:00 PM",
-      overtime: "2 hour",
-      checkOut: "08:00 PM",
-    },
-    {
-      date: "Wed 05-07-2023",
-      checkIn: "10:00 AM",
-      mealIn: "01:00 PM",
-      mealOut: "02:00 PM",
-      overtime: "1 hour",
-      checkOut: "08:00 PM",
-    },
-  ];
+  const user = useAppSelector((state) => state.user.UserData)
+  const { isLoading: isUserInfoLoading, isFetching, data, error, isSuccess } = useGetAllAttendanceByIdQuery(user?.id);
+  const dispatch = useDispatch()
+  const userAttendance = useAppSelector((state) => state.attendance.attendanceData)
+  // const userAttendanceData = userAttendance
+  //   ? [...(userAttendance.map((item: AttendanceDataType) => moment(item.date).format('L')))]
+  //   : []
+
+  useEffect(() => {
+    if (isSuccess) {
+      const formattedData = data.map((item: AttendanceDataType) => ({
+        ...item,
+        date: new Date(item.date),
+      }));
+      dispatch(attendanceData(formattedData));
+    }
+    if (isFetching || isUserInfoLoading) {
+      <h1>Loading...</h1>
+    }
+    if (error) {
+      console.log('errror', error)
+    }
+  }, [data, dispatch])
+
+  useEffect(() => {
+    if (isSuccess) {
+      console.log(data)
+    }
+    if (error) {
+      console.log('errror', error)
+    }
+  }, [attendanceData, isSuccess, error])
 
   const [page, setPage] = useState(1);
   const rowsPerPage = 5;
 
   const indexOfLastRow = page * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
-  const currentRows = rows.slice(indexOfFirstRow, indexOfLastRow);
+  const currentRows = userAttendance?.slice(indexOfFirstRow, indexOfLastRow);
 
-  const totalPages = Math.ceil(rows.length / rowsPerPage);
+  const totalPages = Math.ceil(userAttendance?.length / rowsPerPage);
 
   const handleChangePage = (event: any, newPage: number) => {
     event.preventDefault();
@@ -62,56 +82,97 @@ function DailyAttendanceBreakDown() {
             </tr>
           </thead>
           <tbody className={styles.tableBody}>
-            {currentRows.map((row, index) => (
-              <tr key={index}>
-                <td>{row.date}</td>
-                <td>
-                  <Icon
-                    component={AccessTimeIcon}
-                    fontSize="inherit"
-                    color="success"
-                    className={styles.icons}
-                  />
-                  {row.checkIn}
-                </td>
-                <td>
-                  <Icon
-                    component={RestaurantIcon}
-                    fontSize="inherit"
-                    color="warning"
-                    className={styles.icons}
-                  />
-                  {row.mealIn}
-                </td>
-                <td>
-                  <Icon
-                    component={NoMealsIcon}
-                    fontSize="inherit"
-                    color="warning"
-                    className={styles.icons}
-                  />
-                  {row.mealIn}
-                </td>
-                <td>
-                  <Icon
-                    component={MoreTimeIcon}
-                    fontSize="inherit"
-                    color="success"
-                    className={styles.icons}
-                  />
-                  {row.overtime}
-                </td>
-                <td>
-                  <Icon
-                    component={AccessTimeIcon}
-                    fontSize="inherit"
-                    color="error"
-                    className={styles.icons}
-                  />
-                  {row.checkOut}
-                </td>
-              </tr>
-            ))}
+            {currentRows
+              ? [...(currentRows.toReversed().map((item: AttendanceDataType) => (
+                <tr key={item._id}>
+                  <td>{moment.utc(item.date).format('L')}</td>
+                  <td>
+                    <Icon
+                      component={AccessTimeIcon}
+                      fontSize="inherit"
+                      color="success"
+                      className={styles.icons}
+                    />
+                    {item.punches.map((item) => {
+                      if (item.type === "punch-in") {
+                        return (
+                          <React.Fragment>
+                            {moment.utc(item.timestamp).format('h:mm a')}
+                          </React.Fragment>
+                        );
+                      }
+                    })}
+                  </td>
+                  <td>
+                    <Icon
+                      component={RestaurantIcon}
+                      fontSize="inherit"
+                      color="warning"
+                      className={styles.icons}
+                    />
+                     {item.punches.map((item) => {
+                      if (item.type === "meal-in") {
+                        return (
+                          <React.Fragment>
+                            {moment.utc(item.timestamp).format('LT')}
+                          </React.Fragment>
+                        );
+                      }
+                    })}
+                  </td>
+                  <td>
+                    <Icon
+                      component={NoMealsIcon}
+                      fontSize="inherit"
+                      color="warning"
+                      className={styles.icons}
+                    />
+                    {item.punches.map((item) => {
+                      if (item.type === "meal-out") {
+                        return (
+                          <React.Fragment>
+                            {moment.utc(item.timestamp).format('h:mm a')}
+                          </React.Fragment>
+                        );
+                      }
+                    })}
+                  </td>
+                  <td>
+                    <Icon
+                      component={MoreTimeIcon}
+                      fontSize="inherit"
+                      color="success"
+                      className={styles.icons}
+                    />
+                     {item.punches.map((item) => {
+                      if (item.type === "overtime") {
+                        return (
+                          <React.Fragment>
+                            {moment.utc(item.timestamp).format('h:mm a')}
+                          </React.Fragment>
+                        );
+                      }
+                    })}
+                  </td>
+                  <td>
+                    <Icon
+                      component={AccessTimeIcon}
+                      fontSize="inherit"
+                      color="error"
+                      className={styles.icons}
+                    />
+                     {item.punches.map((item) => {
+                      if (item.type === "punch-out") {
+                        return (
+                          <React.Fragment>
+                            {moment.utc(item.timestamp).format('h:mm a')}
+                          </React.Fragment>
+                        );
+                      }
+                    })}
+                  </td>
+                </tr>
+              )))] : []}
           </tbody>
         </Table>
         <Stack

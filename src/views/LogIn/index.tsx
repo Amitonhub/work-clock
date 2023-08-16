@@ -12,7 +12,7 @@ import { ToastError, ToastSuccess } from "@/utils/showToastAlerts"
 import { useDispatch } from 'react-redux'
 import { logIn } from "@/redux/features/authSlice"
 import CryptoJS from "crypto-js";
-import { useLogInMutation } from "@/redux/services/logInApi"
+import { useLogInMutation } from "@/redux/services/authApi"
 
 function LogInPage() {
   const router = useRouter()

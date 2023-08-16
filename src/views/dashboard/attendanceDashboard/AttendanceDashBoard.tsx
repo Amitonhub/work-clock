@@ -16,9 +16,6 @@ const DatePick = dynamic(
 const ProfileInfo = dynamic(
   () => import("@/views/dashboard/attendanceDashboard/profileInfo/ProfileInfo")
 );
-const QrCode = dynamic(
-  () => import("@/views/dashboard/attendanceDashboard/qrCode/QrCode")
-);
 const DailyAttendance = dynamic(
   () =>
     import(
@@ -90,7 +87,7 @@ function AttendanceDashBoard() {
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 3000);
+    });
     return () => {
       setIsLoading(false);
     };
@@ -125,31 +122,6 @@ function AttendanceDashBoard() {
               )}
             </div>
             <div className={styles.maindivHeadersub}>
-              {/* {isLoading ? (
-                <Box
-                  sx={{ display: "flex", alignItems: "center", gap: "10px" }}
-                >
-                  <Skeleton
-                    variant="circular"
-                    animation="wave"
-                    width={55}
-                    height={55}
-                  />
-                  <Skeleton
-                    variant="circular"
-                    animation="wave"
-                    width={55}
-                    height={55}
-                  />
-                  <Skeleton
-                    variant="circular"
-                    animation="wave"
-                    width={55}
-                    height={55}
-                  />
-                </Box>
-              ) : (
-                <> */}
               <div className={styles.QRCodeScannerMain} ref={qrCodeScannerValue}>
                 <button
                   className={`btn btn-secondary rounded-circle ${styles.roundButton}`}
@@ -216,12 +188,8 @@ function AttendanceDashBoard() {
                   </div>
                 </>
               )}
-
-              {/* </>
-              )} */}
             </div>
           </div>
-
           <div className={styles.dailyAttendanceContainer}>
             {isLoading ? (
               <Box sx={{ alignItems: "center" }}>
