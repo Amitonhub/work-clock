@@ -9,13 +9,18 @@ const moment = require('moment')
 
 const attendance = asyncHandler(async (req, res) => {
   const { punchType } = req.body;
+  // if (!punchType) {
+  //   res.status(400);
+  //   throw new Error("All fields are mandatory!");
+  // }
   const today = new Date();
   const cookie = req.cookies;
   const accessToken = cookie['accessToken']
   let token;
   let authHeader = req.headers.authorization || req.headers.Authorization;
-  if (authHeader && authHeader.startsWith("Bearer")) {
-      token = authHeader.split(" ")[1]}
+  if (authHeader && authHeader.startsWith("Bearer ")) {
+    token = authHeader.split(" ")[1]
+  }
   const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
   const { id } = decoded.user;
 
@@ -28,7 +33,7 @@ const attendance = asyncHandler(async (req, res) => {
     attendance.punches.push({ type: punchType, timestamp: moment().utc(today).format() });
     await attendance.save();
 
-    res.status(201).json(attendance);
+    res.status(201).json({ attendance });
   } catch (error) {
     res.status(500).json(error);
   }
