@@ -1,9 +1,9 @@
 .container {
-  padding: 0px 11px;
+  padding: 0px 10px;
+  height: 600px;
   display: grid;
-  row-gap: 20px;
+  row-gap: 10px;
   background-color: white;
-  left: 9%;
   padding-top: 20px;
   padding-bottom: 80px;
 }

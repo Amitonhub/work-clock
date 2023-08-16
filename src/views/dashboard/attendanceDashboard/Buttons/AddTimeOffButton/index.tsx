@@ -3,13 +3,24 @@ import { Button, Popover, Box, Typography, MenuItem, Select } from "@mui/materia
 import Swal from "sweetalert2";
 import styles from "./AddTimeOffButton.module.css";
 import { ShowAlert } from "@/common";
+import { useAttendanceMutation } from "@/redux/services/attendanceApi";
+import { AttendanceTypes } from "@/views/dashboard/types/attendanceType";
+import Loader from "@/components/Loader/Loader";
+import { ToastError } from "@/utils/showToastAlerts";
+import { useAppSelector } from "@/redux/store";
+import { AttendanceDataType, Punch } from "@/views/dashboard/types/attendanceDataType";
+import moment from "moment";
 
 function AddTimeOffButton() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedOption, setSelectedOption] = useState("");
   const [showButton, setShowButton] = useState(true);
+  const [isAllPunchDone, setIsAllPunchDone] = useState(false);
+  const [attendanceAction, { data, isLoading, isSuccess, error, isError }] = useAttendanceMutation();
+  const userAttendance = useAppSelector((state) => state.attendance.attendanceData)
+  const currentTime = new Date().toLocaleTimeString();
 
-  const handleClick = (event:any) => {
+  const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -24,8 +35,10 @@ function AddTimeOffButton() {
       text: `Are you sure you want to take ${breakType}?`,
     });
     if (confirmed.isConfirmed) {
-      const currentTime = new Date().toLocaleTimeString();
       console.log(`${breakType} : ${currentTime}`);
+      attendanceAction(breakType)
+    }
+    if (isSuccess) {
       Swal.fire(`${breakType} Saved!`, currentTime, "success");
     }
   };
@@ -35,12 +48,39 @@ function AddTimeOffButton() {
 
   useEffect(() => {
     const currentTime = new Date();
+    const today = moment(currentTime).format('L')
     const currentHour = currentTime.getHours();
     const currentMinutes = currentTime.getMinutes();
-    
+
+    const hasAttendanceToday = userAttendance?.some((item: AttendanceDataType) => moment(item.date).format('L') === today);
+    if (hasAttendanceToday) {
+      const attendanceToday = userAttendance.find((item: AttendanceDataType) => moment(item.date).format('L') === today);
+      attendanceToday?.punches?.some((item: Punch) => {
+        if (item.type !== AttendanceTypes.punchIn) {
+          setShowButton(false)
+        }
+        if (item.type === AttendanceTypes.punchIn) {
+          setSelectedOption(AttendanceTypes.mealIn);
+        }
+        if (item.type === AttendanceTypes.mealIn) {
+          setSelectedOption(AttendanceTypes.mealOut);
+        }
+        if (item.type === AttendanceTypes.mealOut) {
+          setSelectedOption(AttendanceTypes.teaBreakIn);
+        }
+        if (item.type === AttendanceTypes.teaBreakIn) {
+          setSelectedOption(AttendanceTypes.teaBreakOut);
+        }
+        if (item.type === AttendanceTypes.teaBreakOut) {
+          setIsAllPunchDone(true)
+          setShowButton(false)
+        }
+      }
+      )
+    }
+
     // Check if the current time is between 1:15 PM and 2:00 PM
     if (currentHour === 13 && currentMinutes >= 15 && currentMinutes <= 59) {
-      setSelectedOption("Lunch Break");
       setShowButton(true);
     }
     // Check if the current time is between 4:30 PM and 5:50 PM
@@ -48,7 +88,6 @@ function AddTimeOffButton() {
       (currentHour === 16 && currentMinutes >= 30) ||
       (currentHour === 17 && currentMinutes <= 30)
     ) {
-      setSelectedOption("Tea Break");
       setShowButton(true);
     }
     // Default option if the current time is outside the specified ranges
@@ -56,7 +95,14 @@ function AddTimeOffButton() {
       setSelectedOption("");
       setShowButton(false);
     }
-  }, []);
+
+    if (isLoading) {
+      <Loader />
+    }
+    if (isError) {
+      ToastError("you have already took break")
+    }
+  }, [isError, isLoading, userAttendance]);
 
   if (!showButton) {
     return null;
@@ -65,6 +111,7 @@ function AddTimeOffButton() {
   return (
     <>
       <Button
+        disabled={isAllPunchDone}
         variant="outlined"
         color="warning"
         onClick={handleClick}

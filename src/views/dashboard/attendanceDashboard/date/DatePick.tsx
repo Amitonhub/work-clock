@@ -14,12 +14,10 @@ function DatePick() {
     if (date.getTime() > endDate.getTime()) {
       setEndDate(date)
     }
-    console.log(date)
   }
 
   const handleEndDateChange = (date: Date) => {
     setEndDate(date)
-    console.log(date)
   }
 
   return (

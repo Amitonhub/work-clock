@@ -1,6 +1,9 @@
 export const metadata = {
   title: 'Work Clock',
   description: 'Attendance Application Using QR Code',
+  icons: {
+    icon: './favicon.ico',
+  },
 }
 
 export default async function RootLayout({
