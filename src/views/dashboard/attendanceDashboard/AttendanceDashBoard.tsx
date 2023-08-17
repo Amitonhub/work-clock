@@ -63,13 +63,13 @@ const ProfileSidebar = dynamic(
 function AttendanceDashBoard() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [isProfileSidebarOpen, setProfileSidebarOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [showQRCodeScanner, setShowQRCodeScanner] = useState(false);
   const qrCodeScannerValue = useRef<any>()
   const handleToggleSidebar = () => setSidebarOpen(!isSidebarOpen);
   const handleToggleProfileSidebar = () =>
     setProfileSidebarOpen(!isProfileSidebarOpen);
-
-  const [showQRCodeScanner, setShowQRCodeScanner] = useState(false);
-
+    
   useEffect(() => {
     const checkCamera = (async () => {
       try {
@@ -77,7 +77,7 @@ function AttendanceDashBoard() {
           return 'camera detected'
         }
       } catch (err) {
-        qrCodeScannerValue.current.style.display = "none"      // uncomment for hiding qr scanner in desktop
+        // qrCodeScannerValue.current.style.display = "none"      // uncomment for hiding qr scanner in desktop
         console.log("err", err)
         return "err"
       }
@@ -85,12 +85,10 @@ function AttendanceDashBoard() {
     checkCamera()
   }, [])
 
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 3000);
+    },1000);
     return () => {
       setIsLoading(false);
     };
@@ -109,9 +107,8 @@ function AttendanceDashBoard() {
       <div className={styles.navBar}>
         <div className={styles.mainDiv}>
           <div className={styles.maindivHeader}>
-            <div className={styles.box}>
-      <h5 >TimeSheets: </h5>
-
+            <div className={styles.box} >
+              <h5 style={{display: isLoading ? "none" : "flex"}}>TimeSheets: </h5>
               {isLoading ? (
                 <Box
                   sx={{ display: "flex", alignItems: "center", gap: "10px" }}
@@ -125,31 +122,6 @@ function AttendanceDashBoard() {
               )}
             </div>
             <div className={styles.maindivHeadersub}>
-              {/* {isLoading ? (
-                <Box
-                  sx={{ display: "flex", alignItems: "center", gap: "10px" }}
-                >
-                  <Skeleton
-                    variant="circular"
-                    animation="wave"
-                    width={55}
-                    height={55}
-                  />
-                  <Skeleton
-                    variant="circular"
-                    animation="wave"
-                    width={55}
-                    height={55}
-                  />
-                  <Skeleton
-                    variant="circular"
-                    animation="wave"
-                    width={55}
-                    height={55}
-                  />
-                </Box>
-              ) : (
-                <> */}
               <div className={styles.QRCodeScannerMain} ref={qrCodeScannerValue}>
                 <button
                   className={`btn btn-secondary rounded-circle ${styles.roundButton}`}
@@ -231,7 +203,7 @@ function AttendanceDashBoard() {
                   width={380}
                   height={40}
                 />
-                <Skeleton variant="text" animation="wave" width={1165} />
+                <Skeleton variant="text" animation="wave" width={1010} />
               </Box>
             ) : (
               <DailyAttendance />
@@ -273,8 +245,8 @@ function AttendanceDashBoard() {
                 <Skeleton
                   variant="rectangular"
                   animation="wave"
-                  width={1400}
-                  height={140}
+                  width={1300}
+                  height={250}
                 />
               </Box>
             ) : (

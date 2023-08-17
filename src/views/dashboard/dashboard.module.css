@@ -1,10 +1,15 @@
 .header {
   font-family: system-ui;
-  font-size: xxx-large;
   background-color: #353C48;
   color: white;
+  display: flex;
+  justify-content: space-between;
+}
+.heading{
+  font-size: xxx-large;
   padding: 0 10px;
 }
+
 .mainDiv{
   background-color: #F1F2F7;
 }
@@ -15,12 +20,14 @@
 }
 
 @media (max-width: 767px) {
-  .mainDiv {
+  .attendanceDashboardDiv {
     margin: 0.5rem;
   }
   .header{
+    justify-content: baseline;
+  }
+  .heading{
     font-size: 27px;
-    text-align: center;
   }
 }
 

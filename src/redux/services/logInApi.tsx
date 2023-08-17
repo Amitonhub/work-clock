@@ -1,5 +1,6 @@
 import { LoginForm } from "@/views/LogIn/types";
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi } from '@reduxjs/toolkit/query/react';
+import { fetchBaseQuery } from '@reduxjs/toolkit/dist/query';  // updation in import due to import error from query/react
 import { IGenericResponse } from "../types/responseType";
 import { BASE_URL } from "@/constants";
 

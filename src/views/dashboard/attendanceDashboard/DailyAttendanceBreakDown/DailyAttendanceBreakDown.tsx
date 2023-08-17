@@ -25,6 +25,30 @@ function DailyAttendanceBreakDown() {
       overtime: "1 hour",
       checkOut: "08:00 PM",
     },
+    {
+      date: "Fri 11-08-2023",
+      checkIn: "10:00 AM",
+      mealIn: "01:15 PM",
+      mealOut: "02:00 PM",
+      overtime: "",
+      checkOut: "07:00 PM",
+    },
+    {
+      date: "Sat 12-08-2023",
+      checkIn: "09:30 AM",
+      mealIn: "",
+      mealOut: "",
+      overtime: "",
+      checkOut: "02:00 PM",
+    },
+    {
+      date: "Mon 14-08-2023",
+      checkIn: "10:00 AM",
+      mealIn: "01:15 PM",
+      mealOut: "02:00 PM",
+      overtime: "2 hour",
+      checkOut: "09:00 PM",
+    },
   ];
 
   const [page, setPage] = useState(1);
@@ -34,12 +58,12 @@ function DailyAttendanceBreakDown() {
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
   const currentRows = rows.slice(indexOfFirstRow, indexOfLastRow);
 
-  const totalPages = Math.ceil(rows.length / rowsPerPage);
+  // const totalPages = Math.ceil(rows.length / rowsPerPage);
 
-  const handleChangePage = (event: any, newPage: number) => {
-    event.preventDefault();
-    setPage(newPage);
-  };
+  // const handleChangePage = (event: any, newPage: number) => {
+  //   event.preventDefault();
+  //   setPage(newPage);
+  // };
 
   return (
     <>
@@ -48,10 +72,9 @@ function DailyAttendanceBreakDown() {
           striped="columns"
           bordered
           hover
-          responsive="sm"
           className={styles.attendanceTable}
         >
-          <thead className={styles.tableHead}>
+          <thead>
             <tr className={styles.attendanceTableTr}>
               <td>Date</td>
               <td>Check In</td>
@@ -61,7 +84,7 @@ function DailyAttendanceBreakDown() {
               <td>Check Out</td>
             </tr>
           </thead>
-          <tbody className={styles.tableBody}>
+          <tbody>
             {currentRows.map((row, index) => (
               <tr key={index}>
                 <td>{row.date}</td>
@@ -90,7 +113,7 @@ function DailyAttendanceBreakDown() {
                     color="warning"
                     className={styles.icons}
                   />
-                  {row.mealIn}
+                  {row.mealOut}
                 </td>
                 <td>
                   <Icon
@@ -114,7 +137,7 @@ function DailyAttendanceBreakDown() {
             ))}
           </tbody>
         </Table>
-        <Stack
+        {/* <Stack
           spacing={2}
           justifyContent="flex-end"
           alignItems="end"
@@ -127,7 +150,7 @@ function DailyAttendanceBreakDown() {
             variant="outlined"
             color="standard"
           />
-        </Stack>
+        </Stack> */}
       </div>
     </>
   );

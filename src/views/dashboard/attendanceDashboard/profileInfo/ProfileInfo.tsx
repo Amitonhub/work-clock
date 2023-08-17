@@ -59,7 +59,7 @@ function ProfileInfo() {
       <div className={styles.profileInfo}>
         <div className={styles.avatar}>
         {isLoading ? (
-          <Box sx={{ display: "flex", alignItems: "center"}}>
+          <Box sx={{ display: "flex", alignItems: "center", marginBottom: "5px"}}>
             <Skeleton variant="circular" width={80} height={80} />
           </Box>
           ) : (
@@ -70,10 +70,14 @@ function ProfileInfo() {
         </div> 
         <div className={styles.info}>
         {isLoading ? (
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Skeleton variant="rectangular" width={140} height={40} />
-            <Skeleton variant="rectangular" width={140} height={40} />
+          <>
+          <Box sx={{ display: "flex", alignItems: "center", marginBottom: "10px", justifyContent: "center" }}>
+            <Skeleton variant="rectangular" width={180} height={40}/>
           </Box>
+          <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center"  }}>
+          <Skeleton variant="rectangular" width={100} height={20}/>
+        </Box>
+          </>
           ) : (
           <>
           <h1 className={styles.name}>{name}</h1>
@@ -86,7 +90,7 @@ function ProfileInfo() {
       <div className={styles.timeInfo}>
       {isLoading ? (
           <Box sx={{ display: "flex", alignItems: "center", gap: "30px" }}>
-            <Skeleton variant="circular" width={30} height={30} />
+            <Skeleton variant="circular" width={36} height={36} />
             <Skeleton variant="rectangular" width={250} height={45} />
           </Box>
           ) : (
