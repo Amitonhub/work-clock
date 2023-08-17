@@ -99,11 +99,11 @@ function ProfileInfo() {
           ) : (
           <>
             <div className={styles.timeInfoSub}>
-              <span className={styles.timeInfoSubHead}>72 Hrs</span>
+              <span className={styles.timeInfoSubHead}>40 Hrs</span>
               <span className={styles.timeInfoSubInterval}>Regular </span>
             </div>
             <div className={styles.timeInfoSub}>
-              <span className={styles.timeInfoSubHead}>35 Hrs</span>
+              <span className={styles.timeInfoSubHead}>10 Hrs</span>
               <span className={styles.timeInfoSubInterval}>OverTime </span>
             </div>
           </>
@@ -118,11 +118,11 @@ function ProfileInfo() {
           ) : (
           <>
             <div className={styles.timeInfoSub}>
-              <span className={styles.timeInfoSubHead}>24 Hrs</span>
+              <span className={styles.timeInfoSubHead}>04 Hrs</span>
               <span className={styles.timeInfoSubInterval}>Holiday </span>
             </div>
             <div className={styles.timeInfoSub}>
-              <span className={styles.timeInfoSubHead}>15 Hrs</span>
+              <span className={styles.timeInfoSubHead}>10 Hrs</span>
               <span className={styles.timeInfoSubInterval}>PTO </span>
             </div>
           </>

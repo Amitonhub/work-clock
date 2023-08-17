@@ -24,6 +24,16 @@
   justify-content: flex-end;
 }
 
+.reportButton{
+  margin: 10px 0;
+  border-radius: 30px;
+  color: #2c82e0;
+}
+
+.rightArrow{
+  color: #2c82e0;
+}
+
 @media (max-width: 767px) {
   .pagination{
     display: flex !important;
