@@ -27,11 +27,20 @@
 .reportButton{
   margin: 10px 0;
   border-radius: 30px;
-  color: #2c82e0;
+  color: darkred;
+  border-color: darkred;
+}
+.reportButton:hover{
+  background-color: darkred;
+  color: white;
+  border-color: darkred;
+  .rightArrow{
+    color: white;
+  }
 }
 
 .rightArrow{
-  color: #2c82e0;
+  color: darkred;
 }
 
 @media (max-width: 767px) {

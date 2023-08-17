@@ -4,7 +4,7 @@
     max-width: 700px;
     margin: 100px 441px;
     padding: 52px;
-    background-color: #275BC4;
+    background-color: darkred;
     border-radius: 20px;
     color: white;
     font-family: Roboto, sans-serif;
@@ -15,7 +15,7 @@
         width: 70px;
         height: 70px;
         border-radius: 70px;
-        background: #3263C7;
+        background: black;
     }
 
     .ellipse2 {
@@ -24,7 +24,7 @@
         width: 40px;
         height: 40px;
         border-radius: 40px;
-        background: #3263C7;
+        background: black;
     }
 
     .ellipse3 {
@@ -33,7 +33,7 @@
         width: 100px;
         height: 200px;
         border-radius: 200px 0 0 200px;
-        background: #3263C7;
+        background: black;
         z-index: 0;
     }
 
@@ -44,7 +44,7 @@
         width: 70px;
         height: 41px;
         border-radius: 70px 70px 0 0;
-        background: #3263C7;
+        background: black;
     }
 
     .logoContainer {
@@ -55,7 +55,7 @@
         color: white;
         position: relative;
         z-index: 10;
-        gap: 15px;
+        // gap: 15px;
     }
 
     .workClockHeading {
@@ -85,7 +85,7 @@
             padding: 10px;
             background-color: #F6F8FF;
             border: 1px solid #ccc;
-            border-radius: 5px;
+            border-radius: 30px;
             margin-bottom: 10px;
             color: black;
 
@@ -105,9 +105,9 @@
     }
 
     .button {
-        background-color: rgb(59 130 246 / 0.5);
+        background-color: #3d0006;
         border: none;
-        border-radius: 5px;
+        border-radius: 30px;
         color: #fff;
         font-size: 22px;
         font-style: normal;
