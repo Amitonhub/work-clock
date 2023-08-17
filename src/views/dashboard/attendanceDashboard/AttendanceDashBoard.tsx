@@ -1,3 +1,4 @@
+'use client'
 import React, { useState, useRef, useEffect } from "react";
 import styles from "./AttendanceDashboard.module.css";
 import Divider from "@mui/material/Divider";
@@ -59,6 +60,7 @@ const ProfileSidebar = dynamic(
 
 function AttendanceDashBoard() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true)
   const [isProfileSidebarOpen, setProfileSidebarOpen] = useState(false);
   const qrCodeScannerValue = useRef<any>()
   const handleToggleSidebar = () => setSidebarOpen(!isSidebarOpen);
@@ -81,8 +83,6 @@ function AttendanceDashBoard() {
     })
     checkCamera()
   }, [])
-
-  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     setTimeout(() => {

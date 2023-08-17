@@ -1,5 +1,5 @@
 export const metadata = {
-  title: 'Work Clock',
+  title: 'Work Clock - Dashboard',
   description: 'Attendance Application Using QR Code',
   icons: {
     icon: './favicon.ico',
