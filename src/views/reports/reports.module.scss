@@ -1,0 +1,46 @@
+.mainDiv {
+    background-color: #F1F2F7;
+
+    .header {
+        font-family: system-ui;
+        font-size: xxx-large;
+        background-color: #353C48;
+        color: white;
+        padding: 0 10px;
+    }
+
+    .tableHeader {
+        margin: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .reportDownload {
+            background-color: #02A4EF;
+        }
+
+        .reportDownload:hover {
+            color: black;
+            background-color: #02A4EF;
+        }
+
+        .rightHeaderDiv {
+            display: flex;
+            gap: 10px;
+        }
+    }
+
+    .datePickReports {
+        display: flex;
+        align-items: baseline;
+    }
+
+    .reportButton {
+        margin: 10px;
+        border-radius: 30px;
+        color: #2c82e0;
+    }
+}
+.downloadButton {
+    background-color: #02A4EF;
+}
