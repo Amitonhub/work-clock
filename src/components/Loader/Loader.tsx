@@ -23,7 +23,7 @@ function Loader() {
                 height="80"
                 width="80"
                 radius="48"
-                color="#02A4EF"
+                color="darkred"
                 ariaLabel="watch-loading"
                 wrapperStyle={{}}
                 wrapperClass=""

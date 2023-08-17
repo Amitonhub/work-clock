@@ -2,7 +2,7 @@
 import styles from "./style.module.scss"
 import Image from "next/image"
 import { Natrix_Mini_Logo } from '@/assets/icons'
-import Clock from './icons/clockLogo.png'
+import Clock from './icons/clockLogo1.jpg'
 import { useRouter } from "next/navigation"
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { LoginForm } from "./types"
@@ -68,7 +68,7 @@ function LogInPage() {
           type="email"
           id="email"
           className={styles.input}
-          placeholder="name@natrixsoftware.com"
+          placeholder="name@gmail.com"
           {...register("email", { required: true })}
           autoComplete="on"
         />
