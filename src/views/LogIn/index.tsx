@@ -1,7 +1,8 @@
 'use client'
 import styles from "./style.module.scss"
 import Image from "next/image"
-import Clock from './icons/work-clock-removebg-preview.png'
+import { Natrix_Mini_Logo } from '@/assets/icons'
+import Clock from './icons/clockLogo.png'
 import { useRouter } from "next/navigation"
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { LoginForm } from "./types"
