@@ -6,7 +6,7 @@ import ReportsTable from "./reports-table";
 import { DatePick } from "../dashboard/attendanceDashboard/date";
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import RefreshIcon from '@mui/icons-material/Refresh';
-import EastIcon from '@mui/icons-material/East';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Link from "next/link";
 import { useAppSelector } from "@/redux/store";
 import { CSVLink } from "react-csv";
@@ -53,7 +53,7 @@ function ReportsPage() {
         </div>
       </div>
       <Link href={'/'}>
-        <Button className={styles.reportButton} variant="outlined">Go to Dashboard &nbsp;  <EastIcon className={styles.rightArrow} /> </Button>
+        <Button className={styles.reportButton} variant="outlined"><ArrowBackIcon className={styles.leftArrow}  /> &nbsp; Go to Dashboard </Button>
       </Link>
       {formattedData ?
         <Alert severity="success">
