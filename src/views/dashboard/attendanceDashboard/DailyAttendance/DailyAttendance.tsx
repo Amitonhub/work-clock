@@ -29,7 +29,7 @@ function DailyAttendance() {
               className={styles.progressBarSegment}
               style={{
                 width: `${getProgressBarValue(approvedHours)}%`,
-                backgroundColor: "darkred",
+                backgroundColor: "#02A4EF",
               }}
               aria-label={`Approved: ${approvedHours} Hrs`}
             />

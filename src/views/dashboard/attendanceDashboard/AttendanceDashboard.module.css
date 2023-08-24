@@ -61,7 +61,7 @@
   cursor: pointer;
   align-items: center;
   position: relative;
-  background-color: darkred !important;
+  background-color: #02A4EF !important;
   border: none !important;
   border-radius: 50px;
   height: 48px;
@@ -97,7 +97,7 @@
   display: flex;
   font-size: 20px;
   color: white;
-  background-color: darkred !important;
+  background-color: #02A4EF !important;
   border: none !important;
 }
 
@@ -147,7 +147,7 @@
     align-items: center;
   }
   .profileIcon svg{
-    color: darkred !important;
+    color: #02A4EF !important;
     font-size: 54px !important;
   }
   .mainDiv {

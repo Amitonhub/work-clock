@@ -4,7 +4,7 @@
     .header {
         font-family: system-ui;
         font-size: xxx-large;
-        background-color: darkred;
+        background-color: #353C48;
         color: white;
         padding: 0 10px;
     }
@@ -16,12 +16,12 @@
         align-items: center;
 
         .reportDownload {
-            background-color: darkred;
+            background-color: #02A4EF;
         }
 
         .reportDownload:hover {
             color: black;
-            background-color: darkred;
+            background-color: #02A4EF;
         }
 
         .rightHeaderDiv {
@@ -35,21 +35,12 @@
         align-items: baseline;
     }
 
-    .reportButton{
-        margin: 10px 0;
+    .reportButton {
+        margin: 10px;
         border-radius: 30px;
-        color: darkred;
-        border-color: darkred;
-      }
-    .reportButton:hover{
-        background-color: darkred;
-        color: white;
-        border-color: darkred;
-        .leftArrow{
-          color: white;
-        }
-      }
+        color: #2c82e0;
+    }
 }
 .downloadButton {
-    background-color: darkred;
+    background-color: #02A4EF;
 }

@@ -53,7 +53,7 @@ function ReportsPage() {
         </div>
       </div>
       <Link href={'/'}>
-        <Button className={styles.reportButton} variant="outlined">Go to Dashboard &nbsp;  <EastIcon className={styles.leftArrow} /> </Button>
+        <Button className={styles.reportButton} variant="outlined">Go to Dashboard &nbsp;  <EastIcon className={styles.rightArrow} /> </Button>
       </Link>
       {formattedData ?
         <Alert severity="success">
