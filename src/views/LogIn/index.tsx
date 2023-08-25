@@ -13,6 +13,8 @@ import { useDispatch } from 'react-redux'
 import { logIn } from "@/redux/features/authSlice"
 import CryptoJS from "crypto-js";
 import { useLogInMutation } from "@/redux/services/authApi"
+import Loader from "@/components/Loader/Loader"
+import { useEffect } from "react"
 
 function LogInPage() {
   const router = useRouter()
@@ -32,16 +34,25 @@ function LogInPage() {
     try {
       await LoginAction({ ...updatedFormData })
       dispatch(logIn(updatedFormDataState))
-      if (isError) {
-        ToastError(LOGIN_ERROR);
-      } else {
-        router.push('/dashboard');
-        ToastSuccess(SIGNED_IN)
-      }
     } catch (error) {
       ToastError(INVALID_REGISTRAION)
     }
   };
+
+  useEffect(() => {
+    if(isSuccess){
+      router.push('/dashboard');
+      ToastSuccess(SIGNED_IN)
+    }
+  
+    if (isError) {
+      ToastError(LOGIN_ERROR);
+    }
+  
+    if(isLoading){
+      <Loader/>
+    }
+  }, [isSuccess, isLoading, isError])
 
   return (
     <div className={styles.container}>
@@ -81,10 +92,10 @@ function LogInPage() {
           id="password"
           className={styles.input}
           placeholder="********"
-          {...register("password", { required: true })}
+          {...register("password", { required: true, minLength: 8, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/})}
           autoComplete="on"
         />
-        {errors.password && <span className={styles.error}>password is required</span>}
+        {errors.password && <span className={styles.error}>password must contain Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character</span>}
 
         <button type="submit" className={styles.button}>
           Login
