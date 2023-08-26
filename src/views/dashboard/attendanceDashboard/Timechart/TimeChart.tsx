@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   LineChart,
   Line,
@@ -16,7 +16,7 @@ import {
 } from "@mui/material";
 
 function TimeChart() {
-  const [duration, setDuration] = React.useState("1");
+  const [duration, setDuration] = useState("1");
 
   const handleChange = (event: SelectChangeEvent) => {
     setDuration(event.target.value as string);
