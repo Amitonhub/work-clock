@@ -2,6 +2,7 @@
     padding: 20px;
 }
 .logoutIcon{
+    cursor: pointer;
     font-size: x-large !important;
 }
 
