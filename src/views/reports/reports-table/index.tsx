@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from "./DailyAttendanceBreakDown.module.css";
+import styles from "./reportsTable.module.scss";
 import { Table } from "react-bootstrap";
 import MoreTimeIcon from "@mui/icons-material/MoreTime";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
@@ -8,43 +8,48 @@ import NoMealsIcon from "@mui/icons-material/NoMeals";
 import { Button, Icon, Pagination, Stack } from "@mui/material";
 import { useGetAllAttendanceByIdQuery } from "@/redux/services/attendanceApi";
 import { useAppSelector } from "@/redux/store";
-import { AttendanceDataType } from "../../types/attendanceDataType";
 import { useDispatch } from "react-redux";
 import { attendanceData } from "@/redux/features/attendanceSlice";
-import EastIcon from '@mui/icons-material/East';
 import moment from "moment";
-import Link from "next/link";
+import { AttendanceDataType } from "@/views/dashboard/types/attendanceDataType";
+import { useUserInfoQuery } from "@/redux/services/authApi";
+import Loader from "@/components/Loader/Loader";
+import { IUserType } from "@/views/dashboard/types/userType";
+import { userData } from "@/redux/features/userSlice";
 
 function DailyAttendanceBreakDown() {
   const user = useAppSelector((state) => state.user.UserData)
-  const { isLoading: isUserInfoLoading, isFetching, data, error, isSuccess } = useGetAllAttendanceByIdQuery(user?.id);
+  const { isLoading: isUserInfoLoading, isFetching: isUserFetching, data: isUserData, error: userError, isSuccess: userSuccess } = useUserInfoQuery(null);
+  const { isLoading: isAttendanceLoading, isFetching, data, error, isSuccess } = useGetAllAttendanceByIdQuery(user?.id);
   const dispatch = useDispatch()
   const userAttendance = useAppSelector((state) => state.attendance.attendanceData)
+  const formattedData = data?.map((item: AttendanceDataType) => ({
+    ...item,
+    date: new Date(item.date),
+  }));
+
+  useEffect(() => {
+    if (userSuccess) {
+      dispatch(userData(isUserData as IUserType))
+
+    }
+    if (isFetching || isUserFetching || isUserInfoLoading || isAttendanceLoading) {
+      <Loader />
+    }
+    if (error) {
+      console.log('errror', error)
+    }
+    console.log(isUserData)
+  }, [data, isUserData, dispatch])
 
   useEffect(() => {
     if (isSuccess) {
-      const formattedData = data.map((item: AttendanceDataType) => ({
-        ...item,
-        date: new Date(item.date),
-      }));
       dispatch(attendanceData(formattedData));
     }
-    if (isFetching || isUserInfoLoading) {
-      <h1>Loading...</h1>
-    }
     if (error) {
       console.log('errror', error)
     }
-  }, [data, dispatch])
-
-  useEffect(() => {
-    if (isSuccess) {
-      console.log(data)
-    }
-    if (error) {
-      console.log('errror', error)
-    }
-  }, [attendanceData, isSuccess, error])
+  }, [attendanceData, isSuccess, isUserData, error])
 
   const [page, setPage] = useState(1);
   const rowsPerPage = 5;
@@ -53,33 +58,33 @@ function DailyAttendanceBreakDown() {
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
   const currentRows = userAttendance?.slice(indexOfFirstRow, indexOfLastRow);
 
-  // const totalPages = Math.ceil(userAttendance?.length / rowsPerPage);
+  const totalPages = Math.ceil(userAttendance?.length / rowsPerPage);
 
-  // const handleChangePage = (event: any, newPage: number) => {
-  //   event.preventDefault();
-  //   setPage(newPage);
-  // };
+  const handleChangePage = (event: React.ChangeEvent<unknown>, newPage: number) => {
+    event.preventDefault();
+    setPage(newPage);
+  };
 
   return (
     <>
       <div className={styles.mainDiv}>
-        <Link href={'/reports'}>
-      <Button className={styles.reportButton} variant="outlined">Go to Detailed Report &nbsp;  <EastIcon className={styles.rightArrow}/> </Button>
-        </Link>
         <Table
           striped="columns"
           bordered
           hover
+          responsive="sm"
           className={styles.attendanceTable}
         >
-          <thead>
+          <thead className={styles.tableHead}>
             <tr className={styles.attendanceTableTr}>
               <td>Date</td>
               <td>Check In</td>
               <td>Meal In</td>
               <td>Meal Out</td>
-              <td>Overtime</td>
+              <td>Tea Break In</td>
+              <td>Tea Break Out</td>
               <td>Check Out</td>
+              <td>Overtime</td>
             </tr>
           </thead>
           <tbody className={styles.tableBody}>
@@ -111,7 +116,7 @@ function DailyAttendanceBreakDown() {
                       color="warning"
                       className={styles.icons}
                     />
-                     {item.punches.map((item) => {
+                    {item.punches.map((item) => {
                       if (item.type === "meal-in") {
                         return (
                           <React.Fragment>
@@ -140,13 +145,30 @@ function DailyAttendanceBreakDown() {
                   </td>
                   <td>
                     <Icon
-                      component={MoreTimeIcon}
+                      component={NoMealsIcon}
                       fontSize="inherit"
-                      color="success"
+                      color="warning"
                       className={styles.icons}
                     />
-                     {item.punches.map((item) => {
-                      if (item.type === "overtime") {
+                    {item.punches.map((item) => {
+                      if (item.type === "tea-break-in") {
+                        return (
+                          <React.Fragment>
+                            {moment.utc(item.timestamp).format('h:mm a')}
+                          </React.Fragment>
+                        );
+                      }
+                    })}
+                  </td>
+                  <td>
+                    <Icon
+                      component={NoMealsIcon}
+                      fontSize="inherit"
+                      color="warning"
+                      className={styles.icons}
+                    />
+                    {item.punches.map((item) => {
+                      if (item.type === "tea-break-out") {
                         return (
                           <React.Fragment>
                             {moment.utc(item.timestamp).format('h:mm a')}
@@ -162,8 +184,25 @@ function DailyAttendanceBreakDown() {
                       color="error"
                       className={styles.icons}
                     />
-                     {item.punches.map((item) => {
+                    {item.punches.map((item) => {
                       if (item.type === "punch-out") {
+                        return (
+                          <React.Fragment>
+                            {moment.utc(item.timestamp).format('h:mm a')}
+                          </React.Fragment>
+                        );
+                      }
+                    })}
+                  </td>
+                  <td>
+                    <Icon
+                      component={MoreTimeIcon}
+                      fontSize="inherit"
+                      color="success"
+                      className={styles.icons}
+                    />
+                    {item.punches.map((item) => {
+                      if (item.type === "overtime") {
                         return (
                           <React.Fragment>
                             {moment.utc(item.timestamp).format('h:mm a')}
@@ -176,7 +215,7 @@ function DailyAttendanceBreakDown() {
               )))] : []}
           </tbody>
         </Table>
-        {/* <Stack
+        <Stack
           spacing={2}
           justifyContent="flex-end"
           alignItems="end"
@@ -189,7 +228,7 @@ function DailyAttendanceBreakDown() {
             variant="outlined"
             color="standard"
           />
-        </Stack> */}
+        </Stack>
       </div>
     </>
   );

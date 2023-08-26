@@ -2,7 +2,7 @@ import axios from 'axios';
 axios.defaults.withCredentials = true
 import { BASE_URL } from '@/constants';
 
-// export const getAccessToken = async () => {
+// export const getToken = async () => {
 //     const cookie = cookies()
 //     const accessToken = cookie.get('accessToken')
 //     console.log(accessToken)

@@ -1,55 +1,43 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./profileInfo.module.css";
 import Avatar from "@mui/material/Avatar";
 import Divider from "@mui/material/Divider";
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { Icon } from "@mui/material";
-import axios from "axios";
-import { BASE_URL } from "@/constants";
-import { getServerSession } from "@/utils/getServerSession";
-import { UserType } from "../../types/userType";
+import { IUserType } from "../../types/userType";
 import Skeleton from "@mui/material/Skeleton";
 import Box from "@mui/material/Box";
+import { useUserInfoQuery } from "@/redux/services/authApi";
+import { useAppSelector } from "@/redux/store";
+import Loader from "@/components/Loader/Loader";
+import { useDispatch } from "react-redux";
+import { userData } from "@/redux/features/userSlice";
 import Image from "next/image";
 
 function ProfileInfo() {
-  const [currentUserData, setCurrentUserData] = useState<UserType | undefined>()
   const [isLoading, setIsLoading] = useState<boolean>(true);
-
+  const user = useAppSelector((state)=> state.user.UserData)
+  const dispatch = useDispatch()
+  const { isLoading: isUserInfoLoading, isFetching, data, error, isSuccess } = useUserInfoQuery(null);
+  
   useEffect(() => {
-    const currentUser = (async () => {
-      try {
-        let globalToken = 'token';
-        const getAccessToken = (async () => {
-          const res = await getServerSession()
-          globalToken = res
-          return globalToken
-        })
-        await getAccessToken()
-        const response = await axios.get(`${BASE_URL}/users/current`, {
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${globalToken}`
-          }
-        });
-        const data = response.data;
-        setCurrentUserData(data)
-      } catch (err) {
-        console.log("punch err", err)
-      }
-    })
-    currentUser()
-  }, [])
+    if(isSuccess){
+      dispatch(userData(data as unknown as IUserType))
+    }
+    if(isUserInfoLoading || isFetching){
+      <Loader/>
+    }
+    
+  }, [data])
 
-  const name = currentUserData && currentUserData.firstname + ' ' + currentUserData.lastname;
-  const designation = currentUserData && currentUserData.designation;
+  const name = user && user?.firstname + ' ' + user.lastname;
+  const designation = user && user?.designation;
 
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    },3000);
+    });
     return () => {
       setIsLoading(false);
     };
@@ -163,11 +151,11 @@ function ProfileInfo() {
           ) : (
           <>
             <div className={styles.timeInfoSub}>
-              <span className={styles.timeInfoSubHead}>72 Hrs</span>
+              <span className={styles.timeInfoSubHead}>40 Hrs</span>
               <span className={styles.timeInfoSubInterval}>Regular </span>
             </div>
             <div className={styles.timeInfoSub}>
-              <span className={styles.timeInfoSubHead}>35 Hrs</span>
+              <span className={styles.timeInfoSubHead}>10 Hrs</span>
               <span className={styles.timeInfoSubInterval}>OverTime </span>
             </div>
           </>
@@ -182,11 +170,11 @@ function ProfileInfo() {
           ) : (
           <>
             <div className={styles.timeInfoSub}>
-              <span className={styles.timeInfoSubHead}>24 Hrs</span>
+              <span className={styles.timeInfoSubHead}>04 Hrs</span>
               <span className={styles.timeInfoSubInterval}>Holiday </span>
             </div>
             <div className={styles.timeInfoSub}>
-              <span className={styles.timeInfoSubHead}>15 Hrs</span>
+              <span className={styles.timeInfoSubHead}>10 Hrs</span>
               <span className={styles.timeInfoSubInterval}>PTO </span>
             </div>
           </>

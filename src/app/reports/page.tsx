@@ -1,13 +1,13 @@
 'use client'
 import { useState, useEffect } from 'react';
 import { getServerSession } from "../../utils/getServerSession";
-import Dashboard from "../../views/dashboard";
 import { useRouter } from 'next/navigation';
 import Loader from '@/components/Loader/Loader';
 import { ToastError } from '@/utils/showToastAlerts';
 import { SESSION_EXPIRED } from '@/constants';
 import { useDispatch } from 'react-redux';
 import { token } from '@/redux/features/tokenSlice';
+import ReportsPage from '@/views/reports';
 
 function Page() {
   const router = useRouter();
@@ -41,10 +41,7 @@ function Page() {
     return <Loader/>;
   }
 
-  return isLoggedIn ? <Dashboard /> : null;
-
-
-  //  return <Dashboard />;
+  return isLoggedIn ? <ReportsPage /> : null;
 }
 
 export default Page;

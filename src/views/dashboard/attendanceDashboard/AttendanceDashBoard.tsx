@@ -1,3 +1,4 @@
+'use client'
 import React, { useState, useRef, useEffect } from "react";
 import styles from "./AttendanceDashboard.module.css";
 import Divider from "@mui/material/Divider";
@@ -15,9 +16,6 @@ const DatePick = dynamic(
 );
 const ProfileInfo = dynamic(
   () => import("@/views/dashboard/attendanceDashboard/profileInfo/ProfileInfo")
-);
-const QrCode = dynamic(
-  () => import("@/views/dashboard/attendanceDashboard/qrCode/QrCode")
 );
 const DailyAttendance = dynamic(
   () =>
@@ -75,8 +73,8 @@ const TimeChart = dynamic(
 
 function AttendanceDashBoard() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true)
   const [isProfileSidebarOpen, setProfileSidebarOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [showQRCodeScanner, setShowQRCodeScanner] = useState(false);
   const qrCodeScannerValue = useRef<any>()
   const handleToggleSidebar = () => setSidebarOpen(!isSidebarOpen);
@@ -101,7 +99,7 @@ function AttendanceDashBoard() {
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    },1000);
+    });
     return () => {
       setIsLoading(false);
     };
@@ -201,12 +199,8 @@ function AttendanceDashBoard() {
                   </div>
                 </>
               )}
-
-              {/* </>
-              )} */}
             </div>
           </div>
-
           <div className={styles.dailyAttendanceContainer}>
             {isLoading ? (
               <Box sx={{ alignItems: "center" }}>

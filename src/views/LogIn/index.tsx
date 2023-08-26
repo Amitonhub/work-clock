@@ -1,7 +1,7 @@
 'use client'
 import styles from "./style.module.scss"
 import Image from "next/image"
-import { Natrix_Mini_Logo } from '@/assets/icons'
+import Clock from './icons/work-clock.png'
 import { useRouter } from "next/navigation"
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { LoginForm } from "./types"
@@ -12,7 +12,9 @@ import { ToastError, ToastSuccess } from "@/utils/showToastAlerts"
 import { useDispatch } from 'react-redux'
 import { logIn } from "@/redux/features/authSlice"
 import CryptoJS from "crypto-js";
-import { useLogInMutation } from "@/redux/services/logInApi"
+import { useLogInMutation } from "@/redux/services/authApi"
+import Loader from "@/components/Loader/Loader"
+import { useEffect } from "react"
 
 function LogInPage() {
   const router = useRouter()
@@ -32,16 +34,25 @@ function LogInPage() {
     try {
       await LoginAction({ ...updatedFormData })
       dispatch(logIn(updatedFormDataState))
-      if (isError) {
-        ToastError(LOGIN_ERROR);
-      } else {
-        router.push('/dashboard');
-        ToastSuccess(SIGNED_IN)
-      }
     } catch (error) {
       ToastError(INVALID_REGISTRAION)
     }
   };
+
+  useEffect(() => {
+    if(isSuccess){
+      router.push('/dashboard');
+      ToastSuccess(SIGNED_IN)
+    }
+  
+    if (isError) {
+      ToastError(LOGIN_ERROR);
+    }
+  
+    if(isLoading){
+      <Loader/>
+    }
+  }, [isSuccess, isLoading, isError])
 
   return (
     <div className={styles.container}>
@@ -49,7 +60,7 @@ function LogInPage() {
       <div className={styles.ellipse2} />
       <div className={styles.logoContainer}>
         <div>
-          <Image className={`${styles.logoImage} w-100 h-100 mr-2`} src={Natrix_Mini_Logo} width={100} height={100} priority alt="Natrix_Mini_Logo" />
+          <Image className={`${styles.logoImage} w-100 h-100 mr-2`} src={Clock} width={100} height={100} priority alt="Natrix_Mini_Logo" />
         </div>
         <div className={styles.workClockHeading}>
           Work Clock
@@ -81,10 +92,10 @@ function LogInPage() {
           id="password"
           className={styles.input}
           placeholder="********"
-          {...register("password", { required: true })}
+          {...register("password", { required: true, minLength: 8, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/})}
           autoComplete="on"
         />
-        {errors.password && <span className={styles.error}>password is required</span>}
+        {errors.password && <span className={styles.error}>password must contain Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character</span>}
 
         <button type="submit" className={styles.button}>
           Login
