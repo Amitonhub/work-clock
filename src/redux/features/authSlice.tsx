@@ -6,13 +6,12 @@ const initialState = {
   isLogin: false,
   loading: false,
   userInfo: null,
-  userToken: null,
   error: null,
   success: false,
 } as LogIn;
 
 export const auth = createSlice({
-  name: "counter",
+  name: "auth",
   initialState,
   reducers: {
     reset: () => initialState,
@@ -25,7 +24,6 @@ export const auth = createSlice({
       state.success = true,
       state.error = null,
       state.loading = false
-
     },
   },
 });
