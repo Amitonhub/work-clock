@@ -5,11 +5,12 @@ import Divider from "@mui/material/Divider";
 import dynamic from "next/dynamic";
 import { Modal } from "react-bootstrap";
 import AddOvertimeButton from "./Buttons/AddOvertimeButton";
-import { Badge, Icon } from "@mui/material";
+import { Badge, Button, Icon } from "@mui/material";
 import QRCodeScanner from "./QRCodeScanner";
-
+import EastIcon from '@mui/icons-material/East';
 import Skeleton from "@mui/material/Skeleton";
 import Box from "@mui/material/Box";
+import Link from "next/link";
 
 const DatePick = dynamic(
   () => import("@/views/dashboard/attendanceDashboard/date/DatePick")
@@ -80,7 +81,7 @@ function AttendanceDashBoard() {
   const handleToggleSidebar = () => setSidebarOpen(!isSidebarOpen);
   const handleToggleProfileSidebar = () =>
     setProfileSidebarOpen(!isProfileSidebarOpen);
-    
+
   useEffect(() => {
     const checkCamera = (async () => {
       try {
@@ -88,7 +89,7 @@ function AttendanceDashBoard() {
           return 'camera detected'
         }
       } catch (err) {
-        // qrCodeScannerValue.current.style.display = "none"      // uncomment for hiding qr scanner in desktop
+        qrCodeScannerValue.current.style.display = "none"      // uncomment for hiding qr scanner in desktop
         console.log("err", err)
         return "err"
       }
@@ -119,7 +120,7 @@ function AttendanceDashBoard() {
         <div className={styles.mainDiv}>
           <div className={styles.maindivHeader}>
             <div className={styles.box} >
-              <h5 style={{display: isLoading ? "none" : "flex"}}>TimeSheets: </h5>
+              <h5 style={{ display: isLoading ? "none" : "flex" }}>TimeSheets: </h5>
               {isLoading ? (
                 <Box
                   sx={{ display: "flex", alignItems: "center", gap: "10px" }}
@@ -217,6 +218,15 @@ function AttendanceDashBoard() {
             )}
           </div>
           <div className={styles.addTimeOffButton}>
+            <div>
+              <Link href={'/reports'}>
+                <Button style={{
+                  margin: "10px 0",
+                  borderRadius: "30px",
+                  color: "#2c82e0"
+                }} variant="outlined">Go to Detailed Report &nbsp;  <EastIcon className={styles.rightArrow} /> </Button>
+              </Link>
+            </div>
             {isLoading ? (
               <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
                 <Skeleton
@@ -239,11 +249,11 @@ function AttendanceDashBoard() {
                 />
               </Box>
             ) : (
-              <>
+              <div>
                 <PunchInOutButton />
                 <AddTimeOffButton />
                 <AddOvertimeButton />
-              </>
+              </div>
             )}
           </div>
           <div className={styles.dailyAttendanceBreakDown}>
@@ -288,7 +298,7 @@ function AttendanceDashBoard() {
                 ) : (
                   <Box
                     sx={{
-                      width: "450px",
+                      width: "555px",
                       height: "140px",
                       backgroundColor: "#02a4ef",
                       padding: "5px",

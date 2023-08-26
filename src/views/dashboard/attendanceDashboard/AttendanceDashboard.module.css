@@ -122,9 +122,10 @@
 }
 .addTimeOffButton {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   gap: 15px;
   margin: 25px 0;
+  align-items: baseline;
 }
 .modalBody{
   background-color: #f1f2f7;
@@ -140,6 +141,13 @@
 
 .modalTitle{
   color: white !important;
+}
+.buttonMainDiv{
+  display: flex;
+  justify-content: space-between;
+}
+.rightArrow{
+  color: #2c82e0;
 }
 
 @media (max-width: 1554px) {
