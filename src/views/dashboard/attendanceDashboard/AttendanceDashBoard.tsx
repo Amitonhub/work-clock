@@ -333,20 +333,6 @@ function AttendanceDashBoard() {
                 </Box>
               </div>
             </div>
-            {/* <div className={styles.dateFormatMainDiv}>
-              {isLoading ? (
-                <Box sx={{ display: "flex", alignItems: "center" }}>
-                  <Skeleton
-                    variant="rectangular"
-                    animation="wave"
-                    width={1300}
-                    height={250}
-                  />
-                </Box>
-              ) : (
-                <DailyAttendanceBreakDown />
-              )}
-            </div> */}
           </div>
         </div>
         <div className={styles.profileInfo}>

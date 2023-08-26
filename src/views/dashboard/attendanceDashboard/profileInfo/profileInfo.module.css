@@ -9,6 +9,11 @@
   border-radius: 10px;
   box-shadow: 4px 4px 4px #bdbdbd;
 }
+.profileInfoHeaderMain{
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
 
 .info {
   flex: 1;
