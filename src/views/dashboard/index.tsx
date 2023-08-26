@@ -22,7 +22,6 @@ const Dashboard = () => {
 
   return (
     <div className={styles.mainDiv}>
-      {/* <h1>{userData?.email}</h1> */}
       <div className={styles.header}>
         {isLoading ? (
           <Box sx={{ display: "flex", alignItems: "center", padding: "10px" }}>
@@ -31,7 +30,7 @@ const Dashboard = () => {
               variant="rectangular"
               animation="wave"
               width={450}
-              height={50}
+              height={40}
             />
           </Box>
         ) : (
@@ -53,8 +52,7 @@ const Dashboard = () => {
           </div>
         )}
       </div>
-      <Divider variant="middle" className={styles.Divider} />
-      {/*  */}
+      {/* <Divider variant="middle" className={styles.Divider} /> */}
       <div className={styles.attendanceDashboardDiv}>
         <AttendanceDashBoard />
       </div>

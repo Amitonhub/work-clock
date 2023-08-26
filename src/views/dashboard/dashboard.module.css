@@ -4,20 +4,21 @@
   color: white;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  height: 50px;
 }
 .heading{
-  font-size: xxx-large;
+  font-size: 37px;
   padding: 0 10px;
 }
-
 .mainDiv{
   background-color: #F1F2F7;
 }
-.Divider {
+/* .Divider {
   width: 98%;
   margin: 20px 0;
   border-top: 1px solid grey;
-}
+} */
 
 @media (max-width: 767px) {
   .attendanceDashboardDiv {

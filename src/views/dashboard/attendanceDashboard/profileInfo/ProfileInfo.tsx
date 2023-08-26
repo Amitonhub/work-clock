@@ -11,6 +11,7 @@ import { getServerSession } from "@/utils/getServerSession";
 import { UserType } from "../../types/userType";
 import Skeleton from "@mui/material/Skeleton";
 import Box from "@mui/material/Box";
+import Image from "next/image";
 
 function ProfileInfo() {
   const [currentUserData, setCurrentUserData] = useState<UserType | undefined>()
@@ -87,7 +88,54 @@ function ProfileInfo() {
         </div>
       </div>
       <Divider variant="middle" className={styles.Divider} />
-      <div className={styles.timeInfo}>
+      <div className={styles.timeStatusMainDiv}>
+        <h4 className={styles.timestatusHeading}>Time Status</h4>
+        {/* date slot */}
+        <div className={styles.timeStatusSubMaindiv}>
+          <div className={styles.timeStatusActivityDiv}>
+            <div className={styles.activeStatus}>
+              <div className={styles.timeStatusHeading}>
+                <span
+                  className={styles.coloredCircle}
+                  style={{ backgroundColor: "#F8C07F" }}
+                />
+                <p className={styles.paragraphMain}>Active</p>
+              </div>
+              <h5 className={styles.statusHeadingDiv}>234</h5>
+            </div>
+            <div className={styles.inactiveStatus}>
+              <div className={styles.timeStatusHeading}>
+                <span
+                  className={styles.coloredCircle}
+                  style={{ backgroundColor: "#FB896B" }}
+                />
+                <p className={styles.paragraphMain}>Inactive</p>
+              </div>
+              <h5 className={styles.statusHeadingDiv}>35</h5>
+            </div>
+            <div className={styles.overTimeStatus}>
+              <div className={styles.timeStatusHeading}>
+                <span
+                  className={styles.coloredCircle}
+                  style={{ backgroundColor: "#6956E5" }}
+                />
+                <p className={styles.paragraphMain}>OverTime</p>
+              </div>
+              <h5 className={styles.statusHeadingDiv}>4</h5>
+            </div>
+          </div>
+          <div className={styles.timeStatusImageDiv}>
+            <Image
+              src="/status.png"
+              width={215}
+              height={215}
+              alt="Time Status"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+      {/* <div className={styles.timeInfo}>
       {isLoading ? (
           <Box sx={{ display: "flex", alignItems: "center", gap: "30px" }}>
             <Skeleton variant="circular" width={36} height={36} />
@@ -143,7 +191,7 @@ function ProfileInfo() {
             </div>
           </>
         )}
-      </div>
+      </div> */}
     </div>
   );
 }

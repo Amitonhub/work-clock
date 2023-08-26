@@ -59,6 +59,19 @@ const ProfileSidebar = dynamic(
       "@/views/dashboard/attendanceDashboard/ProfileSidebar/ProfileSidebar"
     )
 );
+const TimelineData = dynamic(
+  () =>
+    import("@/views/dashboard/attendanceDashboard/TimelineData/TimelineData")
+);
+const CountDownClock = dynamic(
+  () =>
+    import(
+      "@/views/dashboard/attendanceDashboard/CountDownClock/CountDownClock"
+    )
+);
+const TimeChart = dynamic(
+  () => import("@/views/dashboard/attendanceDashboard/Timechart/TimeChart")
+);
 
 function AttendanceDashBoard() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -240,18 +253,96 @@ function AttendanceDashBoard() {
             )}
           </div>
           <div className={styles.dailyAttendanceBreakDown}>
-            {isLoading ? (
-              <Box sx={{ display: "flex", alignItems: "center" }}>
-                <Skeleton
-                  variant="rectangular"
-                  animation="wave"
-                  width={1300}
-                  height={250}
-                />
-              </Box>
-            ) : (
-              <DailyAttendanceBreakDown />
-            )}
+            <div className={styles.timelineFormatMainDiv}>
+              {isLoading ? (
+                <Box sx={{ display: "flex", alignItems: "center" }}>
+                  <Skeleton
+                    variant="rectangular"
+                    animation="wave"
+                    width={310}
+                    height={400}
+                  />
+                </Box>
+              ) : (
+                <Box
+                  sx={{
+                    width: "max-content",
+                    height: "max-content",
+                    backgroundColor: "#E3FDFF",
+                    "&:hover": {
+                      backgroundColor: "#D7FCFF",
+                    },
+                    borderRadius: "5%",
+                    boxShadow: "5px 5px 5px #bdbdbd",
+                  }}
+                >
+                  <TimelineData />
+                </Box>
+              )}
+            </div>
+            <div className={styles.subDailyAttendanceBreakDown}>
+              <div className={styles.countDownMainDiv}>
+                {isLoading ? (
+                  <Box sx={{ display: "flex", alignItems: "center" }}>
+                    <Skeleton
+                      variant="rectangular"
+                      animation="wave"
+                      width={450}
+                      height={130}
+                    />
+                  </Box>
+                ) : (
+                  <Box
+                    sx={{
+                      width: "450px",
+                      height: "140px",
+                      backgroundColor: "#02a4ef",
+                      padding: "5px",
+                      "&:hover": {
+                        backgroundColor: "#1CAFF3",
+                      },
+                      borderRadius: "10px",
+                      boxShadow: "5px 5px 5px #bdbdbd",
+                    }}
+                  >
+                    <div className={styles.countDownSubDiv}>
+                      <CountDownClock />
+                    </div>
+                  </Box>
+                )}
+              </div>
+              <div className={styles.statusDiv}>
+                <Box
+                  sx={{
+                    width: "max-content",
+                    height: "max-content",
+                    backgroundColor: "aliceBlue",
+                    padding: "5px",
+                    // "&:hover": {
+                    //   backgroundColor: "#00aaf3",
+                    // },
+                    borderRadius: "10px",
+                    boxShadow: "5px 5px 5px #bdbdbd",
+                  }}
+                >
+                  <TimeChart />
+                </Box>
+              </div>
+            </div>
+            {/* <div className={styles.dateFormatMainDiv}>
+              {isLoading ? (
+                <Box sx={{ display: "flex", alignItems: "center" }}>
+                  <Skeleton
+                    variant="rectangular"
+                    animation="wave"
+                    width={1300}
+                    height={250}
+                  />
+                </Box>
+              ) : (
+                <DailyAttendanceBreakDown />
+              )}
+            </div> */}
           </div>
         </div>
         <div className={styles.profileInfo}>

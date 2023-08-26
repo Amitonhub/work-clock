@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Popover, Box, Typography, TextField } from "@mui/material";
 import styles from "./AddOvertimeButton.module.css";
 import { ShowAlert } from "@/common";
+import { overtime } from "../../../../../../variable";
 
 const AddOvertimeButton = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -72,7 +73,7 @@ const AddOvertimeButton = () => {
     const currentMinutes = currentTime.getMinutes();
 
     // Check if the current time is between 7:00 PM and 11:00 PM
-    if (currentHour >= 19 && currentHour <= 23) {
+    if (currentHour >= overtime.OVERTIME_START_HOUR && currentHour <= overtime.OVERTIME_END_HOUR) {
       setDisableButton(false);
     } else {
       setDisableButton(true);

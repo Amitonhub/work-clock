@@ -3,6 +3,7 @@ import { Button, Popover, Box, Typography, MenuItem, Select } from "@mui/materia
 import Swal from "sweetalert2";
 import styles from "./AddTimeOffButton.module.css";
 import { ShowAlert } from "@/common";
+import { mealIn, mealOut, teaIn, teaOut } from "../../../../../../variable";
 
 function AddTimeOffButton() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -37,16 +38,23 @@ function AddTimeOffButton() {
     const currentTime = new Date();
     const currentHour = currentTime.getHours();
     const currentMinutes = currentTime.getMinutes();
-    
+
     // Check if the current time is between 1:15 PM and 2:00 PM
-    if (currentHour === 13 && currentMinutes >= 15 && currentMinutes <= 59) {
+    if (
+      (currentHour === mealIn.MEAL_IN_HOUR &&
+        currentMinutes >= mealIn.MEAL_IN_MINUTE) ||
+      (currentHour === mealOut.MEAL_OUT_HOUR &&
+        currentMinutes <= mealOut.MEAL_OUT_MINUTE)
+    ) {
       setSelectedOption("Lunch Break");
       setShowButton(true);
     }
     // Check if the current time is between 4:30 PM and 5:50 PM
     else if (
-      (currentHour === 16 && currentMinutes >= 30) ||
-      (currentHour === 17 && currentMinutes <= 30)
+      (currentHour === teaIn.TEA_IN_HOUR &&
+        currentMinutes >= teaIn.TEA_IN_MINUTE) ||
+      (currentHour === teaOut.TEA_OUT_HOUR &&
+        currentMinutes <= teaOut.TEA_OUT_MINUTE)
     ) {
       setSelectedOption("Tea Break");
       setShowButton(true);
