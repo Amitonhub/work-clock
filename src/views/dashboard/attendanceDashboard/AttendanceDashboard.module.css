@@ -90,6 +90,22 @@
   align-items: center;
 }
 
+.dailyAttendanceBreakDown{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 50px;
+}
+
+.countDownSubDiv{
+  display: flex;
+  justify-content: space-evenly;
+  height: 180px;
+}
+
+.countDownMainDiv{
+  margin-bottom: 15px;
+}
+
 .roundButton {
   border-radius: 50%;
   width: 50px;

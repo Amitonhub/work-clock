@@ -6,6 +6,8 @@
   background-color: white;
   padding-top: 20px;
   padding-bottom: 80px;
+  border-radius: 10px;
+  box-shadow: 4px 4px 4px #bdbdbd;
 }
 
 .info {
@@ -79,4 +81,43 @@
   font-size: 14px;
   font-weight: bold;
   color: #777;
+}
+
+.timestatusHeading{
+  margin-bottom: 35px;
+}
+.timeStatusSubMaindiv {
+  display: flex;
+  /* align-items: center; */
+  justify-content: space-between;
+}
+.timeStatusActivityDiv{
+  margin-right: 10px;
+}
+.coloredCircle {
+  display: inline-block;
+  margin-right: 5px;
+  border-radius: 50%;
+  border-style: solid;
+  border-width: 0.5px;
+  height: 10px;
+  width: 10px;
+}
+.timeStatusHeading{
+  display: flex;
+  align-items: baseline;
+}
+.paragraphMain {
+  color: #787486;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.activeStatus, .inactiveStatus, .overTimeStatus{
+  margin-bottom: 20px;
+  display: block;
+}
+.statusHeadingDiv{
+ margin-left: 5px;
 }

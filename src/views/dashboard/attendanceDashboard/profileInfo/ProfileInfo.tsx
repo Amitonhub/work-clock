@@ -13,6 +13,7 @@ import { useAppSelector } from "@/redux/store";
 import Loader from "@/components/Loader/Loader";
 import { useDispatch } from "react-redux";
 import { userData } from "@/redux/features/userSlice";
+import Image from "next/image";
 
 function ProfileInfo() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -47,7 +48,7 @@ function ProfileInfo() {
       <div className={styles.profileInfo}>
         <div className={styles.avatar}>
         {isLoading ? (
-          <Box sx={{ display: "flex", alignItems: "center"}}>
+          <Box sx={{ display: "flex", alignItems: "center", marginBottom: "5px"}}>
             <Skeleton variant="circular" width={80} height={80} />
           </Box>
           ) : (
@@ -58,10 +59,14 @@ function ProfileInfo() {
         </div> 
         <div className={styles.info}>
         {isLoading ? (
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Skeleton variant="rectangular" width={140} height={40} />
-            <Skeleton variant="rectangular" width={140} height={40} />
+          <>
+          <Box sx={{ display: "flex", alignItems: "center", marginBottom: "10px", justifyContent: "center" }}>
+            <Skeleton variant="rectangular" width={180} height={40}/>
           </Box>
+          <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center"  }}>
+          <Skeleton variant="rectangular" width={100} height={20}/>
+        </Box>
+          </>
           ) : (
           <>
           <h1 className={styles.name}>{name}</h1>
@@ -71,10 +76,57 @@ function ProfileInfo() {
         </div>
       </div>
       <Divider variant="middle" className={styles.Divider} />
-      <div className={styles.timeInfo}>
+      <div className={styles.timeStatusMainDiv}>
+        <h4 className={styles.timestatusHeading}>Time Status</h4>
+        {/* date slot */}
+        <div className={styles.timeStatusSubMaindiv}>
+          <div className={styles.timeStatusActivityDiv}>
+            <div className={styles.activeStatus}>
+              <div className={styles.timeStatusHeading}>
+                <span
+                  className={styles.coloredCircle}
+                  style={{ backgroundColor: "#F8C07F" }}
+                />
+                <p className={styles.paragraphMain}>Active</p>
+              </div>
+              <h5 className={styles.statusHeadingDiv}>234</h5>
+            </div>
+            <div className={styles.inactiveStatus}>
+              <div className={styles.timeStatusHeading}>
+                <span
+                  className={styles.coloredCircle}
+                  style={{ backgroundColor: "#FB896B" }}
+                />
+                <p className={styles.paragraphMain}>Inactive</p>
+              </div>
+              <h5 className={styles.statusHeadingDiv}>35</h5>
+            </div>
+            <div className={styles.overTimeStatus}>
+              <div className={styles.timeStatusHeading}>
+                <span
+                  className={styles.coloredCircle}
+                  style={{ backgroundColor: "#6956E5" }}
+                />
+                <p className={styles.paragraphMain}>OverTime</p>
+              </div>
+              <h5 className={styles.statusHeadingDiv}>4</h5>
+            </div>
+          </div>
+          <div className={styles.timeStatusImageDiv}>
+            <Image
+              src="/status.png"
+              width={215}
+              height={215}
+              alt="Time Status"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+      {/* <div className={styles.timeInfo}>
       {isLoading ? (
           <Box sx={{ display: "flex", alignItems: "center", gap: "30px" }}>
-            <Skeleton variant="circular" width={30} height={30} />
+            <Skeleton variant="circular" width={36} height={36} />
             <Skeleton variant="rectangular" width={250} height={45} />
           </Box>
           ) : (
@@ -127,7 +179,7 @@ function ProfileInfo() {
             </div>
           </>
         )}
-      </div>
+      </div> */}
     </div>
   );
 }
