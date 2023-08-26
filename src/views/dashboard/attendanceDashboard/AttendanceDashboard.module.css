@@ -8,6 +8,7 @@
   width: 1192px;
   padding: 0 15px;
   font-family: system-ui;
+  /* margin-top: 10px; */
 }
 
 .maindivHeader {
@@ -15,6 +16,7 @@
   justify-content: space-between;
   align-items: baseline;
   flex-wrap: wrap;
+  margin-top: 10px;
 }
 
 .maindivHeadersub {
@@ -92,7 +94,7 @@
 
 .dailyAttendanceBreakDown{
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   margin-bottom: 50px;
 }
 
@@ -124,7 +126,7 @@
   display: flex;
   justify-content: space-between;
   gap: 15px;
-  margin: 25px 0;
+  margin: 30px 0;
   align-items: baseline;
 }
 .modalBody{
