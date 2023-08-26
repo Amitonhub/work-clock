@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import styles from "./profileInfo.module.css";
 import Avatar from "@mui/material/Avatar";
 import Divider from "@mui/material/Divider";
@@ -21,9 +21,9 @@ import Image from "next/image";
 
 function ProfileInfo() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [activeCount, setActiveCount] = useState(Number)
-  const [inactiveCount, setInactiveCount] = useState(Number)
-  const [overtimeCount, setOvertimeCount] = useState(Number)
+  const [activeCount, setActiveCount] = useState<ReactNode>(234)
+  const [inactiveCount, setInactiveCount] = useState<ReactNode>(35)
+  const [overtimeCount, setOvertimeCount] = useState<ReactNode>(4)
   const user = useAppSelector((state) => state.user.UserData);
   const dispatch = useDispatch();
   const {
@@ -32,7 +32,7 @@ function ProfileInfo() {
     data,
     isSuccess,
   } = useUserInfoQuery(null);
-  const [duration, setDuration] = useState("");
+  const [duration, setDuration] = useState("1");
 
   const dropdownOptions = [
     { value: "1", label: "Week" },
@@ -52,7 +52,7 @@ function ProfileInfo() {
       setInactiveCount(67);
       setOvertimeCount(90);
     } else if (selectedValue === "3") {
-      setActiveCount(6134);3
+      setActiveCount(6134);
       setInactiveCount(453);
       setOvertimeCount(120);
     }
