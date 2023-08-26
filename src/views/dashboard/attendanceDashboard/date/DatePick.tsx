@@ -5,20 +5,29 @@ import ReactDatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css';
 
 function DatePick() {
-  const [startDate, setStartDate] = useState<Date>(new Date())
-  const [endDate, setEndDate] = useState<Date>(new Date())
-  const endDateRef = useRef() as React.RefObject<ReactDatePicker>
+  const [endDate, setEndDate] = useState<Date>(new Date ())
+  const endDateRef = useRef() as React.RefObject<ReactDatePicker>;
+  const today = new Date();
+
+  const [startDate, setStartDate] = useState<Date>(() => {
+    const initialStartDate = new Date(endDate);
+    initialStartDate.setDate(initialStartDate.getDate() - 4);
+      return initialStartDate;
+  })
 
   const handleStartDateChange = (date: Date) => {
-    setStartDate(date)
-    if (date.getTime() > endDate.getTime()) {
-      setEndDate(date)
-    }
-  }
+    setStartDate(date);
+    const newEndDate = new Date(date);
+    newEndDate.setDate(newEndDate.getDate() + 4);
+    setEndDate(newEndDate);
+  };
 
   const handleEndDateChange = (date: Date) => {
-    setEndDate(date)
-  }
+    setEndDate(date);
+    const newStartDate = new Date (date);
+    newStartDate.setDate(newStartDate.getDate() - 4 )
+    setStartDate(newStartDate)
+  };
 
   return (
     <div className={styles.holidayDateSection}>
@@ -31,6 +40,7 @@ function DatePick() {
         endDate={endDate}
         className={styles.dateInput}
         placeholderText="DD-MM-YYYY"
+        maxDate={today}
       />
       <span className={styles.to}>To</span>
       <ReactDatePicker
@@ -41,6 +51,7 @@ function DatePick() {
         startDate={startDate}
         endDate={endDate}
         minDate={startDate}
+        maxDate={today} 
         className={styles.dateInput}
         placeholderText="DD-MM-YYYY"
         ref={endDateRef}

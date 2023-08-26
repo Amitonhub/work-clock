@@ -10,6 +10,7 @@ import {
 import Swal from "sweetalert2";
 import styles from "./AddOvertimeButton.module.css";
 import moment from "moment";
+import { overtime } from "../../../../../../variable";
 
 const AddOvertimeButton = () => {
   const [showButton, setShowButton] = useState(false);
@@ -22,6 +23,7 @@ const AddOvertimeButton = () => {
   const today = moment(currentTime).format('L')
   const currentHour = currentTime.getHours();
   const currentMinutes = currentTime.getMinutes();
+  const [disableButton, setDisableButton] = useState(false);
 
   useEffect(() => {
     if (currentHour >= 19) {
@@ -77,6 +79,19 @@ const AddOvertimeButton = () => {
     const overtimeRegex = /^([01]\d|2[0-3]):([0-5]\d)$/;
     return overtimeRegex.test(value);
   };
+
+  useEffect(() => {
+    const currentTime = new Date();
+    const currentHour = currentTime.getHours();
+    const currentMinutes = currentTime.getMinutes();
+
+    // Check if the current time is between 7:00 PM and 11:00 PM
+    if (currentHour >= 19 && currentHour <= 23) {
+      setDisableButton(false);
+    } else {
+      setDisableButton(true);
+    }
+  }, []);
 
   const open = Boolean(anchorEl);
   const id = open ? "popover-add-overtime" : undefined;

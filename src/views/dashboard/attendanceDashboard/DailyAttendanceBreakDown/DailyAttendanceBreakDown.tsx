@@ -53,12 +53,12 @@ function DailyAttendanceBreakDown() {
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
   const currentRows = userAttendance?.slice(indexOfFirstRow, indexOfLastRow);
 
-  const totalPages = Math.ceil(userAttendance?.length / rowsPerPage);
+  // const totalPages = Math.ceil(userAttendance?.length / rowsPerPage);
 
-  const handleChangePage = (event: any, newPage: number) => {
-    event.preventDefault();
-    setPage(newPage);
-  };
+  // const handleChangePage = (event: any, newPage: number) => {
+  //   event.preventDefault();
+  //   setPage(newPage);
+  // };
 
   return (
     <>
@@ -70,10 +70,9 @@ function DailyAttendanceBreakDown() {
           striped="columns"
           bordered
           hover
-          responsive="sm"
           className={styles.attendanceTable}
         >
-          <thead className={styles.tableHead}>
+          <thead>
             <tr className={styles.attendanceTableTr}>
               <td>Date</td>
               <td>Check In</td>
@@ -177,7 +176,7 @@ function DailyAttendanceBreakDown() {
               )))] : []}
           </tbody>
         </Table>
-        <Stack
+        {/* <Stack
           spacing={2}
           justifyContent="flex-end"
           alignItems="end"
@@ -190,7 +189,7 @@ function DailyAttendanceBreakDown() {
             variant="outlined"
             color="standard"
           />
-        </Stack>
+        </Stack> */}
       </div>
     </>
   );

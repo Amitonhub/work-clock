@@ -5,11 +5,12 @@ import Divider from "@mui/material/Divider";
 import dynamic from "next/dynamic";
 import { Modal } from "react-bootstrap";
 import AddOvertimeButton from "./Buttons/AddOvertimeButton";
-import { Badge, Icon } from "@mui/material";
+import { Badge, Button, Icon } from "@mui/material";
 import QRCodeScanner from "./QRCodeScanner";
-
+import EastIcon from '@mui/icons-material/East';
 import Skeleton from "@mui/material/Skeleton";
 import Box from "@mui/material/Box";
+import Link from "next/link";
 
 const DatePick = dynamic(
   () => import("@/views/dashboard/attendanceDashboard/date/DatePick")
@@ -57,17 +58,29 @@ const ProfileSidebar = dynamic(
       "@/views/dashboard/attendanceDashboard/ProfileSidebar/ProfileSidebar"
     )
 );
+const TimelineData = dynamic(
+  () =>
+    import("@/views/dashboard/attendanceDashboard/TimelineData/TimelineData")
+);
+const CountDownClock = dynamic(
+  () =>
+    import(
+      "@/views/dashboard/attendanceDashboard/CountDownClock/CountDownClock"
+    )
+);
+const TimeChart = dynamic(
+  () => import("@/views/dashboard/attendanceDashboard/Timechart/TimeChart")
+);
 
 function AttendanceDashBoard() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [isProfileSidebarOpen, setProfileSidebarOpen] = useState(false);
+  const [showQRCodeScanner, setShowQRCodeScanner] = useState(false);
   const qrCodeScannerValue = useRef<any>()
   const handleToggleSidebar = () => setSidebarOpen(!isSidebarOpen);
   const handleToggleProfileSidebar = () =>
     setProfileSidebarOpen(!isProfileSidebarOpen);
-
-  const [showQRCodeScanner, setShowQRCodeScanner] = useState(false);
 
   useEffect(() => {
     const checkCamera = (async () => {
@@ -106,9 +119,8 @@ function AttendanceDashBoard() {
       <div className={styles.navBar}>
         <div className={styles.mainDiv}>
           <div className={styles.maindivHeader}>
-            <div className={styles.box}>
-      <h5 >TimeSheets: </h5>
-
+            <div className={styles.box} >
+              <h5 style={{ display: isLoading ? "none" : "flex" }}>TimeSheets: </h5>
               {isLoading ? (
                 <Box
                   sx={{ display: "flex", alignItems: "center", gap: "10px" }}
@@ -199,13 +211,22 @@ function AttendanceDashBoard() {
                   width={380}
                   height={40}
                 />
-                <Skeleton variant="text" animation="wave" width={1165} />
+                <Skeleton variant="text" animation="wave" width={1010} />
               </Box>
             ) : (
               <DailyAttendance />
             )}
           </div>
           <div className={styles.addTimeOffButton}>
+            <div>
+              <Link href={'/reports'}>
+                <Button style={{
+                  margin: "10px 0",
+                  borderRadius: "30px",
+                  color: "#2c82e0"
+                }} variant="outlined">Go to Detailed Report &nbsp;  <EastIcon className={styles.rightArrow} /> </Button>
+              </Link>
+            </div>
             {isLoading ? (
               <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
                 <Skeleton
@@ -228,26 +249,104 @@ function AttendanceDashBoard() {
                 />
               </Box>
             ) : (
-              <>
+              <div>
                 <PunchInOutButton />
                 <AddTimeOffButton />
                 <AddOvertimeButton />
-              </>
+              </div>
             )}
           </div>
           <div className={styles.dailyAttendanceBreakDown}>
-            {isLoading ? (
-              <Box sx={{ display: "flex", alignItems: "center" }}>
-                <Skeleton
-                  variant="rectangular"
-                  animation="wave"
-                  width={1400}
-                  height={140}
-                />
-              </Box>
-            ) : (
-              <DailyAttendanceBreakDown />
-            )}
+            <div className={styles.timelineFormatMainDiv}>
+              {isLoading ? (
+                <Box sx={{ display: "flex", alignItems: "center" }}>
+                  <Skeleton
+                    variant="rectangular"
+                    animation="wave"
+                    width={310}
+                    height={400}
+                  />
+                </Box>
+              ) : (
+                <Box
+                  sx={{
+                    width: "max-content",
+                    height: "max-content",
+                    backgroundColor: "#E3FDFF",
+                    "&:hover": {
+                      backgroundColor: "#D7FCFF",
+                    },
+                    borderRadius: "5%",
+                    boxShadow: "5px 5px 5px #bdbdbd",
+                  }}
+                >
+                  <TimelineData />
+                </Box>
+              )}
+            </div>
+            <div className={styles.subDailyAttendanceBreakDown}>
+              <div className={styles.countDownMainDiv}>
+                {isLoading ? (
+                  <Box sx={{ display: "flex", alignItems: "center" }}>
+                    <Skeleton
+                      variant="rectangular"
+                      animation="wave"
+                      width={450}
+                      height={130}
+                    />
+                  </Box>
+                ) : (
+                  <Box
+                    sx={{
+                      width: "555px",
+                      height: "140px",
+                      backgroundColor: "#02a4ef",
+                      padding: "5px",
+                      "&:hover": {
+                        backgroundColor: "#1CAFF3",
+                      },
+                      borderRadius: "10px",
+                      boxShadow: "5px 5px 5px #bdbdbd",
+                    }}
+                  >
+                    <div className={styles.countDownSubDiv}>
+                      <CountDownClock />
+                    </div>
+                  </Box>
+                )}
+              </div>
+              <div className={styles.statusDiv}>
+                <Box
+                  sx={{
+                    width: "max-content",
+                    height: "max-content",
+                    backgroundColor: "aliceBlue",
+                    padding: "5px",
+                    // "&:hover": {
+                    //   backgroundColor: "#00aaf3",
+                    // },
+                    borderRadius: "10px",
+                    boxShadow: "5px 5px 5px #bdbdbd",
+                  }}
+                >
+                  <TimeChart />
+                </Box>
+              </div>
+            </div>
+            {/* <div className={styles.dateFormatMainDiv}>
+              {isLoading ? (
+                <Box sx={{ display: "flex", alignItems: "center" }}>
+                  <Skeleton
+                    variant="rectangular"
+                    animation="wave"
+                    width={1300}
+                    height={250}
+                  />
+                </Box>
+              ) : (
+                <DailyAttendanceBreakDown />
+              )}
+            </div> */}
           </div>
         </div>
         <div className={styles.profileInfo}>
