@@ -10,7 +10,6 @@ import { ToastError } from "@/utils/showToastAlerts";
 import { useAppSelector } from "@/redux/store";
 import { AttendanceDataType, Punch } from "@/views/dashboard/types/attendanceDataType";
 import moment from "moment";
-import { mealIn, mealOut, teaIn, teaOut } from "../../../../../../variable";
 
 function AddTimeOffButton() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -60,10 +59,10 @@ function AddTimeOffButton() {
     }
     // Check if the current time is between 4:30 PM and 5:50 PM
     else if (
-      (currentHour === teaIn.TEA_IN_HOUR &&
-        currentMinutes >= teaIn.TEA_IN_MINUTE) ||
-      (currentHour === teaOut.TEA_OUT_HOUR &&
-        currentMinutes <= teaOut.TEA_OUT_MINUTE)
+      (currentHour === 16 &&
+        currentMinutes >= 30) ||
+      (currentHour === 17 &&
+        currentMinutes <= 30)
     ) {
       setShowButton(true);
     }

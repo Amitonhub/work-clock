@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from "./CountDownClock.module.css";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
-import { variables } from "../../../../../variable";
+import { variables } from "@/constants";
 
 function CountDownClock() {
   const formatTime = (seconds: number) => {

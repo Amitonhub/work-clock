@@ -1,7 +1,8 @@
 .drawer {
   width: 300px;
   height: 100vh;
-  background-color: #f5f5f5;
+  background-color: #F1F2F7;
+  opacity: 0.98;
   position: absolute;
   top: 0;
   left: -300px;
@@ -10,6 +11,9 @@
 
 .open {
   left: 0;
+}
+.dividerMain{
+  border-color: black;
 }
 
 .drawerPaper {
@@ -68,7 +72,7 @@
   background-color: #d3d3d3;
 }
 
-.closeButton {
+.starBorderIconButton {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -78,6 +82,6 @@
   transition: opacity 0.3s ease;
 }
 
-.notificationItem:hover .closeButton {
+.notificationItem:hover .starBorderIconButton {
   opacity: 1;
 }
