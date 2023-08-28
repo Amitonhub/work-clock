@@ -218,6 +218,16 @@ function AttendanceDashBoard() {
             )}
           </div>
           <div className={styles.addTimeOffButton}>
+          {isLoading ? (
+              <Box sx={{ alignItems: "center" }}>
+                <Skeleton
+                  variant="rectangular"
+                  animation="wave"
+                  width={250}
+                  height={40}
+                />
+              </Box>
+            ) : (
             <div>
               <Link href={'/reports'}>
                 <Button style={{
@@ -227,6 +237,7 @@ function AttendanceDashBoard() {
                 }} variant="outlined">Go to Detailed Report &nbsp;  <EastIcon className={styles.rightArrow} /> </Button>
               </Link>
             </div>
+            )}
             {isLoading ? (
               <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
                 <Skeleton
@@ -263,8 +274,8 @@ function AttendanceDashBoard() {
                   <Skeleton
                     variant="rectangular"
                     animation="wave"
-                    width={310}
-                    height={400}
+                    width={370}
+                    height={320}
                   />
                 </Box>
               ) : (
@@ -291,8 +302,8 @@ function AttendanceDashBoard() {
                     <Skeleton
                       variant="rectangular"
                       animation="wave"
-                      width={450}
-                      height={130}
+                      width={555}
+                      height={140}
                     />
                   </Box>
                 ) : (
@@ -316,6 +327,16 @@ function AttendanceDashBoard() {
                 )}
               </div>
               <div className={styles.statusDiv}>
+              {isLoading ? (
+                  <Box sx={{ display: "flex", alignItems: "center" }}>
+                    <Skeleton
+                      variant="rectangular"
+                      animation="wave"
+                      width={555}
+                      height={165}
+                    />
+                  </Box>
+                ) : (
                 <Box
                   sx={{
                     width: "max-content",
@@ -331,6 +352,7 @@ function AttendanceDashBoard() {
                 >
                   <TimeChart />
                 </Box>
+                )}
               </div>
             </div>
           </div>
