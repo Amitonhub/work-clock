@@ -118,6 +118,11 @@
   background-color: #02A4EF !important;
   border: none !important;
 }
+.subDailyAttendanceBreakDownSubDiv{
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+}
 
 .dailyAttendanceContainer {
   margin-top: 20px;
@@ -151,7 +156,10 @@
 .rightArrow{
   color: #2c82e0;
 }
-
+.headerMainDiv{
+  display: flex;
+  align-items: baseline;
+}
 @media (max-width: 1554px) {
 
   .profileInfoWrapper{

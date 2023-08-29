@@ -1,4 +1,7 @@
-.headingCountDownDiv {
-  margin-top: 45px;
+.headingCountDown {
+  display: flex;
+  margin-left: 45px;
   color: #D7FCFF;
+  margin-top: revert;
+  text-align: center;
 }

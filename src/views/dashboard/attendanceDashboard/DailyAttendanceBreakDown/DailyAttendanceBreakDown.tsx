@@ -63,9 +63,6 @@ function DailyAttendanceBreakDown() {
   return (
     <>
       <div className={styles.mainDiv}>
-        <Link href={'/reports'}>
-      <Button className={styles.reportButton} variant="outlined">Go to Detailed Report &nbsp;  <EastIcon className={styles.rightArrow}/> </Button>
-        </Link>
         <Table
           striped="columns"
           bordered

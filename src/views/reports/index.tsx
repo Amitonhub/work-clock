@@ -1,74 +1,103 @@
-'use client'
-import React, { useEffect } from "react";
-import styles from './reports.module.scss'
-import { Alert, AlertTitle, Button, Divider } from "@mui/material";
+"use client";
+import React, { useEffect, useState } from "react";
+import styles from "./reports.module.scss";
+import { Alert, AlertTitle, Box, Button, Skeleton } from "@mui/material";
 import ReportsTable from "./reports-table";
-import { DatePick } from "../dashboard/attendanceDashboard/date";
-import FileDownloadIcon from '@mui/icons-material/FileDownload';
-import RefreshIcon from '@mui/icons-material/Refresh';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Link from "next/link";
 import { useAppSelector } from "@/redux/store";
-import { CSVLink } from "react-csv";
 import { AttendanceDataType } from "../dashboard/types/attendanceDataType";
-import { ToastSuccess } from "@/utils/showToastAlerts";
-import { useRouter } from "next/navigation";
 import ConfirmDownload from "./utils/ConfirmDownload";
+import dynamic from "next/dynamic";
+const DashBoardHeader = dynamic(
+  () => import("@/views/dashboard/DashBoardHeader/DashBoardHeader")
+);
+const DatePick = dynamic(
+  () => import("@/views/dashboard/attendanceDashboard/date/DatePick")
+);
 
 function ReportsPage() {
-  const router = useRouter()
-  const user = useAppSelector((state) => state.user.UserData)
-  const userAttendance = useAppSelector((state) => state.attendance.attendanceData)
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const user = useAppSelector((state) => state.user.UserData);
+  const userAttendance = useAppSelector(
+    (state) => state.attendance.attendanceData
+  );
   const formattedData = userAttendance?.map((item: AttendanceDataType) => ({
     ...item,
     date: new Date(item.date),
   }));
-
-  const refreshClick = () => {
-    window.location.reload()
-    ToastSuccess('data has been updated')
-  }
-
+  
   if (!formattedData) {
     <Alert severity="error">
       <AlertTitle>Error</AlertTitle>
       There is an error in fetching — <strong>report!</strong>
-    </Alert>
+    </Alert>;
   }
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    });
+    return () => {
+      setIsLoading(false);
+    };
+  }, []);
 
   return (
     <div className={styles.mainDiv}>
-      <div className={styles.header}>Attendance Report</div>
-      <Divider variant="middle" className={styles.Divider} />
-      <div className={styles.tableHeader}>
-        <div className={styles.datePickReports}>
-          <h5>Choose dates : &nbsp;</h5>
-          <span>
-            <DatePick />
-          </span>
-        </div>
-        <div className={styles.rightHeaderDiv}>
-          <ConfirmDownload user={user} data={userAttendance} open={true} />
-          <Button onClick={refreshClick} className={styles.reportDownload} variant="contained"><RefreshIcon /></Button>
-        </div>
+      <div className={styles.header}>
+        <DashBoardHeader />
       </div>
-      <Link href={'/'}>
-        <Button className={styles.reportButton} variant="outlined"><ArrowBackIcon className={styles.leftArrow}  /> &nbsp; Go to Dashboard </Button>
-      </Link>
-      {formattedData ?
+      <div className={styles.tableHeader}>
+        {isLoading ? (
+          <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <Skeleton variant="text" width={121} height={25} />
+            <Skeleton variant="rectangular" width={115} height={35} />
+            <Skeleton variant="rounded" width={40} height={35} />
+            <Skeleton variant="rectangular" width={115} height={35} />
+          </Box>
+        ) : (
+          <div className={styles.datePickReports}>
+            <h5>TimeSheet : &nbsp;</h5>
+            <span>
+              <DatePick />
+            </span>
+          </div>
+        )}
+          {isLoading ? (
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <Skeleton variant="rounded" width={268} height={37} />
+            </Box>
+          ) : (
+            <ConfirmDownload user={user} data={userAttendance} open={true} />
+          )}
+      </div>
+      {isLoading ? (
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          <Skeleton variant="rounded" width={206} height={35} />
+        </Box>
+      ) : (
+        <Link href={"/dashboard"}>
+          <Button className={styles.reportButton} variant="outlined">
+            <ArrowBackIcon className={styles.leftArrow} /> &nbsp; Go to
+            Dashboard{" "}
+          </Button>
+        </Link>
+      )}
+      {formattedData ? (
         <Alert severity="success">
           <AlertTitle>Success</AlertTitle>
-          Your Attendance Report Generated  — <strong>Successfully!</strong>
+          Your Attendance Report Generated — <strong>Successfully!</strong>
         </Alert>
-        :
+      ) : (
         <Alert severity="info">
           <AlertTitle>Wait</AlertTitle>
           Report is — <strong>fetching!</strong>
         </Alert>
-      }
+      )}
       <ReportsTable />
     </div>
-  )
+  );
 }
 
 export default ReportsPage;
