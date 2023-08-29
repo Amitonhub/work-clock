@@ -8,7 +8,6 @@ function CountDownClock() {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
     const remainingSeconds = seconds % 60;
-
     return `${hours}:${minutes < 10 ? "0" : ""}${minutes}:${
       remainingSeconds < 10 ? "0" : ""
     }${remainingSeconds}`;
@@ -29,7 +28,7 @@ function CountDownClock() {
       >
         {({ remainingTime }) => <h5>{formatTime(remainingTime)}</h5>}
       </CountdownCircleTimer>
-      <h4 className={styles.headingCountDownDiv}>Time Remaining</h4>
+      <h4 className={styles.headingCountDown}>Time Remaining</h4>
     </>
   );
 }
