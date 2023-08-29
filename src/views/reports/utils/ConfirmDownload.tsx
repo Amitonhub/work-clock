@@ -34,7 +34,7 @@ export default function ConfirmDownload(props: ConfirmDownloadType) {
 
   return (
     <div>
-      <Button className={styles.reportDownload} variant="contained" onClick={handleClickOpen}>Download report in csv &nbsp; <FileDownloadIcon /> </Button>
+      <Button className={styles.reportDownload} variant="contained" onClick={handleClickOpen}><FileDownloadIcon />&nbsp; Report in csv </Button>
       <Dialog
         fullScreen={fullScreen}
         open={open}
