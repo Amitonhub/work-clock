@@ -110,7 +110,7 @@ function ProfileInfo() {
                   justifyContent: "center",
                 }}
               >
-                <Skeleton variant="rectangular" width={180} height={40} />
+                <Skeleton variant="rounded" width={180} height={40} />
               </Box>
               <Box
                 sx={{
@@ -119,7 +119,7 @@ function ProfileInfo() {
                   justifyContent: "center",
                 }}
               >
-                <Skeleton variant="rectangular" width={100} height={20} />
+                <Skeleton variant="rounded" width={100} height={20} />
               </Box>
             </>
           ) : (

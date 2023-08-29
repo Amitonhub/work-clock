@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useState, useRef, useEffect } from "react";
 import styles from "./AttendanceDashboard.module.css";
 import Divider from "@mui/material/Divider";
@@ -7,14 +7,13 @@ import { Modal } from "react-bootstrap";
 import AddOvertimeButton from "./Buttons/AddOvertimeButton";
 import { Badge, Button, Icon } from "@mui/material";
 import QRCodeScanner from "./QRCodeScanner";
-import EastIcon from '@mui/icons-material/East';
+import EastIcon from "@mui/icons-material/East";
 import Skeleton from "@mui/material/Skeleton";
 import Box from "@mui/material/Box";
 import Link from "next/link";
+import moment from "moment";
+import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 
-const DatePick = dynamic(
-  () => import("@/views/dashboard/attendanceDashboard/date/DatePick")
-);
 const ProfileInfo = dynamic(
   () => import("@/views/dashboard/attendanceDashboard/profileInfo/ProfileInfo")
 );
@@ -22,12 +21,6 @@ const DailyAttendance = dynamic(
   () =>
     import(
       "@/views/dashboard/attendanceDashboard/DailyAttendance/DailyAttendance"
-    )
-);
-const DailyAttendanceBreakDown = dynamic(
-  () =>
-    import(
-      "@/views/dashboard/attendanceDashboard/DailyAttendanceBreakDown/DailyAttendanceBreakDown"
     )
 );
 const PunchInOutButton = dynamic(() =>
@@ -71,31 +64,39 @@ const CountDownClock = dynamic(
 const TimeChart = dynamic(
   () => import("@/views/dashboard/attendanceDashboard/Timechart/TimeChart")
 );
+const OnTimeLatePunch = dynamic(
+  () =>
+    import(
+      "@/views/dashboard/attendanceDashboard/OnTimeLatePunch/OnTimeLatePunch"
+    )
+);
 
 function AttendanceDashBoard() {
+  const todaysDate = moment().format("ddd, MMM Do YYYY");
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isProfileSidebarOpen, setProfileSidebarOpen] = useState(false);
   const [showQRCodeScanner, setShowQRCodeScanner] = useState(false);
-  const qrCodeScannerValue = useRef<any>()
-  const handleToggleSidebar = () => setSidebarOpen(!isSidebarOpen);
+  const qrCodeScannerValue = useRef<any>();
+  const handleToggleSidebar = () =>
+    setSidebarOpen(isSidebarOpen === false ? true : false);
   const handleToggleProfileSidebar = () =>
-    setProfileSidebarOpen(!isProfileSidebarOpen);
+    setProfileSidebarOpen(isProfileSidebarOpen === false ? true : false);
 
   useEffect(() => {
-    const checkCamera = (async () => {
+    const checkCamera = async () => {
       try {
         if (await navigator.mediaDevices.getUserMedia({ video: true })) {
-          return 'camera detected'
+          return "camera detected";
         }
       } catch (err) {
-        qrCodeScannerValue.current.style.display = "none"      // uncomment for hiding qr scanner in desktop
-        console.log("err", err)
-        return "err"
+        qrCodeScannerValue.current.style.display = "none"; // uncomment for hiding qr scanner in desktop
+        console.log("err", err);
+        return "err";
       }
-    })
-    checkCamera()
-  }, [])
+    };
+    checkCamera();
+  }, []);
 
   useEffect(() => {
     setTimeout(() => {
@@ -119,22 +120,45 @@ function AttendanceDashBoard() {
       <div className={styles.navBar}>
         <div className={styles.mainDiv}>
           <div className={styles.maindivHeader}>
-            <div className={styles.box} >
-              <h5 style={{ display: isLoading ? "none" : "flex" }}>TimeSheets: </h5>
+            <div className={styles.box}>
               {isLoading ? (
                 <Box
                   sx={{ display: "flex", alignItems: "center", gap: "10px" }}
                 >
-                  <Skeleton variant="text" width={115} height={20} />
-                  <Skeleton variant="rectangular" width={40} height={25} />
-                  <Skeleton variant="text" width={115} height={20} />
+                  <Skeleton variant="rounded" width={24} height={24} />
+                  <Skeleton variant="rounded" width={164} height={40} />
                 </Box>
               ) : (
-                <DatePick />
+                <div className={styles.headerMainDiv}>
+                  <div>
+                    <h4 style={{ display: isLoading ? "none" : "flex" }}>
+                      <CalendarTodayIcon />
+                    </h4>
+                  </div>
+                  <div>
+                    <Button
+                      className={styles.todaysDateButton}
+                      style={{
+                        marginLeft: "10px",
+                        marginBottom: "10px",
+                        borderRadius: "20px",
+                        color: "steelblue",
+                        fontWeight: "bold",
+                      }}
+                      variant="outlined"
+                      disabled
+                    >
+                      {todaysDate}
+                    </Button>
+                  </div>
+                </div>
               )}
             </div>
             <div className={styles.maindivHeadersub}>
-              <div className={styles.QRCodeScannerMain} ref={qrCodeScannerValue}>
+              <div
+                className={styles.QRCodeScannerMain}
+                ref={qrCodeScannerValue}
+              >
                 <button
                   className={`btn btn-secondary rounded-circle ${styles.roundButton}`}
                   aria-label="QRCode Scanner"
@@ -218,42 +242,48 @@ function AttendanceDashBoard() {
             )}
           </div>
           <div className={styles.addTimeOffButton}>
-          {isLoading ? (
+            {isLoading ? (
               <Box sx={{ alignItems: "center" }}>
                 <Skeleton
-                  variant="rectangular"
+                  variant="rounded"
                   animation="wave"
                   width={250}
                   height={40}
                 />
               </Box>
             ) : (
-            <div>
-              <Link href={'/reports'}>
-                <Button style={{
-                  margin: "10px 0",
-                  borderRadius: "30px",
-                  color: "#2c82e0"
-                }} variant="outlined">Go to Detailed Report &nbsp;  <EastIcon className={styles.rightArrow} /> </Button>
-              </Link>
-            </div>
+              <div>
+                <Link href={"/reports"}>
+                  <Button
+                    style={{
+                      margin: "10px 0",
+                      borderRadius: "30px",
+                      color: "#2c82e0",
+                    }}
+                    variant="outlined"
+                  >
+                    Go to Detailed Report &nbsp;{" "}
+                    <EastIcon className={styles.rightArrow} />{" "}
+                  </Button>
+                </Link>
+              </div>
             )}
             {isLoading ? (
               <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
                 <Skeleton
-                  variant="rectangular"
+                  variant="rounded"
                   animation="wave"
                   width={120}
                   height={40}
                 />
                 <Skeleton
-                  variant="rectangular"
+                  variant="rounded"
                   animation="wave"
                   width={120}
                   height={40}
                 />
                 <Skeleton
-                  variant="rectangular"
+                  variant="rounded"
                   animation="wave"
                   width={120}
                   height={40}
@@ -268,17 +298,17 @@ function AttendanceDashBoard() {
             )}
           </div>
           <div className={styles.dailyAttendanceBreakDown}>
-            <div className={styles.timelineFormatMainDiv}>
-              {isLoading ? (
-                <Box sx={{ display: "flex", alignItems: "center" }}>
-                  <Skeleton
-                    variant="rectangular"
-                    animation="wave"
-                    width={370}
-                    height={320}
-                  />
-                </Box>
-              ) : (
+            {isLoading ? (
+              <Box sx={{ display: "flex", alignItems: "center" }}>
+                <Skeleton
+                  variant="rounded"
+                  animation="wave"
+                  width={370}
+                  height={320}
+                />
+              </Box>
+            ) : (
+              <div className={styles.timelineFormatMainDiv}>
                 <Box
                   sx={{
                     width: "max-content",
@@ -293,65 +323,70 @@ function AttendanceDashBoard() {
                 >
                   <TimelineData />
                 </Box>
-              )}
-            </div>
+              </div>
+            )}
             <div className={styles.subDailyAttendanceBreakDown}>
-              <div className={styles.countDownMainDiv}>
+              <div className={styles.subDailyAttendanceBreakDownSubDiv}>
+                <div className={styles.countDownMainDiv}>
+                  {isLoading ? (
+                    <Box sx={{ display: "flex", alignItems: "center" }}>
+                      <Skeleton
+                        variant="rounded"
+                        animation="wave"
+                        width={315}
+                        height={140}
+                      />
+                    </Box>
+                  ) : (
+                    <Box
+                      sx={{
+                        width: "315px",
+                        height: "140px",
+                        backgroundColor: "#02A4DE",
+                        padding: "5px",
+                        "&:hover": {
+                          backgroundColor: "#1CAFF3",
+                        },
+                        borderRadius: "10px",
+                        boxShadow: "5px 5px 5px #bdbdbd",
+                      }}
+                    >
+                      <div className={styles.countDownSubDiv}>
+                        <CountDownClock />
+                      </div>
+                    </Box>
+                  )}
+                </div>
+                <div className={styles.ontimeLatePunchDiv}>
+                  <OnTimeLatePunch />
+                </div>
+              </div>
+              <div className={styles.statusDiv}>
                 {isLoading ? (
                   <Box sx={{ display: "flex", alignItems: "center" }}>
                     <Skeleton
-                      variant="rectangular"
+                      variant="rounded"
                       animation="wave"
                       width={555}
-                      height={140}
+                      height={190}
                     />
                   </Box>
                 ) : (
                   <Box
                     sx={{
-                      width: "555px",
-                      height: "140px",
-                      backgroundColor: "#02a4ef",
+                      width: "max-content",
+                      height: "max-content",
+                      backgroundColor: "aliceBlue",
                       padding: "5px",
-                      "&:hover": {
-                        backgroundColor: "#1CAFF3",
-                      },
+                      // "&:hover": {
+                      //   backgroundColor: "#00aaf3",
+                      // },
                       borderRadius: "10px",
                       boxShadow: "5px 5px 5px #bdbdbd",
                     }}
                   >
-                    <div className={styles.countDownSubDiv}>
-                      <CountDownClock />
-                    </div>
+                    <TimeChart />
                   </Box>
-                )}
-              </div>
-              <div className={styles.statusDiv}>
-              {isLoading ? (
-                  <Box sx={{ display: "flex", alignItems: "center" }}>
-                    <Skeleton
-                      variant="rectangular"
-                      animation="wave"
-                      width={555}
-                      height={165}
-                    />
-                  </Box>
-                ) : (
-                <Box
-                  sx={{
-                    width: "max-content",
-                    height: "max-content",
-                    backgroundColor: "aliceBlue",
-                    padding: "5px",
-                    // "&:hover": {
-                    //   backgroundColor: "#00aaf3",
-                    // },
-                    borderRadius: "10px",
-                    boxShadow: "5px 5px 5px #bdbdbd",
-                  }}
-                >
-                  <TimeChart />
-                </Box>
                 )}
               </div>
             </div>
