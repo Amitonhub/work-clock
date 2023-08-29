@@ -74,7 +74,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
           <Close className={styles.closeIconImage} />
         </div>
       </div>
-      <Divider className={styles.dividerMain} />
+      <Divider className={styles.dividerMainDiv} />
       <Tabs
         value={activeTab}
         onChange={handleChangeTab}

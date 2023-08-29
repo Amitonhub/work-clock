@@ -75,6 +75,7 @@ function TimeChart() {
       </div>
       <div className={styles.linechartDiv}>
         <LineChart
+        className={styles.lineChartSubDiv}
           width={480}
           height={180}
           data={data}

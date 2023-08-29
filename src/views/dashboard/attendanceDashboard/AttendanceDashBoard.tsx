@@ -353,6 +353,7 @@ function AttendanceDashBoard() {
                     >
                       <div className={styles.countDownSubDiv}>
                         <CountDownClock />
+                        <h4 className={styles.headingCountDown}>Time Remaining</h4>
                       </div>
                     </Box>
                   )}

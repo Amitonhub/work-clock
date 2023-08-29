@@ -66,7 +66,7 @@ function ReportsPage() {
         )}
           {isLoading ? (
             <Box sx={{ display: "flex", alignItems: "center" }}>
-              <Skeleton variant="rounded" width={268} height={37} />
+              <Skeleton variant="rounded" width={178} height={38} />
             </Box>
           ) : (
             <ConfirmDownload user={user} data={userAttendance} open={true} />

@@ -11,9 +11,7 @@ import { useAppSelector } from "@/redux/store";
 import { AttendanceDataType } from "../../types/attendanceDataType";
 import { useDispatch } from "react-redux";
 import { attendanceData } from "@/redux/features/attendanceSlice";
-import EastIcon from '@mui/icons-material/East';
 import moment from "moment";
-import Link from "next/link";
 
 function DailyAttendanceBreakDown() {
   const user = useAppSelector((state) => state.user.UserData)
