@@ -118,6 +118,11 @@
   background-color: #02A4EF !important;
   border: none !important;
 }
+.subDailyAttendanceBreakDownSubDiv{
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+}
 
 .dailyAttendanceContainer {
   margin-top: 20px;
@@ -151,7 +156,17 @@
 .rightArrow{
   color: #2c82e0;
 }
-
+.headerMainDiv{
+  display: flex;
+  align-items: baseline;
+}
+.headingCountDown {
+  display: flex;
+  margin-left: 45px;
+  color: #D7FCFF;
+  margin-top: revert;
+  text-align: center;
+}
 @media (max-width: 1554px) {
 
   .profileInfoWrapper{
@@ -180,10 +195,35 @@
     width: 100%;
   }
 }
-
+@media (max-width : 960px) {
+  .dailyAttendanceBreakDown{
+    flex-wrap: wrap;
+    align-items: unset;
+  }
+  .subDailyAttendanceBreakDownSubDiv{
+    display: grid;
+    justify-items: center;
+  }
+  .statusDiv{
+    display: none; /* have to make it responsive*/
+  }
+}
+@media (max-width : 710px) {
+  .dailyAttendanceBreakDown{
+    align-items: center;
+    justify-content: center;
+  }
+  .subDailyAttendanceBreakDownSubDiv{
+    margin-bottom: 15px;
+    justify-content: center;
+  }
+  .statusDiv{
+    display: flex;
+  }
+}
 @media (max-width: 767px) {
   .maindivHeader {
-    flex-direction: column-reverse;
+    flex-direction: column;
     gap: 5px;
   }
   .mainDiv{

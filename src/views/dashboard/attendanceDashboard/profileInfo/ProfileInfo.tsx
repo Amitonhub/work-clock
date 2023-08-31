@@ -1,10 +1,14 @@
 "use client";
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import styles from "./profileInfo.module.css";
 import Avatar from "@mui/material/Avatar";
 import Divider from "@mui/material/Divider";
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import { Icon } from "@mui/material";
+import {
+  FormControl,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+} from "@mui/material";
 import { IUserType } from "../../types/userType";
 import Skeleton from "@mui/material/Skeleton";
 import Box from "@mui/material/Box";
@@ -17,21 +21,53 @@ import Image from "next/image";
 
 function ProfileInfo() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const user = useAppSelector((state)=> state.user.UserData)
-  const dispatch = useDispatch()
-  const { isLoading: isUserInfoLoading, isFetching, data, error, isSuccess } = useUserInfoQuery(null);
-  
-  useEffect(() => {
-    if(isSuccess){
-      dispatch(userData(data as unknown as IUserType))
-    }
-    if(isUserInfoLoading || isFetching){
-      <Loader/>
-    }
-    
-  }, [data])
+  const [activeCount, setActiveCount] = useState<ReactNode>(234)
+  const [inactiveCount, setInactiveCount] = useState<ReactNode>(35)
+  const [overtimeCount, setOvertimeCount] = useState<ReactNode>(4)
+  const user = useAppSelector((state) => state.user.UserData);
+  const dispatch = useDispatch();
+  const {
+    isLoading: isUserInfoLoading,
+    isFetching,
+    data,
+    isSuccess,
+  } = useUserInfoQuery(null);
+  const [duration, setDuration] = useState("1");
 
-  const name = user && user?.firstname + ' ' + user.lastname;
+  const dropdownOptions = [
+    { value: "1", label: "Week" },
+    { value: "2", label: "Month" },
+    { value: "3", label: "Quaterly" },
+  ];
+  const handleChange = (event: SelectChangeEvent) => {
+    const selectedValue = event.target.value as string;
+    setDuration(selectedValue);
+  
+    if (selectedValue === "1") {
+      setActiveCount(234);
+      setInactiveCount(35);
+      setOvertimeCount(4);
+    } else if (selectedValue === "2") {
+      setActiveCount(1757);
+      setInactiveCount(67);
+      setOvertimeCount(90);
+    } else if (selectedValue === "3") {
+      setActiveCount(6134);
+      setInactiveCount(453);
+      setOvertimeCount(120);
+    }
+  };
+
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(userData(data as unknown as IUserType));
+    }
+    if (isUserInfoLoading || isFetching) {
+      <Loader />;
+    }
+  }, [data]);
+
+  const name = user && user?.firstname + " " + user.lastname;
   const designation = user && user?.designation;
 
   useEffect(() => {
@@ -47,37 +83,77 @@ function ProfileInfo() {
     <div className={styles.container}>
       <div className={styles.profileInfo}>
         <div className={styles.avatar}>
-        {isLoading ? (
-          <Box sx={{ display: "flex", alignItems: "center", marginBottom: "5px"}}>
-            <Skeleton variant="circular" width={80} height={80} />
-          </Box>
+          {isLoading ? (
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                marginBottom: "5px",
+              }}
+            >
+              <Skeleton variant="circular" width={80} height={80} />
+            </Box>
           ) : (
-          <Avatar sx={{ width: 80, height: 80, fontSize: 40 }}>
-            {name && name[0]}
-          </Avatar>
-        )}
-        </div> 
+            <Avatar sx={{ width: 80, height: 80, fontSize: 40 }}>
+              {name && name[0]}
+            </Avatar>
+          )}
+        </div>
         <div className={styles.info}>
-        {isLoading ? (
-          <>
-          <Box sx={{ display: "flex", alignItems: "center", marginBottom: "10px", justifyContent: "center" }}>
-            <Skeleton variant="rectangular" width={180} height={40}/>
-          </Box>
-          <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center"  }}>
-          <Skeleton variant="rectangular" width={100} height={20}/>
-        </Box>
-          </>
+          {isLoading ? (
+            <>
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  marginBottom: "10px",
+                  justifyContent: "center",
+                }}
+              >
+                <Skeleton variant="rounded" width={180} height={40} />
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Skeleton variant="rounded" width={100} height={20} />
+              </Box>
+            </>
           ) : (
-          <>
-          <h1 className={styles.name}>{name}</h1>
-          <p className={styles.designation}>{designation}</p>
-          </>
-        )}
+            <>
+              <h1 className={styles.name}>{name}</h1>
+              <p className={styles.designation}>{designation}</p>
+            </>
+          )}
         </div>
       </div>
       <Divider variant="middle" className={styles.Divider} />
       <div className={styles.timeStatusMainDiv}>
-        <h4 className={styles.timestatusHeading}>Time Status</h4>
+        <div className={styles.profileInfoHeaderMain}>
+          <h4 className={styles.timestatusHeading}>Time Status</h4>
+          <div className={styles.dropdownMenuDiv}>
+            <FormControl variant="standard" fullWidth>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={duration}
+                label="Duration"
+                onChange={handleChange}
+                color="secondary"
+              >
+                {dropdownOptions.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </div>
+        </div>
+
         {/* date slot */}
         <div className={styles.timeStatusSubMaindiv}>
           <div className={styles.timeStatusActivityDiv}>
@@ -89,7 +165,7 @@ function ProfileInfo() {
                 />
                 <p className={styles.paragraphMain}>Active</p>
               </div>
-              <h5 className={styles.statusHeadingDiv}>234</h5>
+              <h5 className={styles.statusHeadingDiv}>{activeCount}</h5>
             </div>
             <div className={styles.inactiveStatus}>
               <div className={styles.timeStatusHeading}>
@@ -99,7 +175,7 @@ function ProfileInfo() {
                 />
                 <p className={styles.paragraphMain}>Inactive</p>
               </div>
-              <h5 className={styles.statusHeadingDiv}>35</h5>
+              <h5 className={styles.statusHeadingDiv}>{inactiveCount}</h5>
             </div>
             <div className={styles.overTimeStatus}>
               <div className={styles.timeStatusHeading}>
@@ -109,7 +185,7 @@ function ProfileInfo() {
                 />
                 <p className={styles.paragraphMain}>OverTime</p>
               </div>
-              <h5 className={styles.statusHeadingDiv}>4</h5>
+              <h5 className={styles.statusHeadingDiv}>{overtimeCount}</h5>
             </div>
           </div>
           <div className={styles.timeStatusImageDiv}>
@@ -123,63 +199,6 @@ function ProfileInfo() {
           </div>
         </div>
       </div>
-      {/* <div className={styles.timeInfo}>
-      {isLoading ? (
-          <Box sx={{ display: "flex", alignItems: "center", gap: "30px" }}>
-            <Skeleton variant="circular" width={36} height={36} />
-            <Skeleton variant="rectangular" width={250} height={45} />
-          </Box>
-          ) : (
-          <>
-            <strong className={styles.timeInfoHeaderMain}>
-              <Icon 
-              component={AccessTimeIcon}
-              fontSize="large"
-              color="inherit"/>
-              &nbsp; &nbsp; &nbsp;{" "}
-              <span className={styles.timeInfoHeader}>180.00 Total Hrs </span>
-            </strong>
-          </>
-        )}
-      </div>
-      <div className={styles.timeInfoSubMain}>
-      {isLoading ? (
-          <Box sx={{ display: "flex", alignItems: "center", gap : "150px"}}>
-            <Skeleton variant="rectangular" width={75} height={60} />
-            <Skeleton variant="rectangular" width={75} height={60} />
-          </Box>
-          ) : (
-          <>
-            <div className={styles.timeInfoSub}>
-              <span className={styles.timeInfoSubHead}>40 Hrs</span>
-              <span className={styles.timeInfoSubInterval}>Regular </span>
-            </div>
-            <div className={styles.timeInfoSub}>
-              <span className={styles.timeInfoSubHead}>10 Hrs</span>
-              <span className={styles.timeInfoSubInterval}>OverTime </span>
-            </div>
-          </>
-        )}
-      </div>
-      <div className={styles.timeInfoSubMain}>
-      {isLoading ? (
-          <Box sx={{ display: "flex", alignItems: "center", gap : "150px"}}>
-            <Skeleton variant="rectangular" width={75} height={60} />
-            <Skeleton variant="rectangular" width={75} height={60} />
-          </Box>
-          ) : (
-          <>
-            <div className={styles.timeInfoSub}>
-              <span className={styles.timeInfoSubHead}>04 Hrs</span>
-              <span className={styles.timeInfoSubInterval}>Holiday </span>
-            </div>
-            <div className={styles.timeInfoSub}>
-              <span className={styles.timeInfoSubHead}>10 Hrs</span>
-              <span className={styles.timeInfoSubInterval}>PTO </span>
-            </div>
-          </>
-        )}
-      </div> */}
     </div>
   );
 }

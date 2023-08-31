@@ -11,9 +11,7 @@ import { useAppSelector } from "@/redux/store";
 import { AttendanceDataType } from "../../types/attendanceDataType";
 import { useDispatch } from "react-redux";
 import { attendanceData } from "@/redux/features/attendanceSlice";
-import EastIcon from '@mui/icons-material/East';
 import moment from "moment";
-import Link from "next/link";
 
 function DailyAttendanceBreakDown() {
   const user = useAppSelector((state) => state.user.UserData)
@@ -63,9 +61,6 @@ function DailyAttendanceBreakDown() {
   return (
     <>
       <div className={styles.mainDiv}>
-        <Link href={'/reports'}>
-      <Button className={styles.reportButton} variant="outlined">Go to Detailed Report &nbsp;  <EastIcon className={styles.rightArrow}/> </Button>
-        </Link>
         <Table
           striped="columns"
           bordered

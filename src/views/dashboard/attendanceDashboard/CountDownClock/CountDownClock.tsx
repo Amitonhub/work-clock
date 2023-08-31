@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from "react";
-import styles from "./CountDownClock.module.css";
+import React from "react";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
-import { variables } from "../../../../../variable";
+import { variables } from "@/constants";
 
 function CountDownClock() {
   const formatTime = (seconds: number) => {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
     const remainingSeconds = seconds % 60;
-
     return `${hours}:${minutes < 10 ? "0" : ""}${minutes}:${
       remainingSeconds < 10 ? "0" : ""
     }${remainingSeconds}`;
@@ -29,7 +27,6 @@ function CountDownClock() {
       >
         {({ remainingTime }) => <h5>{formatTime(remainingTime)}</h5>}
       </CountdownCircleTimer>
-      <h4 className={styles.headingCountDownDiv}>Time Remaining</h4>
     </>
   );
 }

@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   LineChart,
   Line,
-  CartesianGrid,
   XAxis,
   YAxis,
   Tooltip,
@@ -16,7 +15,7 @@ import {
 } from "@mui/material";
 
 function TimeChart() {
-  const [duration, setDuration] = React.useState("1");
+  const [duration, setDuration] = useState("1");
 
   const handleChange = (event: SelectChangeEvent) => {
     setDuration(event.target.value as string);
@@ -76,6 +75,7 @@ function TimeChart() {
       </div>
       <div className={styles.linechartDiv}>
         <LineChart
+        className={styles.lineChartSubDiv}
           width={480}
           height={180}
           data={data}

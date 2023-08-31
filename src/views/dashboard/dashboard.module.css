@@ -1,37 +1,22 @@
 .header {
   font-family: system-ui;
-  background-color: #353C48;
+  background-color: #353c48;
   color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 50px;
 }
-.heading{
-  font-size: 37px;
-  padding: 0 10px;
+
+.mainDiv {
+  background-color: #f1f2f7;
 }
-.mainDiv{
-  background-color: #F1F2F7;
-}
-/* .Divider {
-  width: 98%;
-  margin: 20px 0;
-  border-top: 1px solid grey;
-} */
 
 @media (max-width: 767px) {
   .attendanceDashboardDiv {
     margin: 0.5rem;
   }
-  .header{
+  .header {
     justify-content: baseline;
   }
-  .heading{
-    font-size: 27px;
-  }
-}
-
-.qrScanner{
-  background-color: black;
 }
