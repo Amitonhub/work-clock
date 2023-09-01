@@ -1,3 +1,15 @@
-.timeChartMainDiv{
-    display: flex;
+.timeChartMainDiv {
+  display: flex;
+}
+
+@media (max-width: 767px) {
+  .timeChartMainDiv{
+    flex-direction: column;
+    height: auto;
+    width: 308px;
+  }
+  .linechartDiv svg{
+    height: 200px !important;
+    width: 318px !important;
+  }
 }

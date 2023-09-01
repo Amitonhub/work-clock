@@ -12,8 +12,11 @@
 .open {
   left: 0;
 }
+.dividerMainDiv{
+  border-color: black !important;
+}
 .dividerMain{
-  border-color: black;
+  border: 0.2px dashed black !important;
 }
 
 .drawerPaper {

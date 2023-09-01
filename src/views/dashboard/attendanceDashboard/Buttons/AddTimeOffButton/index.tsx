@@ -52,17 +52,41 @@ function AddTimeOffButton() {
     const currentHour = currentTime.getHours();
     const currentMinutes = currentTime.getMinutes();
 
+    const hasAttendanceToday = userAttendance?.some((item: AttendanceDataType) => moment(item.date).format('L') === today);
+    if (hasAttendanceToday) {
+      const attendanceToday = userAttendance.find((item: AttendanceDataType) => moment(item.date).format('L') === today);
+      attendanceToday?.punches?.some((item: Punch) => {
+        if (item.type !== AttendanceTypes.punchIn) {
+          setShowButton(false)
+        }
+        if (item.type === AttendanceTypes.punchIn) {
+          setSelectedOption(AttendanceTypes.mealIn);
+        }
+        if (item.type === AttendanceTypes.mealIn) {
+          setSelectedOption(AttendanceTypes.mealOut);
+        }
+        if (item.type === AttendanceTypes.mealOut) {
+          setSelectedOption(AttendanceTypes.teaBreakIn);
+        }
+        if (item.type === AttendanceTypes.teaBreakIn) {
+          setSelectedOption(AttendanceTypes.teaBreakOut);
+        }
+        if (item.type === AttendanceTypes.teaBreakOut) {
+          setIsAllPunchDone(true)
+          setShowButton(false)
+        }
+      }
+      )
+    }
+
     // Check if the current time is between 1:15 PM and 2:00 PM
     if (currentHour === 13 && currentMinutes >= 15 && currentMinutes <= 59) {
-      setSelectedOption("Lunch Break");
       setShowButton(true);
     }
     // Check if the current time is between 4:30 PM and 5:50 PM
     else if (
-      (currentHour === 16 &&
-        currentMinutes >= 30) ||
-      (currentHour === 17 &&
-        currentMinutes <= 30)
+      (currentHour === 16 && currentMinutes >= 30) ||
+      (currentHour === 17 && currentMinutes <= 30)
     ) {
       setShowButton(true);
     }

@@ -26,7 +26,7 @@ function ReportsPage() {
     ...item,
     date: new Date(item.date),
   }));
-  
+
   if (!formattedData) {
     <Alert severity="error">
       <AlertTitle>Error</AlertTitle>
@@ -64,39 +64,42 @@ function ReportsPage() {
             </span>
           </div>
         )}
-          {isLoading ? (
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-              <Skeleton variant="rounded" width={268} height={37} />
-            </Box>
-          ) : (
-            <ConfirmDownload user={user} data={userAttendance} open={true} />
-          )}
+        {isLoading ? (
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Skeleton variant="rounded" width={178} height={38} />
+          </Box>
+        ) : (
+          <ConfirmDownload user={user} data={userAttendance} open={true} />
+        )}
       </div>
-      {isLoading ? (
-        <Box sx={{ display: "flex", alignItems: "center" }}>
-          <Skeleton variant="rounded" width={206} height={35} />
-        </Box>
-      ) : (
-        <Link href={"/dashboard"}>
-          <Button className={styles.reportButton} variant="outlined">
-            <ArrowBackIcon className={styles.leftArrow} /> &nbsp; Go to
-            Dashboard{" "}
-          </Button>
-        </Link>
-      )}
-      {formattedData ? (
-        <Alert severity="success">
-          <AlertTitle>Success</AlertTitle>
-          Your Attendance Report Generated — <strong>Successfully!</strong>
-        </Alert>
-      ) : (
-        <Alert severity="info">
-          <AlertTitle>Wait</AlertTitle>
-          Report is — <strong>fetching!</strong>
-        </Alert>
-      )}
-      <ReportsTable />
+      <div className={styles.tableMainDiv}>
+        {isLoading ? (
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Skeleton variant="rounded" width={206} height={35} />
+          </Box>
+        ) : (
+          <Link href={"/dashboard"}>
+            <Button className={styles.reportButton} variant="outlined">
+              <ArrowBackIcon className={styles.leftArrow} /> &nbsp; Go to
+              Dashboard{" "}
+            </Button>
+          </Link>
+        )}
+        {formattedData ? (
+          <Alert severity="success">
+            <AlertTitle>Success</AlertTitle>
+            Your Attendance Report Generated — <strong>Successfully!</strong>
+          </Alert>
+        ) : (
+          <Alert severity="info">
+            <AlertTitle>Wait</AlertTitle>
+            Report is — <strong>fetching!</strong>
+          </Alert>
+        )}
+        <ReportsTable />
+      </div>
     </div>
+
   );
 }
 

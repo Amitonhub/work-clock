@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "./CountDownClock.module.css";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import { variables } from "@/constants";
 
@@ -28,7 +27,6 @@ function CountDownClock() {
       >
         {({ remainingTime }) => <h5>{formatTime(remainingTime)}</h5>}
       </CountdownCircleTimer>
-      <h4 className={styles.headingCountDown}>Time Remaining</h4>
     </>
   );
 }
