@@ -1,4 +1,6 @@
 import React from "react";
+import styles from './timelineData.style.module.scss'
+
 //mui imports
 import Timeline from "@mui/lab/Timeline";
 import TimelineItem from "@mui/lab/TimelineItem";
@@ -15,7 +17,7 @@ import EmojiFoodBeverageIcon from "@mui/icons-material/EmojiFoodBeverage";
 
 function TimelineData() {
   return (
-    <Timeline position="alternate">
+    <Timeline position="alternate" className={styles.timelineMainDiv}>
       <TimelineItem>
         <TimelineOppositeContent
           sx={{ m: "auto 0" }}

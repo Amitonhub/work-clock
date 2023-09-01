@@ -1,6 +1,11 @@
 .mainDiv {
     background-color: #F1F2F7;
 
+    .tableMainDiv{
+        top: 40px;
+        position: relative;
+    }
+    
     .header {
         font-family: system-ui;
         background-color: #353c48;
