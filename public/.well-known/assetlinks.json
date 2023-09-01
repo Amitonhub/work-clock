@@ -2,14 +2,14 @@
   "relation": ["delegate_permission/common.handle_all_urls"],
   "target": {
     "namespace": "android_app",
-    "package_name": "com.work.clock.app",
+    "package_name": "xyz.appmaker.hterzq",
     "sha256_cert_fingerprints": ["18:4F:BB:19:97:3F:E5:68:22:4B:7A:E4:14:0E:84:C1:0F:A9:FE:1C:A7:60:F8:70:11:CD:E8:9F:B7:F4:D1:04"]
   }
 }, {
   "relation": ["delegate_permission/common.handle_all_urls"],
   "target": {
     "namespace": "android_app",
-    "package_name": "com.work.clock.app",
+    "package_name": "xyz.appmaker.hterzq",
     "sha256_cert_fingerprints": ["18:4F:BB:19:97:3F:E5:68:22:4B:7A:E4:14:0E:84:C1:0F:A9:FE:1C:A7:60:F8:70:11:CD:E8:9F:B7:F4:D1:04"]
   }
 }]
