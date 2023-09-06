@@ -252,8 +252,8 @@ function AttendanceDashBoard() {
                 />
               </Box>
             ) : (
-              <div>
-                <Link href={"/reports"}>
+              <Link href={"/reports"}>
+                <div>
                   <Button
                     style={{
                       margin: "10px 0",
@@ -265,8 +265,8 @@ function AttendanceDashBoard() {
                     Go to Detailed Report &nbsp;{" "}
                     <EastIcon className={styles.rightArrow} />{" "}
                   </Button>
-                </Link>
-              </div>
+                </div>
+              </Link>
             )}
             {isLoading ? (
               <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>

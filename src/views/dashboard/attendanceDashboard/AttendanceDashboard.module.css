@@ -196,29 +196,19 @@
   }
 }
 @media (max-width : 960px) {
-  .dailyAttendanceBreakDown{
-    flex-wrap: wrap;
-    align-items: unset;
+  .timelineFormatMainDiv{ 
+    position: relative;
+    left: 87px;
   }
   .subDailyAttendanceBreakDownSubDiv{
-    display: grid;
-    justify-items: center;
-  }
-  .statusDiv{
-    display: none; /* have to make it responsive*/
-  }
-}
-@media (max-width : 710px) {
-  .dailyAttendanceBreakDown{
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-  }
-  .subDailyAttendanceBreakDownSubDiv{
-    margin-bottom: 15px;
-    justify-content: center;
   }
   .statusDiv{
-    display: flex;
+    top: 70px;
+    right: 195px;
+    position: relative;
+    margin-bottom: 40px;
   }
 }
 @media (max-width: 767px) {
@@ -260,4 +250,34 @@
   .profileIcon svg{
     font-size: 43px !important;
   }
+
+  .countDownMainDiv{
+    margin-bottom: 0;
+  }
+
+  .dailyAttendanceBreakDown{
+    flex-direction: column;
+    align-items: center;
+  }
+  .timelineFormatMainDiv{ 
+    position: relative;
+    left: 0;
+  }
+  .subDailyAttendanceBreakDownSubDiv{
+    flex-direction: row;
+    gap: 15px;
+  }
+  .statusDiv{
+    right: 0;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+@media (max-width:578px) {
+  .subDailyAttendanceBreakDownSubDiv{
+    flex-direction: column;
+    gap: 15px;
+  }
+  
 }
