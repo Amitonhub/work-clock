@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from './timelineData.style.module.scss'
 
 //mui imports
@@ -14,8 +14,75 @@ import LaptopMacIcon from "@mui/icons-material/LaptopMac";
 import CodeOffIcon from "@mui/icons-material/CodeOff";
 import Typography from "@mui/material/Typography";
 import EmojiFoodBeverageIcon from "@mui/icons-material/EmojiFoodBeverage";
+import moment from "moment";
+import { useAppSelector } from "@/redux/store";
+import { AttendanceDataType, Punch } from "../../types/attendanceDataType";
+import { AttendanceTypes } from "../../types/attendanceType";
+import { ITimelineDataType } from "../../types/timelineDataType";
+import { useGetAllAttendanceByIdQuery } from "@/redux/services/attendanceApi";
+import { useDispatch } from "react-redux";
+import { attendanceData } from "@/redux/features/attendanceSlice";
+import Loader from "@/components/Loader/Loader";
 
 function TimelineData() {
+  const [timelineData, setTimelinData] = useState<ITimelineDataType>()
+  const dispatch = useDispatch()
+  const user = useAppSelector((state) => state.user.UserData)
+  const { isLoading: isAttendanceLoading, isFetching, data, error, isSuccess } = useGetAllAttendanceByIdQuery(user?.id);
+  const userAttendance = useAppSelector((state) => state.attendance.attendanceData)
+  const currentTime = new Date();
+  const today = moment(currentTime).format('L')
+  const currentHour = currentTime.getHours();
+  const currentMinutes = currentTime.getMinutes();
+  const hasAttendanceToday = userAttendance?.some((item: AttendanceDataType) => moment(item.date).format('L') === today);
+  const formattedData = data?.map((item: AttendanceDataType) => ({
+    ...item,
+    date: new Date(item.date),
+  }));
+
+  useEffect(()=> {
+    if (isSuccess) {
+      dispatch(attendanceData(formattedData));
+    }
+    if (isFetching || isAttendanceLoading) {
+      <Loader />
+    }
+    if (error) {
+      console.log('errror', error)
+    }
+  },[isSuccess, error, isFetching, isAttendanceLoading])
+
+  useEffect(() => {
+    if (hasAttendanceToday) {
+      const attendanceToday = userAttendance.find((item: AttendanceDataType) => moment(item.date).format('L') === today);
+      attendanceToday?.punches?.some((item: Punch) => {
+       
+        if (item.type === AttendanceTypes.punchIn) {
+          debugger
+          setTimelinData({
+            punchIn: item?.timestamp,
+          })
+        }
+        if (item.type === AttendanceTypes.mealIn) {
+          setTimelinData({
+            mealIn: item?.timestamp,
+          })
+        }
+        if (item.type === AttendanceTypes.teaBreakIn) {
+          setTimelinData({
+            teaBreakIn: item?.timestamp,
+          })
+        }
+        if (item.type === AttendanceTypes.punchOut) {
+          setTimelinData({
+            punchOut: item?.timestamp,
+          })
+        }
+      }
+      )
+    }
+  }, [userAttendance]);
+
   return (
     <Timeline position="alternate" className={styles.timelineMainDiv}>
       <TimelineItem>
@@ -25,7 +92,7 @@ function TimelineData() {
           variant="body2"
           color="text.secondary"
         >
-          10:00 AM
+          {timelineData?.punchIn ? moment.utc(timelineData?.punchIn).format('LT') : "---"}
         </TimelineOppositeContent>
         <TimelineSeparator>
           <TimelineConnector sx={{ bgcolor: "error.main" }} />
@@ -36,7 +103,7 @@ function TimelineData() {
         </TimelineSeparator>
         <TimelineContent sx={{ py: "12px", px: 2 }}>
           <Typography variant="h6" component="span">
-            Get Started
+            Get Started 
           </Typography>
           <Typography color="text.secondary" sx={{ fontSize: "14px" }}>
             Code It
@@ -49,7 +116,7 @@ function TimelineData() {
           variant="body2"
           color="text.secondary"
         >
-          01:15 PM
+          {timelineData?.mealIn ? moment.utc(timelineData?.mealIn).format('LT') : "---"}
         </TimelineOppositeContent>
         <TimelineSeparator>
           <TimelineConnector sx={{ bgcolor: "primary.main" }} />
@@ -62,9 +129,9 @@ function TimelineData() {
           <Typography variant="h6" component="span">
             Meal Time
           </Typography>
-          <Typography color="text.secondary" sx={{ fontSize: "14px" }}>
+          {/* <Typography color="text.secondary" sx={{ fontSize: "14px" }}>
             Take a Break
-          </Typography>
+          </Typography> */}
         </TimelineContent>
       </TimelineItem>
       <TimelineItem>
@@ -73,7 +140,7 @@ function TimelineData() {
           variant="body2"
           color="text.secondary"
         >
-          05:00 PM
+          {timelineData?.teaBreakIn ? moment.utc(timelineData?.teaBreakIn).format('LT') : "---"}
         </TimelineOppositeContent>
         <TimelineSeparator>
           <TimelineConnector sx={{ bgcolor: "primary.main" }} />
@@ -92,12 +159,12 @@ function TimelineData() {
         </TimelineContent>
       </TimelineItem>
       <TimelineItem>
-      <TimelineOppositeContent
+        <TimelineOppositeContent
           sx={{ m: "auto 0" }}
           variant="body2"
           color="text.secondary"
         >
-          07:00 PM
+          {timelineData?.punchOut ? moment.utc(timelineData?.punchOut).format('LT') : "---"}
         </TimelineOppositeContent>
         <TimelineSeparator>
           <TimelineConnector sx={{ bgcolor: "primary.main" }} />
@@ -110,9 +177,9 @@ function TimelineData() {
           <Typography variant="h6" component="span">
             Get Back Tomorrow
           </Typography>
-          <Typography color="text.secondary" sx={{ fontSize: "12px" }}>
+          {/* <Typography color="text.secondary" sx={{ fontSize: "12px" }}>
             Have a Great Day
-          </Typography>
+          </Typography> */}
         </TimelineContent>
       </TimelineItem>
     </Timeline>

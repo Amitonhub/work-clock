@@ -14,4 +14,4 @@ export interface Punch {
 
 export interface IAttendanceType {
     attendanceData: any
-  }
+}
