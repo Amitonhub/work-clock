@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FC, SyntheticEvent, useEffect, useState } from "react";
 import {
   Divider,
   Drawer,
@@ -14,25 +14,40 @@ import styles from "./Sidebar.module.css";
 import MessageIcon from "@mui/icons-material/Message";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import StarIcon from "@mui/icons-material/Star";
+import { useFetchNotificationsQuery } from "@/redux/services/notificationApi";
+import { IUserNotification, notificationsData } from "@/redux/features/notificationSlice";
+import { useDispatch } from "react-redux";
 interface SidebarProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
+const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
   const [activeTab, setActiveTab] = useState(0);
-  const [starredNotifications, setStarredNotifications] = useState<string[]>(
-    []
-  );
+  const dispatch = useDispatch();
+  const [starredNotifications, setStarredNotifications] = useState<string[]>([]);
+  const {isLoading: isNotificationLoading,data,error,isSuccess,} = useFetchNotificationsQuery();
+    
+  const formattedData = data?.map((item: IUserNotification) => ({
+    ...item,
+    message: item.message,
+    starred: item.starred
+  }));
+
   const [notifications, setNotifications] = useState<
     { message: string; starred: boolean }[]
-  >([
-    { message: "Notification 1", starred: false },
-    { message: "Notification 2", starred: false },
-    { message: "Notification 3", starred: false },
-  ]);
+  >(formattedData || []);
 
-  const handleChangeTab = (event: React.SyntheticEvent, newTab: number) => {
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(notificationsData(formattedData || []));
+    }
+    if (error) {
+      console.log('errror', error)
+    }
+  }, [notificationsData, isSuccess, error])
+
+  const handleChangeTab = (event: SyntheticEvent, newTab: number) => {
     setActiveTab(newTab);
   };
 
@@ -85,58 +100,65 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
         <Tab icon={<MessageIcon />} iconPosition="start" label="All" />
         <Tab icon={<StarBorderIcon />} iconPosition="start" label="Starred" />
       </Tabs>
-      <List>
-        {activeTab === 0 &&
-          notifications.map((notification, index) => (
-            <>
-              <ListItem key={index} className={styles.notificationItem}>
-                <ListItemIcon>
-                  <Notifications className={styles.NotificationsIcon} />
-                </ListItemIcon>
-                <ListItemText
-                  primary={notification.message}
-                  className={styles.NotificationsText}
-                />
-                <div
-                  className={styles.starBorderIconButton}
-                  onClick={() => toggleStar(index)}
-                  style={{ color: notification.starred ? "yellow" : "inherit" }}
-                >
-                  <StarBorderIcon />
-                </div>
-              </ListItem>
-              <Divider variant="inset" className={styles.dividerMain} />
-            </>
-          ))}
-        {activeTab === 1 &&
-          starredNotifications.map((message, index) => (
-            <>
-              <ListItem key={index} className={styles.notificationItem}>
-                <ListItemIcon>
-                  <Notifications className={styles.NotificationsIcon} />
-                </ListItemIcon>
-                <ListItemText
-                  primary={message}
-                  className={styles.NotificationsText}
-                />
-                <div
-                  className={styles.starBorderIconButton}
-                  onClick={() =>
-                    toggleStar(
-                      notifications.findIndex(
-                        (notification) => notification.message === message
+      {isNotificationLoading ? (
+        <h6>Loading...</h6>
+      ) : (
+        <List>
+          {activeTab === 0 &&
+            notifications.map((notification, index) => (
+              <>
+                <ListItem key={index} className={styles.notificationItem}>
+                  <ListItemIcon>
+                    <Notifications className={styles.NotificationsIcon} />
+                  </ListItemIcon>
+
+                  <ListItemText
+                    primary={notification.message}
+                    className={styles.NotificationsText}
+                  />
+                  <div
+                    className={styles.starBorderIconButton}
+                    onClick={() => toggleStar(index)}
+                    style={{
+                      color: notification.starred ? "yellow" : "inherit",
+                    }}
+                  >
+                    <StarBorderIcon />
+                  </div>
+                </ListItem>
+                <Divider variant="inset" className={styles.dividerMain} />
+              </>
+            ))}
+          {activeTab === 1 &&
+            starredNotifications.map((message, index) => (
+              <>
+                <ListItem key={index} className={styles.notificationItem}>
+                  <ListItemIcon>
+                    <Notifications className={styles.NotificationsIcon} />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={message}
+                    className={styles.NotificationsText}
+                  />
+                  <div
+                    className={styles.starBorderIconButton}
+                    onClick={() =>
+                      toggleStar(
+                        notifications.findIndex(
+                          (notification) => notification.message === message
+                        )
                       )
-                    )
-                  }
-                  style={{ color: "yellow" }}
-                >
-                  <StarIcon />
-                </div>
-              </ListItem>
-              <Divider variant="inset" className={styles.dividerMain} />
-            </>
-          ))}
-      </List>
+                    }
+                    style={{ color: "yellow" }}
+                  >
+                    <StarIcon />
+                  </div>
+                </ListItem>
+                <Divider variant="inset" className={styles.dividerMain} />
+              </>
+            ))}
+        </List>
+      )}
     </Drawer>
   );
 };

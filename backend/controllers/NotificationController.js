@@ -3,11 +3,12 @@ const Notification = require('../models/NotificationModel')
 
 
 const createNotification = asyncHandler(async (req, res) => {
-  const { message, user_id } = req.body
+  const { message, user_id,starred } = req.body
   try {
     const notification = new Notification({
       user_id,
       message,
+      starred,
     })
     await notification.save()
     res.status(201).json({ success: true, notification })

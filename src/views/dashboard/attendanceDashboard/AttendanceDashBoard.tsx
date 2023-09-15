@@ -13,6 +13,8 @@ import Box from "@mui/material/Box";
 import Link from "next/link";
 import moment from "moment";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
+import { IUserNotification } from "@/redux/features/notificationSlice";
+import { useFetchNotificationsQuery } from "@/redux/services/notificationApi";
 
 const ProfileInfo = dynamic(
   () => import("@/views/dashboard/attendanceDashboard/profileInfo/ProfileInfo")
@@ -82,6 +84,13 @@ function AttendanceDashBoard() {
     setSidebarOpen(isSidebarOpen === false ? true : false);
   const handleToggleProfileSidebar = () =>
     setProfileSidebarOpen(isProfileSidebarOpen === false ? true : false);
+
+  const { isLoading: isNotificationLoading, data } =
+    useFetchNotificationsQuery();
+  const formattedData = data?.map((item: IUserNotification) => ({
+    ...item,
+    message: item.message,
+  }));
 
   useEffect(() => {
     const checkCamera = async () => {
@@ -213,7 +222,14 @@ function AttendanceDashBoard() {
                       color="inherit"
                       onClick={handleToggleSidebar}
                     />
-                    <Badge badgeContent={4} className={styles.badge} />
+                    {isNotificationLoading ? (
+                      <Badge className={styles.badge} />
+                    ) : (
+                      <Badge
+                        badgeContent={formattedData?.length}
+                        className={styles.badge}
+                      />
+                    )}
                   </div>
                   <div className={styles.profileIcon}>
                     <Icon
