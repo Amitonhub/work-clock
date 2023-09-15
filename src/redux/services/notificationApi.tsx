@@ -3,6 +3,7 @@ import { BASE_URL } from "@/constants";
 import { getAuthToken } from "@/utils/getAuthToken";
 import { RootState } from "../store";
 import { handlingErrorResponse } from "../utils/handlingErrorResponse";
+import { IUserNotification } from "../features/notificationSlice";
 
 export const notificationApi = createApi({
   reducerPath: "notificationApi",
@@ -20,10 +21,10 @@ export const notificationApi = createApi({
   }),  
   tagTypes: ["notifications"],
   endpoints: (builder) => ({
-    fetchNotifications: builder.query<Notification[], string>({
-      query(userId) {
+    fetchNotifications: builder.query<IUserNotification[], void>({
+      query() {
         return {
-          url: `/getall/${userId}`,
+          url: `/getall`,
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -33,7 +34,7 @@ export const notificationApi = createApi({
       transformErrorResponse: handlingErrorResponse,
       providesTags: ["notifications"],
     }),
-    createNotification: builder.mutation<Notification, Partial<Notification>>({
+    createNotification: builder.mutation<IUserNotification, Partial<IUserNotification>>({
       query(notification) {
         return {
           url: "/create",

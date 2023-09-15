@@ -1,27 +1,20 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-// interface Notification {
-//   _id: string;
-//   user_id: string;
-//   message: string;
-//   createdAt: string;
-//   starred: boolean;
-// }
-
-interface Notification {
+export interface IUserNotification {
   id: number;
+  user_id: string;
   message: string;
   createdAt: string;
   starred: boolean;
 }
 
-interface NotificationState {
-  notifications: Notification[];
+export interface IUserNotificationState {
+  notifications: IUserNotification[];
   loading: boolean;
   error: string | null;
 }
 
-const initialState: NotificationState = {
+const initialState: IUserNotificationState = {
   notifications: [],
   loading: false,
   error: null,
@@ -31,29 +24,35 @@ export const notificationSlice = createSlice({
   name: "notifications",
   initialState,
   reducers: {
-    fetchNotificationsStart: (state) => {
-      state.loading = true;
-      state.error = null;
-    },
-    fetchNotificationsSuccess: (
-      state,
-      action: PayloadAction<Notification[]>
-    ) => {
-      state.notifications = action.payload;
-      state.loading = false;
-      state.error = null;
-    },
-    fetchNotificationsFailure: (state, action: PayloadAction<string>) => {
-      state.loading = false;
-      state.error = action.payload;
+    notificationsData: (state: IUserNotificationState , action: PayloadAction<IUserNotification[]>) => {
+        state.notifications = action.payload
     },
   },
+  // reducers: {
+  //   fetchNotificationsStart: (state) => {
+  //     state.loading = true;
+  //     state.error = null;
+  //   },
+  //   fetchNotificationsSuccess: (
+  //     state,
+  //     action: PayloadAction<IUserNotification[]>
+  //   ) => {
+  //     state.notifications = action.payload;
+  //     state.loading = false;
+  //     state.error = null;
+  //   },
+  //   fetchNotificationsFailure: (state, action: PayloadAction<string>) => {
+  //     state.loading = false;
+  //     state.error = action.payload;
+  //   },
+  // },
 });
 
 export const {
-  fetchNotificationsStart,
-  fetchNotificationsSuccess,
-  fetchNotificationsFailure,
+  notificationsData
+  // fetchNotificationsStart,
+  // fetchNotificationsSuccess,
+  // fetchNotificationsFailure,
 } = notificationSlice.actions;
 
 export default notificationSlice.reducer;
