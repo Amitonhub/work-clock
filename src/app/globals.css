@@ -1,17 +1,23 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 body {
-    margin: 50px 100px;
-    background-color: #F1F2F7;
+  margin: 50px 100px;
+  background-color: #f1f2f7;
 }
-html{
-    background-color: #F1F2F7;
+html {
+  background-color: #f1f2f7;
 }
-.dashboard-layout{
-    background-color: #F1F2F7;
+.dashboard-layout {
+  background-color: #f1f2f7;
 }
-.login-layout{
-    background-color: #F1F2F7;
+.login-layout {
+  background-color: #f1f2f7;
+}
+
+::selection {
+  color: white;
+  background: black;
+  /* text-shadow: 2px 2px #31808c; */
 }
