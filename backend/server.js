@@ -14,6 +14,7 @@ app.use(express.json())
 app.use(cookieParser())
 app.use("/api/users", require("./routes/userRoutes"))
 app.use("/api/attendance", require("./routes/attendanceRoutes"))
+app.use("/api/notifications", require("./routes/notificationRoutes"))
 
 app.get('/', (req, res) => {
     res.send('API is Working properly!');
