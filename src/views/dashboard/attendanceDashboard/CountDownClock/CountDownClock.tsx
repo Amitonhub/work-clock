@@ -1,34 +1,37 @@
+import usePersistantTimer from "./utils/ptimer";
+import styles from "./countDown.module.scss";
 import React from "react";
-import { CountdownCircleTimer } from "react-countdown-circle-timer";
-import { variables } from "@/constants";
+import { Oswald } from 'next/font/google'
 
-function CountDownClock() {
-  const formatTime = (seconds: number) => {
-    const hours = Math.floor(seconds / 3600);
-    const minutes = Math.floor((seconds % 3600) / 60);
-    const remainingSeconds = seconds % 60;
-    return `${hours}:${minutes < 10 ? "0" : ""}${minutes}:${
-      remainingSeconds < 10 ? "0" : ""
-    }${remainingSeconds}`;
+const oswald = Oswald({ subsets: ['latin'] })
+
+const CountDownClock = () => {
+  const [count, start, pause, reset] = usePersistantTimer(false, { updateFrequency: 1 });
+
+  const countdown = (value: number, count: number): string => {
+    const seconds = Math.round(count / 1000);
+    const remainingSeconds = value - seconds;
+    const hours = Math.floor(remainingSeconds / 3600);
+    const minutes = Math.floor((remainingSeconds % 3600) / 60);
+    const remainingSecondsFormatted = remainingSeconds % 60;
+
+    return `${hours.toString().padStart(2, '0')}:${minutes
+      .toString()
+      .padStart(2, '0')}:${remainingSecondsFormatted.toString().padStart(2, '0')}`;
   };
+
   return (
-    <>
-      <CountdownCircleTimer
-        isPlaying
-        duration={variables.COUNTDOWN_CLOCK_DURATION}
-        colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
-        colorsTime={[
-          variables.COUNTDOWN_CLOCK_DURATION * 0.75,
-          variables.COUNTDOWN_CLOCK_DURATION * 0.5,
-          variables.COUNTDOWN_CLOCK_DURATION * 0.25,
-          variables.COUNTDOWN_CLOCK_DURATION * 0,
-        ]}
-        size={130}
-      >
-        {({ remainingTime }) => <h5>{formatTime(remainingTime)}</h5>}
-      </CountdownCircleTimer>
-    </>
+    <div className={`${oswald.className} ${styles.timerDiv}`}>
+      {/* <div className={styles.buttonGroup}>
+        <button onClick={start}>start</button>
+        <button onClick={pause}>pause</button>
+        <button onClick={reset}>reset</button>
+      </div> */}
+      <div className={styles.countdownCircle}>
+        <div className={styles.countdownText}>{countdown(32400, count)}</div>
+      </div>
+    </div>
   );
-}
+};
 
 export default CountDownClock;

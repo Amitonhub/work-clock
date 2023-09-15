@@ -342,10 +342,11 @@ function AttendanceDashBoard() {
                       sx={{
                         width: "315px",
                         height: "140px",
-                        backgroundColor: "#02A4DE",
+                        backgroundColor: "black",
                         padding: "5px",
                         "&:hover": {
-                          backgroundColor: "#1CAFF3",
+                          color: "black",
+                          backgroundColor: "white",
                         },
                         borderRadius: "10px",
                         boxShadow: "5px 5px 5px #bdbdbd",
@@ -353,7 +354,6 @@ function AttendanceDashBoard() {
                     >
                       <div className={styles.countDownSubDiv}>
                         <CountDownClock />
-                        <h4 className={styles.headingCountDown}>Time Remaining</h4>
                       </div>
                     </Box>
                   )}

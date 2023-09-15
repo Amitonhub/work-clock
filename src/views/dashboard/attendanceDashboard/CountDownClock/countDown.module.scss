@@ -1,0 +1,51 @@
+.timerDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: -webkit-fill-available;
+  }
+  
+  .buttonGroup {
+    margin-bottom: 10px;
+  }
+  
+  // .countdownCircle {
+  //   border:12px solid red;
+  //   width:101px;
+  //   height:101px;
+  //   background-color:#02A4DE;
+  //   // background-color:black;
+  //   position:absolute;
+  //   border-radius:100%;
+  //   width: 120px;
+  //   height: 120px;
+  //   // border-radius: 50%;
+  //   display: flex;
+  //   justify-content: center;
+  //   align-items: center;
+  //   font-size: 24px;
+  //   font-weight: bold;
+  //   color: #fff;
+  //   animation: countdownAnimation 15s linear infinite;
+  // }
+  
+  .countdownText {
+    position: relative;
+    font-size: 80px;
+  }
+  
+  // @keyframes countdownAnimation {
+  //   0% {
+  //       border-color: red;
+  //   //   background-color: green;
+  //   }
+  //   50% {
+  //     border-color: yellow;
+  //   //   background-color: yellow;
+  //   }
+  //   100% {
+  //     border-color: green;
+  //   //   background-color: red;
+  //   }
+  // }
+  

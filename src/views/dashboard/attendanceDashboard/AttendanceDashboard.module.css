@@ -98,13 +98,12 @@
   margin-bottom: 50px;
 }
 
-.countDownSubDiv{
-  display: flex;
-  justify-content: space-evenly;
-  height: 180px;
+.countDownSubDiv:hover{
+  color: black;
 }
 
 .countDownMainDiv{
+  color: white;
   margin-bottom: 15px;
 }
 
