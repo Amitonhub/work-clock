@@ -31,8 +31,3 @@
     font-size: 13px;
     font-weight: bold;
 }
-@media (max-width : 960px) {
-    .onTimeMainDiv,.lateMainDiv{
-        margin-top: 15px;
-    }
-  }

@@ -13,8 +13,12 @@ import {
   SelectChangeEvent,
   FormControl,
 } from "@mui/material";
+import moment from "moment";
 
 function TimeChart() {
+  const oneWeekAgo = moment(new Date()).subtract(1, 'week').format();
+  const twoWeekAgo = moment(new Date()).subtract(2, 'week').format();
+  const threeWeekAgo = moment(new Date()).subtract(3, 'week').format();
   const [duration, setDuration] = useState("1");
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -31,9 +35,9 @@ function TimeChart() {
     switch (duration) {
       case "1":
         return [
-            { name: "Week-1", time: 200 },
-            { name: "Week-2", time: 230 },
-            { name: "Week-3", time: 210 },
+          { name: "Week-1", time: 200 },
+          { name: "Week-2", time: 230 },
+          { name: "Week-3", time: 210 },
         ];
       case "2":
         return [
@@ -75,7 +79,7 @@ function TimeChart() {
       </div>
       <div className={styles.linechartDiv}>
         <LineChart
-        className={styles.lineChartSubDiv}
+          className={styles.lineChartSubDiv}
           width={480}
           height={180}
           data={data}

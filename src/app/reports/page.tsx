@@ -41,7 +41,7 @@ function Page() {
     return <Loader/>;
   }
 
-  return isLoggedIn ? <ReportsPage /> : null;
+  return isLoggedIn ? <ReportsPage /> : <Loader />;
 }
 
 export default Page;

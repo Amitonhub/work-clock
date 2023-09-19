@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./features/authSlice";
+import notificationSlice from "./features/notificationSlice";
 import {TypedUseSelectorHook, useSelector} from "react-redux"
 import { setupListeners } from "@reduxjs/toolkit/dist/query";
 import { authApi } from "./services/authApi";
@@ -7,19 +8,23 @@ import { attendanceApi } from "./services/attendanceApi";
 import tokenSlice from "./features/tokenSlice";
 import userSlice from "./features/userSlice";
 import attendance from "./features/attendanceSlice";
+import { notificationApi } from "./services/notificationApi";
 
 const reducer = {
     auth: authReducer,
     token: tokenSlice,
     user: userSlice,
     attendance: attendance,
+    notifications: notificationSlice,
     [authApi.reducerPath]: authApi.reducer,
     [attendanceApi.reducerPath]: attendanceApi.reducer, 
+    [notificationApi.reducerPath]: notificationApi.reducer,
 }
 
 const reducermiddleware = [
     authApi.middleware,
     attendanceApi.middleware,
+    notificationApi.middleware,
 ]
 
 export const store = configureStore({

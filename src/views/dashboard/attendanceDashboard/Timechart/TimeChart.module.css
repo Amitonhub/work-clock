@@ -2,14 +2,14 @@
   display: flex;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 578px) {
   .timeChartMainDiv{
     flex-direction: column;
     height: auto;
-    width: 308px;
+    width: 300px;
   }
   .linechartDiv svg{
     height: 200px !important;
-    width: 318px !important;
+    width: 308px !important;
   }
 }

@@ -22,7 +22,7 @@ function Page() {
       } else {
         router.push('/dashboard');
       }
-      setLoading(false);
+      setLoading(true);
     }
   }, [router]);
   

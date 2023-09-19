@@ -13,6 +13,8 @@ import Box from "@mui/material/Box";
 import Link from "next/link";
 import moment from "moment";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
+import { IUserNotification } from "@/redux/features/notificationSlice";
+import { useFetchNotificationsQuery } from "@/redux/services/notificationApi";
 
 const ProfileInfo = dynamic(
   () => import("@/views/dashboard/attendanceDashboard/profileInfo/ProfileInfo")
@@ -82,6 +84,13 @@ function AttendanceDashBoard() {
     setSidebarOpen(isSidebarOpen === false ? true : false);
   const handleToggleProfileSidebar = () =>
     setProfileSidebarOpen(isProfileSidebarOpen === false ? true : false);
+
+  const { isLoading: isNotificationLoading, data } =
+    useFetchNotificationsQuery();
+  const formattedData = data?.map((item: IUserNotification) => ({
+    ...item,
+    message: item.message,
+  }));
 
   useEffect(() => {
     const checkCamera = async () => {
@@ -213,7 +222,14 @@ function AttendanceDashBoard() {
                       color="inherit"
                       onClick={handleToggleSidebar}
                     />
-                    <Badge badgeContent={4} className={styles.badge} />
+                    {isNotificationLoading ? (
+                      <Badge className={styles.badge} />
+                    ) : (
+                      <Badge
+                        badgeContent={formattedData?.length}
+                        className={styles.badge}
+                      />
+                    )}
                   </div>
                   <div className={styles.profileIcon}>
                     <Icon
@@ -252,8 +268,8 @@ function AttendanceDashBoard() {
                 />
               </Box>
             ) : (
-              <div>
-                <Link href={"/reports"}>
+              <Link href={"/reports"}>
+                <div>
                   <Button
                     style={{
                       margin: "10px 0",
@@ -265,8 +281,8 @@ function AttendanceDashBoard() {
                     Go to Detailed Report &nbsp;{" "}
                     <EastIcon className={styles.rightArrow} />{" "}
                   </Button>
-                </Link>
-              </div>
+                </div>
+              </Link>
             )}
             {isLoading ? (
               <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
@@ -342,10 +358,11 @@ function AttendanceDashBoard() {
                       sx={{
                         width: "315px",
                         height: "140px",
-                        backgroundColor: "#02A4DE",
+                        backgroundColor: "black",
                         padding: "5px",
                         "&:hover": {
-                          backgroundColor: "#1CAFF3",
+                          color: "black",
+                          backgroundColor: "white",
                         },
                         borderRadius: "10px",
                         boxShadow: "5px 5px 5px #bdbdbd",
@@ -353,7 +370,6 @@ function AttendanceDashBoard() {
                     >
                       <div className={styles.countDownSubDiv}>
                         <CountDownClock />
-                        <h4 className={styles.headingCountDown}>Time Remaining</h4>
                       </div>
                     </Box>
                   )}
