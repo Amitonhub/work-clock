@@ -48,9 +48,21 @@ export const notificationApi = createApi({
       transformErrorResponse: handlingErrorResponse,
       invalidatesTags: ["notifications"],
     }),
+    updateStarredStatus: builder.mutation<void, { user_id: string, starred: boolean, notification_id: string }>({
+      query({ user_id, starred, notification_id }) {
+        return {
+          url: `/updateStarredStatus`,
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: { starred , notification_id, user_id },
+        };
+      },
+      transformErrorResponse: handlingErrorResponse,
+      invalidatesTags: ["notifications"],
+    }),
   }),
 });
 
-export const { useFetchNotificationsQuery, useCreateNotificationMutation } = notificationApi;
-
-
+export const { useFetchNotificationsQuery, useCreateNotificationMutation,useUpdateStarredStatusMutation } = notificationApi;

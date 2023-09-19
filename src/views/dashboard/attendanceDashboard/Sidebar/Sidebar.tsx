@@ -14,9 +14,16 @@ import styles from "./Sidebar.module.css";
 import MessageIcon from "@mui/icons-material/Message";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import StarIcon from "@mui/icons-material/Star";
-import { useFetchNotificationsQuery } from "@/redux/services/notificationApi";
-import { IUserNotification, notificationsData } from "@/redux/features/notificationSlice";
+import {
+  useFetchNotificationsQuery,
+  useUpdateStarredStatusMutation,
+} from "@/redux/services/notificationApi";
+import {
+  IUserNotification,
+  notificationsData,
+} from "@/redux/features/notificationSlice";
 import { useDispatch } from "react-redux";
+import { useAppSelector } from "@/redux/store";
 interface SidebarProps {
   isOpen: boolean;
   onClose: () => void;
@@ -25,13 +32,22 @@ interface SidebarProps {
 const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
   const [activeTab, setActiveTab] = useState(0);
   const dispatch = useDispatch();
-  const [starredNotifications, setStarredNotifications] = useState<string[]>([]);
-  const {isLoading: isNotificationLoading,data,error,isSuccess,} = useFetchNotificationsQuery();
-    
+  const [updateStarredStatusMutation] = useUpdateStarredStatusMutation();
+  const [starredNotifications, setStarredNotifications] = useState<string[]>(
+    []
+  );
+  const {
+    isLoading: isNotificationLoading,
+    data,
+    error,
+    isSuccess,
+  } = useFetchNotificationsQuery();
+  const user = useAppSelector((state) => state.user.UserData);
+
   const formattedData = data?.map((item: IUserNotification) => ({
     ...item,
     message: item.message,
-    starred: item.starred
+    starred: item.starred,
   }));
 
   const [notifications, setNotifications] = useState<
@@ -39,21 +55,39 @@ const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
   >(formattedData || []);
 
   useEffect(() => {
+    const starredMessages = notifications
+      .filter((notification) => notification.starred)
+      .map((notification) => notification.message);
+
+    setStarredNotifications(starredMessages);
+  }, [notifications]);
+
+  useEffect(() => {
     if (isSuccess) {
       dispatch(notificationsData(formattedData || []));
     }
     if (error) {
-      console.log('errror', error)
+      console.log("errror", error);
     }
-  }, [notificationsData, isSuccess, error])
+  }, [notificationsData, isSuccess, error]);
 
   const handleChangeTab = (event: SyntheticEvent, newTab: number) => {
     setActiveTab(newTab);
   };
 
-  const toggleStar = (index: number) => {
-    const updatedNotifications = [...notifications];
+  const toggleStar = async (index: number) => {
+    const updatedNotifications = JSON.parse(JSON.stringify(notifications));
     updatedNotifications[index].starred = !updatedNotifications[index].starred;
+
+    try {
+      await updateStarredStatusMutation({
+        user_id: user.id,
+        starred: updatedNotifications[index].starred,
+        notification_id: updatedNotifications[index]._id,
+      });
+    } catch (error) {
+      console.log("Error updating starred status:", error);
+    }
 
     if (updatedNotifications[index].starred) {
       setStarredNotifications([
