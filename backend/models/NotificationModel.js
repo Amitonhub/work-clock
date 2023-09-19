@@ -9,8 +9,8 @@ const notificationSchema = new mongoose.Schema({
     type: String,
     required: [true, "please add message"],
   },
-  starred : {
-    type : Boolean,
+  starred: {
+    type: Boolean,
     required: [true, "please add starred value"],
   }
 })

@@ -6,13 +6,17 @@ import styles from './style.module.scss'
 import { useAttendanceMutation } from "@/redux/services/attendanceApi";
 import { AttendanceTypes } from "@/views/dashboard/types/attendanceType";
 import Loader from "@/components/Loader/Loader";
+import { useCreateNotificationMutation } from "@/redux/services/notificationApi";
+import { useAppSelector } from "@/redux/store";
 
 interface QrCodeScannerProps {
   setShowQRCodeScanner: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 function QrScanner(props: QrCodeScannerProps) {
-    const [attendanceAction, {data, isLoading, isSuccess, error, isError }] = useAttendanceMutation();
+    const user = useAppSelector((state) => state.user.UserData);
+    const [attendanceAction, {data, isLoading, isSuccess, isError }] = useAttendanceMutation();
+    const [notificationAction] = useCreateNotificationMutation();
     const [scanResult, setScanResult] = useState()
 
     useEffect(() => {
@@ -32,8 +36,16 @@ function QrScanner(props: QrCodeScannerProps) {
             scanner.clear()
             setScanResult(result)
         }
+        async function notification() {
+            await notificationAction({
+                message : `punched-in successfully at ${new Date()}`,
+                user_id : user.id,
+                starred : false
+            })
+        }
         if(isSuccess){
             props.setShowQRCodeScanner(false)
+            notification()
             ToastSuccess('Punched In')
         }
         if(isError){

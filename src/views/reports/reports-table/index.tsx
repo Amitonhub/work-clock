@@ -120,7 +120,7 @@ function DailyAttendanceBreakDown() {
                       if (item.type === "meal-in") {
                         return (
                           <React.Fragment>
-                            {moment.utc(item.timestamp).format('LT')}
+                            {moment.utc(item.timestamp).format('h:mm a')}
                           </React.Fragment>
                         );
                       }

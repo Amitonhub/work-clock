@@ -37,39 +37,26 @@ const OnTimeLatePunch = () => {
       }
 
       if (currentDate.date() <= moment().daysInMonth()) {
-        const onTimeStartTime = moment().set({
-          hour: 9,
-          minute: 30,
-          second: 0,
-        });
-        const onTimeEndTime = moment().set({
-          hour: 10,
-          minute: 15,
-          second: 0,
-        });
-        const lateEndTime = moment().set({
-          hour: 19,
-          minute: 0,
-          second: 0,
-        });
-
+        const lateStartTime = moment()
+          .set({
+            hour: 10,
+            minute: 15,
+          })
+          .format("h:mm a");
+        const lateEndTime = moment()
+          .set({
+            hour: 19,
+            minute: 0,
+          })
+          .format("h:mm a");
         let onTimeCount = 0;
         let lateCount = 0;
 
         formattedData.forEach((item: AttendanceDataType) => {
           item.punches.forEach((punch: Punch) => {
-            const punchTime = moment(punch.timestamp);
-            const formattedPunchTime = punchTime.format("h:mm:ss");
             if (punch.type === AttendanceTypes.punchIn) {
-              if (
-                formattedPunchTime > onTimeStartTime.format("h:mm:ss") &&
-                formattedPunchTime < onTimeEndTime.format("h:mm:ss")
-              ) {
-                onTimeCount++;
-              } else if (
-                formattedPunchTime > onTimeEndTime.format("h:mm:ss") &&
-                formattedPunchTime < lateEndTime.format("h:mm:ss")
-              ) {
+              const punchTime = moment.utc(punch.timestamp).format("h:mm a");
+              if (punchTime >= lateStartTime && punchTime <= lateEndTime) {
                 lateCount++;
               } else {
                 onTimeCount++;
