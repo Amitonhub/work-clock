@@ -98,7 +98,7 @@ const getAttendanceByDate = asyncHandler(async (req, res) => {
 //access private
 
 const getAttendanceOfPeriod = asyncHandler(async (req, res) => {
-  const { user_id, from_date, to_date } = req.params;
+  const { user_id, from_date, to_date } = req.body;
 
   try {
     const parsedFromDate = new Date(from_date);

@@ -6,7 +6,7 @@ const {generateQr} = require('../controllers/qrController')
 
 router.post("/",validateToken, attendance)
 router.get("/:user_id/:date", validateToken, getAttendanceByDate)
-router.get("/:user_id/:from_date/:to_date", validateToken, getAttendanceOfPeriod)
+router.get("/period-attendance", validateToken, getAttendanceOfPeriod)
 router.get("/:user_id", validateToken, getAllAttendanceById)
 router.post("/qr", validateToken, generateQr);  
 
