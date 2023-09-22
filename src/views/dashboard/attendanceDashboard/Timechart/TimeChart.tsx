@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   LineChart,
   Line,
@@ -14,17 +14,40 @@ import {
   FormControl,
 } from "@mui/material";
 import moment from "moment";
+import { useGetAllAttendanceByPeriodMutation } from "@/redux/services/attendanceApi";
+import { useAppSelector } from "@/redux/store";
 
 function TimeChart() {
   const oneWeekAgo = moment(new Date()).subtract(1, 'week').format();
   const twoWeekAgo = moment(new Date()).subtract(2, 'week').format();
   const threeWeekAgo = moment(new Date()).subtract(3, 'week').format();
   const [duration, setDuration] = useState("1");
+  const user = useAppSelector((state) => state.user.UserData);
+  const [useGetAllAttendanceByDateAction, { isLoading, isSuccess, error, isError }] = useGetAllAttendanceByPeriodMutation();
 
   const handleChange = (event: SelectChangeEvent) => {
     setDuration(event.target.value as string);
   };
 
+  const getAllAttendanceByPeriod = async () => {
+    // debugger
+    try {
+      await useGetAllAttendanceByDateAction({
+        user_id: user?.id,
+        from_date: "2023-09-04",
+        to_date: "2023-09-06"
+      })
+    } catch (error) {
+      console.log("Error in period attendance", error);
+    }
+    if (isSuccess) {
+      console.log(data)
+    }
+  };
+
+  useEffect(() => {
+    getAllAttendanceByPeriod()
+  }, [])
   const dropdownOptions = [
     { value: "1", label: "Week" },
     { value: "2", label: "Month" },

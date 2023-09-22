@@ -3,7 +3,6 @@ import { IGenericResponse } from "../types/responseType";
 import { BASE_URL } from "@/constants";
 import { getAuthToken } from "@/utils/getAuthToken";
 import { RootState } from "../store";
-import { AttendanceDataType } from "@/views/dashboard/types/attendanceDataType";
 import { handlingErrorResponse } from "../utils/handlingErrorResponse";
 
 export const attendanceApi = createApi({
@@ -49,20 +48,21 @@ export const attendanceApi = createApi({
       transformErrorResponse: handlingErrorResponse,
       providesTags: [{ type: 'attendance', id: 'attendance' }],
     }),
-    getAllAttendanceByDate: builder.query<AttendanceDataType, string>({
-      query(userId) {
+    getAllAttendanceByPeriod: builder.mutation<void, { user_id: string, from_date: string, to_date: string }>({
+      query({ user_id, from_date, to_date }) {
         return {
-          url: `/${userId}`,
-          method: 'GET',
+          url: `/period-attendance`,
+          method: "GET",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
+          body: { from_date , to_date, user_id },
         };
       },
       transformErrorResponse: handlingErrorResponse,
-      providesTags: [{ type: 'attendance', id: 'attendance' }],
+      invalidatesTags: [{ type: 'attendance', id: 'attendance' }],
     }),
   }),
 });
 
-export const { useAttendanceMutation, useGetAllAttendanceByIdQuery, useGetAllAttendanceByDateQuery } = attendanceApi;
+export const { useAttendanceMutation, useGetAllAttendanceByIdQuery, useGetAllAttendanceByPeriodMutation } = attendanceApi;
