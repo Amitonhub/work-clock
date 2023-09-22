@@ -19,9 +19,7 @@ const DatePick = dynamic(
 function ReportsPage() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const user = useAppSelector((state) => state.user.UserData);
-  const userAttendance = useAppSelector(
-    (state) => state.attendance.attendanceData
-  );
+  const userAttendance = useAppSelector((state) => state.attendance.attendanceData);
   const formattedData = userAttendance?.map((item: AttendanceDataType) => ({
     ...item,
     date: new Date(item.date),
