@@ -17,7 +17,8 @@
 }
 
 .mainDiv {
-    padding-top: 20px;
+    /* padding-top: 20px; */
+        padding-top: 10px;
 }
 
 @media (max-width: 767px) {

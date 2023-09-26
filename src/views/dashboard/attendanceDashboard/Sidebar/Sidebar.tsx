@@ -43,6 +43,7 @@ const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
     isSuccess,
   } = useFetchNotificationsQuery();
   const user = useAppSelector((state) => state.user.UserData);
+  const checkTheme = useAppSelector((state) => state.theme.darkMode)
 
   const formattedData = data?.map((item: IUserNotification) => ({
     ...item,
@@ -111,7 +112,7 @@ const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
       onClose={onClose}
       className={styles.drawer}
       classes={{
-        paper: styles.drawerPaper,
+        paper: `${styles.drawerPaper} ${checkTheme ? styles.darkContainer : ""}`,
       }}
       variant="persistent"
     >

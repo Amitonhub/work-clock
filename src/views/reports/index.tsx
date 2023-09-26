@@ -1,7 +1,14 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import styles from "./reports.module.scss";
-import { Alert, AlertTitle, Box, Button, Skeleton } from "@mui/material";
+import {
+  Alert,
+  AlertTitle,
+  Box,
+  Button,
+  Skeleton,
+  colors,
+} from "@mui/material";
 import ReportsTable from "./reports-table";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Link from "next/link";
@@ -19,7 +26,10 @@ const DatePick = dynamic(
 function ReportsPage() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const user = useAppSelector((state) => state.user.UserData);
-  const userAttendance = useAppSelector((state) => state.attendance.attendanceData);
+  const checkTheme = useAppSelector((state) => state.theme.darkMode);
+  const userAttendance = useAppSelector(
+    (state) => state.attendance.attendanceData
+  );
   const formattedData = userAttendance?.map((item: AttendanceDataType) => ({
     ...item,
     date: new Date(item.date),
@@ -40,9 +50,10 @@ function ReportsPage() {
       setIsLoading(false);
     };
   }, []);
-
   return (
-    <div className={styles.mainDiv}>
+    <div
+      className={`${styles.mainDiv} ${checkTheme ? styles.darkContainer : ""}`}
+    >
       <div className={styles.header}>
         <DashBoardHeader />
       </div>
@@ -77,19 +88,34 @@ function ReportsPage() {
           </Box>
         ) : (
           <Link href={"/dashboard"}>
-            <Button className={styles.reportButton} variant="outlined">
+            <Button
+              className={styles.reportButton}
+              variant="contained"
+              style={{
+                margin: "10px 0",
+                borderRadius: "30px",
+                backgroundColor: checkTheme ? "#00092c" : "#02A4EF",
+              }}
+            >
               <ArrowBackIcon className={styles.leftArrow} /> &nbsp; Go to
               Dashboard{" "}
             </Button>
           </Link>
         )}
         {formattedData ? (
-          <Alert severity="success">
+          <Alert
+            severity="success"
+            sx={{
+              backgroundColor: checkTheme ? "#213555" : "",
+              color: checkTheme ? "white" : "",
+            }}
+            className={styles.alertDiv}
+          >
             <AlertTitle>Success</AlertTitle>
             Your Attendance Report Generated — <strong>Successfully!</strong>
           </Alert>
         ) : (
-          <Alert severity="info">
+          <Alert severity="info" className={styles.alertDiv}>
             <AlertTitle>Wait</AlertTitle>
             Report is — <strong>fetching!</strong>
           </Alert>
@@ -97,7 +123,6 @@ function ReportsPage() {
         <ReportsTable />
       </div>
     </div>
-
   );
 }
 

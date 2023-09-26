@@ -71,6 +71,11 @@ function ProfileInfo() {
   const name = user && user?.firstname + " " + user.lastname;
   const designation = user && user?.designation;
 
+  const getInitials = (name: string) => {
+    const nameArray = name.split(" ");
+    const initials = nameArray.map((name) => name[0]);
+    return initials.join("");
+  };
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
@@ -96,7 +101,7 @@ function ProfileInfo() {
             </Box>
           ) : (
             <Avatar sx={{ width: 80, height: 80, fontSize: 40 }}>
-              {name && name[0]}
+              {name && getInitials(name)}
             </Avatar>
           )}
         </div>
@@ -144,6 +149,7 @@ function ProfileInfo() {
                 label="Duration"
                 onChange={handleChange}
                 color="secondary"
+                style={{color: checkTheme ? "white" : ""}}
               >
                 {dropdownOptions.map((option) => (
                   <MenuItem className={styles.menuItems} key={option.value} value={option.value}>

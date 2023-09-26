@@ -8,6 +8,11 @@
     transition: left 0.3s ease-in-out;
 }
 
+.darkContainer {
+    background-color: #213555 !important;
+    color: white !important;
+  }
+
 .open {
     left: 0;
 }
