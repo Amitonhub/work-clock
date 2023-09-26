@@ -120,7 +120,7 @@ function TimelineData() {
           <Typography variant="h6" component="span">
             Get Started
           </Typography>
-          <Typography color="text.secondary" sx={{ fontSize: "14px" }}>
+          <Typography sx={{ fontSize: "14px" }}>
             Code It
           </Typography>
         </TimelineContent>

@@ -1,53 +1,58 @@
-.mainButton{
+.mainButton {
     margin-right: 20px;
     font-weight: bold;
 }
+
 .popoverContent {
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  background-color: #f8f8f8;
-  border-radius: 8px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-  width: 280px;
-  background-color: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    width: 280px;
+    background-color: whitesmoke;
 }
 
 .popoverContent .formGroup {
-  margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 .buttonGroup {
-  margin-left: 15px;
+    margin-left: 15px;
 }
 
-.primaryButton:hover , .secondaryButton:hover {
-  transform: scale(1.1);
+.primaryButton:hover,
+.secondaryButton:hover {
+    transform: scale(1.1);
 }
 
 .primaryButton {
-  background-color: #2c82e0;
-  color: #fff;
-  transition: all 0.3s ease-in-out;
+    background-color: #2c82e0;
+    color: #fff;
+    transition: all 0.3s ease-in-out;
 }
 
 .secondaryButton {
-  background-color: #e53935;
-  color: #fff;
-  transition: all 0.3s ease-in-out;
+    background-color: #e53935;
+    color: #fff;
+    transition: all 0.3s ease-in-out;
 }
-.headerPopOver{
+
+.headerPopOver {
     justify-content: center;
-    align-items:center ;
+    align-items: center;
     display: flex;
-    font-family: 'Times New Roman', Times, serif;
+    /* font-family: 'Plus Jakarta Sans'; */
     font-weight: bold;
     font-size: 26px;
 }
-.buttonDiv{
+
+.buttonDiv {
     display: flex;
 }
-.dropdown{
+
+.dropdown {
     width: 90%;
     height: 35px;
     margin-bottom: 15px;

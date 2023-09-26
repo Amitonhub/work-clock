@@ -1,52 +1,49 @@
 @mixin fontStyle() {
-  font-family: "Roboto";
-  font-style: normal;
-  font-size: 18px;
-  line-height: 18px;
-}
-.holidayDateSection {
-  display: flex;
-  width: 270px;
-  height: 35px;
-
-  .holidayDateSection {
-    display: flex;
-    z-index: 9;
-  }
-
-  @media (max-width: 999px) {
-    margin-left: 0;
-  }
-
-  .dateInput {
-    @include fontStyle();
+    // font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-size: 18px;
     line-height: 18px;
-    color: #353c48;
-    width: 115px;
-    height: 35px;
-    text-align: center;
-    border: none;
-    background-color: white;
-  }
+}
 
-  .to {
-    @include fontStyle();
-    color: white;
-    text-align: center;
-    padding: 10px;
-    background-color: #02A4EF;
-    margin: 0 5px;
-  }
+.holidayDateSection {
+    display: flex;
+    width: 270px;
+    height: 35px;
+    .holidayDateSection {
+        display: flex;
+        z-index: 9;
+    }
+    @media (max-width: 999px) {
+        margin-left: 0;
+    }
+    .dateInput {
+        @include fontStyle();
+        line-height: 18px;
+        color: #353c48;
+        width: 115px;
+        height: 35px;
+        text-align: center;
+        border: none;
+        background-color: white;
+    }
+    .to {
+        @include fontStyle();
+        color: white;
+        text-align: center;
+        padding: 10px;
+        background-color: #02A4EF;
+        margin: 0 5px;
+    }
 }
 
 @media (max-width: 767px) {
-.holidayDateSection{
-  display: flex;
-  position: absolute;
-  margin: 28px;
-  left: -15px;
-  .dateInput{
-    font-size: 16px;
-  }
-}
+    .holidayDateSection {
+        display: flex;
+        position: absolute;
+        margin: 28px;
+        left: -15px;
+        .dateInput {
+            font-size: 16px;
+        }
+    }
 }

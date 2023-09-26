@@ -33,6 +33,7 @@ function ProfileInfo() {
     isSuccess,
   } = useUserInfoQuery(null);
   const [duration, setDuration] = useState("1");
+  const checkTheme = useAppSelector((state) => state.theme.darkMode)
 
   const dropdownOptions = [
     { value: "1", label: "Week" },
@@ -80,7 +81,7 @@ function ProfileInfo() {
   }, []);
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${checkTheme ? styles.darkContainer : ""}`}>
       <div className={styles.profileInfo}>
         <div className={styles.avatar}>
           {isLoading ? (
@@ -145,7 +146,7 @@ function ProfileInfo() {
                 color="secondary"
               >
                 {dropdownOptions.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
+                  <MenuItem className={styles.menuItems} key={option.value} value={option.value}>
                     {option.label}
                   </MenuItem>
                 ))}

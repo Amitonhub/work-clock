@@ -1,129 +1,155 @@
 .container {
-  padding: 0px 10px;
-  height: 600px;
-  width: 332px;
-  display: grid;
-  row-gap: 10px;
-  background-color: white;
-  padding-top: 20px;
-  padding-bottom: 80px;
-  border-radius: 10px;
-  box-shadow: 4px 4px 4px #bdbdbd;
+    padding: 0px 10px;
+    height: 600px;
+    width: 332px;
+    display: grid;
+    row-gap: 10px;
+    background-color: white;
+    padding-top: 20px;
+    padding-bottom: 80px;
+    border-radius: 10px;
+    /* box-shadow: 4px 4px 4px #bdbdbd; */
 }
-.profileInfoHeaderMain{
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
+
+.darkContainer {
+    background-color: #213555;
+    color: white;
+}
+
+.darkContainer:hover {
+    background-color: #141E46;
+    color: white;
+}
+
+.profileInfoHeaderMain {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
 }
 
 .info {
-  flex: 1;
+    flex: 1;
 }
 
 .name {
-  margin-bottom: 5px;
-  display: flex;
-  font-size: 30px;
-  font-weight: bold;
-  align-items: center;
-  justify-content: center;
+    margin-bottom: 5px;
+    display: flex;
+    font-size: 30px;
+    font-weight: bold;
+    align-items: center;
+    justify-content: center;
 }
 
 .designation {
-  margin-top: 2px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  color: #777;
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: #777;
 }
+
 .avatar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
 .Divider {
-  width: 100%;
-  margin: 20px 0;
-  border-top: 1px solid grey;
+    width: 100%;
+    margin: 20px 0;
+    border-top: 1px solid grey;
 }
+
 .timeInfoHeader {
-  color: #5c5a5a;
+    color: #5c5a5a;
 }
+
 .timeInfoHeaderMain {
     margin-left: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
 .timeInfoSubMain {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px;
-  margin-top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    margin-top: 50px;
 }
-.timeInfoHeader{
-  font-size: 32px;
+
+.timeInfoHeader {
+    font-size: 32px;
 }
 
 .timeInfoSub {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  margin-left: 25px;
-  margin-right: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-left: 25px;
+    margin-right: 25px;
 }
 
 .timeInfoSubHead {
     font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 5px;
+    font-weight: bold;
+    margin-bottom: 5px;
 }
 
 .timeInfoSubInterval {
-  font-size: 14px;
-  font-weight: bold;
-  color: #777;
+    font-size: 14px;
+    font-weight: bold;
+    color: #777;
 }
 
-.timestatusHeading{
-  margin-bottom: 35px;
+.timestatusHeading {
+    margin-bottom: 35px;
 }
+
 .timeStatusSubMaindiv {
-  display: flex;
-  /* align-items: center; */
-  justify-content: space-between;
+    display: flex;
+    /* align-items: center; */
+    justify-content: space-between;
 }
-.timeStatusActivityDiv{
-  margin-right: 10px;
+
+.timeStatusActivityDiv {
+    margin-right: 10px;
 }
+
 .coloredCircle {
-  display: inline-block;
-  margin-right: 5px;
-  border-radius: 50%;
-  border-style: solid;
-  border-width: 0.5px;
-  height: 10px;
-  width: 10px;
+    display: inline-block;
+    margin-right: 5px;
+    border-radius: 50%;
+    border-style: solid;
+    border-width: 0.5px;
+    height: 10px;
+    width: 10px;
 }
-.timeStatusHeading{
-  display: flex;
-  align-items: baseline;
+
+.timeStatusHeading {
+    display: flex;
+    align-items: baseline;
 }
+
 .paragraphMain {
-  color: #787486;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+    color: #787486;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
 }
-.activeStatus, .inactiveStatus, .overTimeStatus{
-  margin-bottom: 20px;
-  display: block;
+
+.activeStatus,
+.inactiveStatus,
+.overTimeStatus {
+    margin-bottom: 20px;
+    display: block;
 }
-.statusHeadingDiv{
- margin-left: 5px;
+
+.statusHeadingDiv {
+    margin-left: 5px;
 }

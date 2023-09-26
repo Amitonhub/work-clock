@@ -9,13 +9,19 @@ import tokenSlice from "./features/tokenSlice";
 import userSlice from "./features/userSlice";
 import attendance from "./features/attendanceSlice";
 import { notificationApi } from "./services/notificationApi";
+import ThemeToggleSlice from "./features/ThemeToggleSlice";
 
 const reducer = {
+
+    //state slices
     auth: authReducer,
     token: tokenSlice,
     user: userSlice,
     attendance: attendance,
     notifications: notificationSlice,
+    theme: ThemeToggleSlice,
+    
+    // RTK
     [authApi.reducerPath]: authApi.reducer,
     [attendanceApi.reducerPath]: attendanceApi.reducer, 
     [notificationApi.reducerPath]: notificationApi.reducer,

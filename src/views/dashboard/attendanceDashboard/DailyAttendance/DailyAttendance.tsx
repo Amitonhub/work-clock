@@ -1,8 +1,10 @@
 import React from "react";
 import styles from "./DailyAttendance.module.css";
 import Tooltip from "@mui/material/Tooltip";
+import { useAppSelector } from "@/redux/store";
 
 function DailyAttendance() {
+  const checkTheme = useAppSelector((state) => state.theme.darkMode);
   const totalHours = 180.0;
   const approvedHours = 100.0;
   const unapprovedHours = 30.0;
@@ -15,7 +17,7 @@ function DailyAttendance() {
   return (
     <div className={styles.mainDiv}>
       <div className={styles.timeInfo}>
-        <h4 className={styles.timeInfoHeaderMain}>
+        <h4 className={styles.timeInfoHeaderMain} style={{color: checkTheme ? "white" : "black"}}> 
           Hour Breakdown - &nbsp;
           <span className={styles.timeInfoHeader}>{totalHours} Total Hrs</span>
         </h4>
@@ -29,7 +31,7 @@ function DailyAttendance() {
               className={styles.progressBarSegment}
               style={{
                 width: `${getProgressBarValue(approvedHours)}%`,
-                backgroundColor: "#02A4EF",
+                backgroundColor: checkTheme ? "#213555" : "#02A4EF",
               }}
               aria-label={`Approved: ${approvedHours} Hrs`}
             />

@@ -14,6 +14,7 @@ const OnTimeLatePunch = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [onTimeCount, setOnTimeCount] = useState(0);
   const [lateCount, setLateCount] = useState(0);
+  const checkTheme = useAppSelector((state) => state.theme.darkMode)
 
   const user = useAppSelector((state) => state.user.UserData);
   const {
@@ -90,13 +91,15 @@ const OnTimeLatePunch = () => {
             sx={{
               width: "220px",
               height: "65px",
-              backgroundColor: "#E3FDF0",
+              backgroundColor:checkTheme ? "#213555" : "white",
+              color: "black",
               padding: "5px",
               "&:hover": {
-                backgroundColor: "#E3FDDF",
+                backgroundColor:checkTheme ? "#141E46": "",
+                color:checkTheme ? "white" : "black",
               },
               borderRadius: "10px",
-              boxShadow: "5px 5px 5px #bdbdbd",
+              // boxShadow: "5px 5px 5px #bdbdbd",
             }}
           >
             <div className={styles.contentMainDiv}>
@@ -153,13 +156,15 @@ const OnTimeLatePunch = () => {
             sx={{
               width: "220px",
               height: "65px",
-              backgroundColor: "#FFFFE4",
+              backgroundColor:checkTheme ? "#213555" : "white",
+              color: "black",
               padding: "5px",
               "&:hover": {
-                backgroundColor: "#FFFFD0",
+                backgroundColor:checkTheme ? "#141E46" : "",
+                color: "white",
               },
               borderRadius: "10px",
-              boxShadow: "5px 5px 5px #bdbdbd",
+              // boxShadow: "5px 5px 5px #bdbdbd",
             }}
           >
             <div className={styles.contentMainDiv}>
