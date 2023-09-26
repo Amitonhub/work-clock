@@ -8,12 +8,14 @@ import { ToastError } from '@/utils/showToastAlerts';
 import { SESSION_EXPIRED } from '@/constants';
 import { useDispatch } from 'react-redux';
 import { token } from '@/redux/features/tokenSlice';
+import { useAppSelector } from '@/redux/store';
 
 function Page() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const dispatch = useDispatch()
+  const checkTheme = useAppSelector((state) => state?.theme?.darkMode)
 
   useEffect(() => {
     checkSession();
@@ -38,10 +40,16 @@ function Page() {
   }, [loading, isLoggedIn, router]);
 
   if (loading) {
-    return <Loader/>;
+    return <Loader />;
   }
 
-  return isLoggedIn ? <Dashboard /> : null;
+  return isLoggedIn ?
+    <>
+      <div className={checkTheme ? 'dark-dashboard-layout' : 'light-dashboard-layout'}>
+        <Dashboard />
+      </div>
+    </>
+    : null;
 
 
   //  return <Dashboard />;

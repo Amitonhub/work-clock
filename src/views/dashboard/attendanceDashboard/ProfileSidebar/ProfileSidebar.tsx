@@ -3,12 +3,14 @@ import { Drawer } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import styles from "./Sidebar.module.css";
 import { ProfileInfo } from "../profileInfo";
+import { useAppSelector } from "@/redux/store";
 interface SidebarProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
+  const checkTheme = useAppSelector((state) => state.theme.darkMode)
 
   return (
     <Drawer

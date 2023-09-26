@@ -1,10 +1,14 @@
 .heading {
-  font-size: 37px;
-  padding: 0 10px;
+    font-size: 37px;
+    padding: 0 10px;
 }
 
 @media (max-width: 767px) {
-  .heading {
-    font-size: 23px;
-  }
+    .heading {
+        font-size: 23px;
+    }
+}
+
+.ThemeIcon:hover {
+    cursor: pointer;
 }

@@ -1,9 +1,9 @@
 .overtimeButton {
     margin-right: 20px;
     font-weight: bold;
-  }
-  
-  .popoverContent {
+}
+
+.popoverContent {
     display: flex;
     flex-direction: column;
     padding: 20px;
@@ -11,44 +11,43 @@
     border-radius: 8px;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
     width: 290px;
-  }
-  
-  .headerPopOver {
+}
+
+.headerPopOver {
     justify-content: center;
     align-items: center;
     display: flex;
-    font-family: "Times New Roman", Times, serif;
+    /* font-family: 'Plus Jakarta Sans'; */
     font-weight: bold;
     font-size: 26px;
     margin-bottom: 16px;
-  }
-  
-  .formGroup {
+}
+
+.formGroup {
     margin-bottom: 10px;
-  }
-  
-  .buttonGroup {
+}
+
+.buttonGroup {
     display: flex;
     justify-content: flex-end;
     gap: 8px;
     margin-top: 16px;
-  }
-  
-  .buttonGroup button {
+}
+
+.buttonGroup button {
     transition: all 0.3s ease-in-out;
-  }
-  
-  .buttonGroup button:hover {
+}
+
+.buttonGroup button:hover {
     transform: scale(1.1);
-  }
-  
-  .primaryButton {
+}
+
+.primaryButton {
     background-color: #2c82e0;
     color: #fff;
-  }
-  
-  .secondaryButton {
+}
+
+.secondaryButton {
     background-color: #e53935;
     color: #fff;
-  }
-  
+}

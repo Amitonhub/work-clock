@@ -15,6 +15,7 @@ import moment from "moment";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import { IUserNotification } from "@/redux/features/notificationSlice";
 import { useFetchNotificationsQuery } from "@/redux/services/notificationApi";
+import { useAppSelector } from "@/redux/store";
 
 const ProfileInfo = dynamic(
   () => import("@/views/dashboard/attendanceDashboard/profileInfo/ProfileInfo")
@@ -91,6 +92,7 @@ function AttendanceDashBoard() {
     ...item,
     message: item.message,
   }));
+  const checkTheme = useAppSelector((state) => state.theme.darkMode)
 
   useEffect(() => {
     const checkCamera = async () => {
@@ -139,8 +141,8 @@ function AttendanceDashBoard() {
                 </Box>
               ) : (
                 <div className={styles.headerMainDiv}>
-                  <div>
-                    <h4 style={{ display: isLoading ? "none" : "flex" }}>
+                  <div style={{ display: isLoading ? "none" : "flex", color: checkTheme ? "gray" : "white", backgroundColor: checkTheme ? "#213555" : "#02A4EF", borderRadius: "50px", height: "38px", width: "40px", alignItems: "flex-end" }}>
+                    <h4 style={{ paddingLeft: "8px" }}>
                       <CalendarTodayIcon />
                     </h4>
                   </div>
@@ -151,10 +153,11 @@ function AttendanceDashBoard() {
                         marginLeft: "10px",
                         marginBottom: "10px",
                         borderRadius: "20px",
-                        color: "steelblue",
+                        color: checkTheme ? "steelblue" : "white",
                         fontWeight: "bold",
+                        backgroundColor: checkTheme ? "#213555" : "#02A4EF",
                       }}
-                      variant="outlined"
+                      variant="contained"
                       disabled
                     >
                       {todaysDate}
@@ -215,7 +218,7 @@ function AttendanceDashBoard() {
                 </Box>
               ) : (
                 <>
-                  <div className={styles.bellIcon}>
+                  <div className={styles.bellIcon} style={{ backgroundColor: checkTheme ? "#213555" : "#02A4EF" }}>
                     <Icon
                       component={NotificationsIcon}
                       fontSize="large"
@@ -274,12 +277,13 @@ function AttendanceDashBoard() {
                     style={{
                       margin: "10px 0",
                       borderRadius: "30px",
-                      color: "#2c82e0",
+                      color: checkTheme ? "steelblue" : "white",
+                      backgroundColor: checkTheme ? "#213555" : "#02A4EF",
                     }}
-                    variant="outlined"
+                    variant="contained"
                   >
                     Go to Detailed Report &nbsp;{" "}
-                    <EastIcon className={styles.rightArrow} />{" "}
+                    <EastIcon style={{ color: checkTheme ? "black" : "white" }} />{" "}
                   </Button>
                 </div>
               </Link>
@@ -329,12 +333,13 @@ function AttendanceDashBoard() {
                   sx={{
                     width: "max-content",
                     height: "max-content",
-                    backgroundColor: "#E3FDFF",
+                    backgroundColor: checkTheme ? "#213555" : "white",
+                    color: checkTheme ? "white" : "black",
                     "&:hover": {
-                      backgroundColor: "#D7FCFF",
+                      backgroundColor: checkTheme ? "#141E46" : "",
+                      color: checkTheme ? "white" : "black",
                     },
                     borderRadius: "5%",
-                    boxShadow: "5px 5px 5px #bdbdbd",
                   }}
                 >
                   <TimelineData />
@@ -358,14 +363,15 @@ function AttendanceDashBoard() {
                       sx={{
                         width: "315px",
                         height: "140px",
-                        backgroundColor: "black",
+                        backgroundColor: checkTheme ? "#00092C" : "black",
+                        color: "white",
                         padding: "5px",
                         "&:hover": {
-                          color: "black",
-                          backgroundColor: "white",
+                          backgroundColor: checkTheme ? "#141E46" : "white",
+                          color: checkTheme ? "white" : "black",
                         },
                         borderRadius: "10px",
-                        boxShadow: "5px 5px 5px #bdbdbd",
+                        // boxShadow: "5px 5px 5px #bdbdbd",
                       }}
                     >
                       <div className={styles.countDownSubDiv}>
@@ -393,13 +399,11 @@ function AttendanceDashBoard() {
                     sx={{
                       width: "max-content",
                       height: "max-content",
-                      backgroundColor: "aliceBlue",
+                      backgroundColor: checkTheme ? "#213555" : "white",
+                      color: checkTheme ? "white" : "",
                       padding: "5px",
-                      // "&:hover": {
-                      //   backgroundColor: "#00aaf3",
-                      // },
                       borderRadius: "10px",
-                      boxShadow: "5px 5px 5px #bdbdbd",
+                      // boxShadow: "5px 5px 5px #bdbdbd",
                     }}
                   >
                     <TimeChart />
@@ -410,7 +414,7 @@ function AttendanceDashBoard() {
           </div>
         </div>
         <div className={styles.profileInfo}>
-          <Divider orientation="vertical" flexItem className={styles.Divider} />
+          {/* <Divider orientation="vertical" flexItem className={styles.Divider} /> */}
           <div className={styles.profileInfoWrapper}>
             <ProfileInfo />
           </div>
