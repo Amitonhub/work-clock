@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, Fragment, useEffect, useState } from "react";
 import styles from "./reportsTable.module.scss";
 import { Table } from "react-bootstrap";
 import MoreTimeIcon from "@mui/icons-material/MoreTime";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import RestaurantIcon from "@mui/icons-material/Restaurant";
 import NoMealsIcon from "@mui/icons-material/NoMeals";
-import { Button, Icon, Pagination, Stack } from "@mui/material";
+import EmojiFoodBeverageIcon from "@mui/icons-material/EmojiFoodBeverage";
+import { Icon, Pagination, Stack } from "@mui/material";
 import { useGetAllAttendanceByIdQuery } from "@/redux/services/attendanceApi";
 import { useAppSelector } from "@/redux/store";
 import { useDispatch } from "react-redux";
@@ -18,11 +19,25 @@ import { IUserType } from "@/views/dashboard/types/userType";
 import { userData } from "@/redux/features/userSlice";
 
 function DailyAttendanceBreakDown() {
-  const user = useAppSelector((state) => state.user.UserData)
-  const { isLoading: isUserInfoLoading, isFetching: isUserFetching, data: isUserData, error: userError, isSuccess: userSuccess } = useUserInfoQuery(null);
-  const { isLoading: isAttendanceLoading, isFetching, data, error, isSuccess } = useGetAllAttendanceByIdQuery(user?.id);
-  const dispatch = useDispatch()
-  const userAttendance = useAppSelector((state) => state.attendance.attendanceData)
+  const user = useAppSelector((state) => state.user.UserData);
+  const {
+    isLoading: isUserInfoLoading,
+    isFetching: isUserFetching,
+    data: isUserData,
+    error: userError,
+    isSuccess: userSuccess,
+  } = useUserInfoQuery(null);
+  const {
+    isLoading: isAttendanceLoading,
+    isFetching,
+    data,
+    error,
+    isSuccess,
+  } = useGetAllAttendanceByIdQuery(user?.id);
+  const dispatch = useDispatch();
+  const userAttendance = useAppSelector(
+    (state) => state.attendance.attendanceData
+  );
   const formattedData = data?.map((item: AttendanceDataType) => ({
     ...item,
     date: new Date(item.date),
@@ -30,26 +45,30 @@ function DailyAttendanceBreakDown() {
 
   useEffect(() => {
     if (userSuccess) {
-      dispatch(userData(isUserData as IUserType))
-
+      dispatch(userData(isUserData as IUserType));
     }
-    if (isFetching || isUserFetching || isUserInfoLoading || isAttendanceLoading) {
-      <Loader />
+    if (
+      isFetching ||
+      isUserFetching ||
+      isUserInfoLoading ||
+      isAttendanceLoading
+    ) {
+      <Loader />;
     }
     if (error) {
-      console.log('errror', error)
+      console.log("errror", error);
     }
-    console.log(isUserData)
-  }, [data, isUserData, dispatch])
+    console.log(isUserData);
+  }, [data, isUserData, dispatch]);
 
   useEffect(() => {
     if (isSuccess) {
       dispatch(attendanceData(formattedData));
     }
     if (error) {
-      console.log('errror', error)
+      console.log("errror", error);
     }
-  }, [attendanceData, isSuccess, isUserData, error])
+  }, [attendanceData, isSuccess, isUserData, error]);
 
   const [page, setPage] = useState(1);
   const rowsPerPage = 5;
@@ -60,7 +79,7 @@ function DailyAttendanceBreakDown() {
 
   const totalPages = Math.ceil(userAttendance?.length / rowsPerPage);
 
-  const handleChangePage = (event: React.ChangeEvent<unknown>, newPage: number) => {
+  const handleChangePage = (event: ChangeEvent<unknown>, newPage: number) => {
     event.preventDefault();
     setPage(newPage);
   };
@@ -77,142 +96,147 @@ function DailyAttendanceBreakDown() {
         >
           <thead className={styles.tableHead}>
             <tr className={styles.attendanceTableTr}>
-              <td>Date</td>
-              <td>Check In</td>
-              <td>Meal In</td>
-              <td>Meal Out</td>
-              <td>Tea Break In</td>
-              <td>Tea Break Out</td>
-              <td>Check Out</td>
-              <td>Overtime</td>
+              <th>Date</th>
+              <th>Punch In</th>
+              <th>Meal In</th>
+              <th>Meal Out</th>
+              <th>Tea Break In</th>
+              <th>Tea Break Out</th>
+              <th>Punch Out</th>
+              <th>Overtime</th>
             </tr>
           </thead>
           <tbody className={styles.tableBody}>
             {currentRows
-              ? [...(currentRows.toReversed().map((item: AttendanceDataType) => (
-                <tr key={item._id}>
-                  <td>{moment.utc(item.date).format('L')}</td>
-                  <td>
-                    <Icon
-                      component={AccessTimeIcon}
-                      fontSize="inherit"
-                      color="success"
-                      className={styles.icons}
-                    />
-                    {item.punches.map((item) => {
-                      if (item.type === "punch-in") {
-                        return (
-                          <React.Fragment>
-                            {moment.utc(item.timestamp).format('h:mm a')}
-                          </React.Fragment>
-                        );
-                      }
-                    })}
-                  </td>
-                  <td>
-                    <Icon
-                      component={RestaurantIcon}
-                      fontSize="inherit"
-                      color="warning"
-                      className={styles.icons}
-                    />
-                    {item.punches.map((item) => {
-                      if (item.type === "meal-in") {
-                        return (
-                          <React.Fragment>
-                            {moment.utc(item.timestamp).format('h:mm a')}
-                          </React.Fragment>
-                        );
-                      }
-                    })}
-                  </td>
-                  <td>
-                    <Icon
-                      component={NoMealsIcon}
-                      fontSize="inherit"
-                      color="warning"
-                      className={styles.icons}
-                    />
-                    {item.punches.map((item) => {
-                      if (item.type === "meal-out") {
-                        return (
-                          <React.Fragment>
-                            {moment.utc(item.timestamp).format('h:mm a')}
-                          </React.Fragment>
-                        );
-                      }
-                    })}
-                  </td>
-                  <td>
-                    <Icon
-                      component={NoMealsIcon}
-                      fontSize="inherit"
-                      color="warning"
-                      className={styles.icons}
-                    />
-                    {item.punches.map((item) => {
-                      if (item.type === "tea-break-in") {
-                        return (
-                          <React.Fragment>
-                            {moment.utc(item.timestamp).format('h:mm a')}
-                          </React.Fragment>
-                        );
-                      }
-                    })}
-                  </td>
-                  <td>
-                    <Icon
-                      component={NoMealsIcon}
-                      fontSize="inherit"
-                      color="warning"
-                      className={styles.icons}
-                    />
-                    {item.punches.map((item) => {
-                      if (item.type === "tea-break-out") {
-                        return (
-                          <React.Fragment>
-                            {moment.utc(item.timestamp).format('h:mm a')}
-                          </React.Fragment>
-                        );
-                      }
-                    })}
-                  </td>
-                  <td>
-                    <Icon
-                      component={AccessTimeIcon}
-                      fontSize="inherit"
-                      color="error"
-                      className={styles.icons}
-                    />
-                    {item.punches.map((item) => {
-                      if (item.type === "punch-out") {
-                        return (
-                          <React.Fragment>
-                            {moment.utc(item.timestamp).format('h:mm a')}
-                          </React.Fragment>
-                        );
-                      }
-                    })}
-                  </td>
-                  <td>
-                    <Icon
-                      component={MoreTimeIcon}
-                      fontSize="inherit"
-                      color="success"
-                      className={styles.icons}
-                    />
-                    {item.punches.map((item) => {
-                      if (item.type === "overtime") {
-                        return (
-                          <React.Fragment>
-                            {moment.utc(item.timestamp).format('h:mm a')}
-                          </React.Fragment>
-                        );
-                      }
-                    })}
-                  </td>
-                </tr>
-              )))] : []}
+              ? [
+                  ...currentRows
+                    .toReversed()
+                    .map((item: AttendanceDataType) => (
+                      <tr key={item._id}>
+                        <td>{moment.utc(item.date).format("L")}</td>
+                        <td>
+                          <Icon
+                            component={AccessTimeIcon}
+                            fontSize="inherit"
+                            color="success"
+                            className={styles.icons}
+                          />
+                          {item.punches.map((item) => {
+                            if (item.type === "punch-in") {
+                              return (
+                                <Fragment>
+                                  {moment.utc(item.timestamp).format("h:mm a")}
+                                </Fragment>
+                              );
+                            }
+                          })}
+                        </td>
+                        <td>
+                          <Icon
+                            component={RestaurantIcon}
+                            fontSize="inherit"
+                            color="info"
+                            className={styles.icons}
+                          />
+                          {item.punches.map((item) => {
+                            if (item.type === "meal-in") {
+                              return (
+                                <Fragment>
+                                  {moment.utc(item.timestamp).format("h:mm a")}
+                                </Fragment>
+                              );
+                            }
+                          })}
+                        </td>
+                        <td>
+                          <Icon
+                            component={NoMealsIcon}
+                            fontSize="inherit"
+                            color="warning"
+                            className={styles.icons}
+                          />
+                          {item.punches.map((item) => {
+                            if (item.type === "meal-out") {
+                              return (
+                                <Fragment>
+                                  {moment.utc(item.timestamp).format("h:mm a")}
+                                </Fragment>
+                              );
+                            }
+                          })}
+                        </td>
+                        <td>
+                          <Icon
+                            component={EmojiFoodBeverageIcon}
+                            fontSize="inherit"
+                            color="info"
+                            className={styles.icons}
+                          />
+                          {item.punches.map((item) => {
+                            if (item.type === "tea-break-in") {
+                              return (
+                                <Fragment>
+                                  {moment.utc(item.timestamp).format("h:mm a")}
+                                </Fragment>
+                              );
+                            }
+                          })}
+                        </td>
+                        <td>
+                          <Icon
+                            component={EmojiFoodBeverageIcon}
+                            fontSize="inherit"
+                            color="warning"
+                            className={styles.icons}
+                          />
+                          {item.punches.map((item) => {
+                            if (item.type === "tea-break-out") {
+                              return (
+                                <Fragment>
+                                  {moment.utc(item.timestamp).format("h:mm a")}
+                                </Fragment>
+                              );
+                            }
+                          })}
+                        </td>
+                        <td>
+                          <Icon
+                            component={AccessTimeIcon}
+                            fontSize="inherit"
+                            color="error"
+                            className={styles.icons}
+                          />
+                          {item.punches.map((item) => {
+                            if (item.type === "punch-out") {
+                              return (
+                                <Fragment>
+                                  {moment.utc(item.timestamp).format("h:mm a")}
+                                </Fragment>
+                              );
+                            }
+                          })}
+                        </td>
+                        <td>
+                          <Icon
+                            component={MoreTimeIcon}
+                            fontSize="inherit"
+                            color="success"
+                            className={styles.icons}
+                          />
+                          {item.punches.map((item) => {
+                            if (item.type === "overtime") {
+                              return (
+                                <Fragment>
+                                  {moment.utc(item.timestamp).format("h:mm a")}
+                                </Fragment>
+                              );
+                            }
+                          })}
+                        </td>
+                      </tr>
+                    )),
+                ]
+              : []}
           </tbody>
         </Table>
         <Stack
