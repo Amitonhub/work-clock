@@ -47,7 +47,7 @@ function DashBoardHeader() {
         <div className={styles.heading}>
           {currentPage === "/dashboard"
             ? "Dashboard"
-            : "Attendance Reports"}
+            : "Reports"}
         </div>
       )}
       {isLoading ? (

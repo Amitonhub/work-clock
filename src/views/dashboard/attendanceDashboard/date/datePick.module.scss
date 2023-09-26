@@ -18,12 +18,20 @@
     }
     .dateInput {
         @include fontStyle();
-        line-height: 18px;
-        color: #353c48;
-        width: 115px;
+        color: white;
+        width: 140px;
         height: 35px;
         text-align: center;
         border: none;
+        background-color: #213555;
+        border-radius: 5px;
+        padding: 0 10px;
+    }
+    .darkDateInput{
+        background-color: #213555;
+    }
+    .lightDateInput{
+        color: black;
         background-color: white;
     }
     .to {
@@ -31,8 +39,8 @@
         color: white;
         text-align: center;
         padding: 10px;
-        background-color: #02A4EF;
         margin: 0 5px;
+        border-radius: 5px;
     }
 }
 

@@ -19,7 +19,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
       onClose={onClose}
       className={styles.drawer}
       classes={{
-        paper: styles.drawerPaper,
+        paper:`${styles.drawerPaper} ${checkTheme ? styles.darkContainer : ""}`,
       }}
       variant="persistent"
     >

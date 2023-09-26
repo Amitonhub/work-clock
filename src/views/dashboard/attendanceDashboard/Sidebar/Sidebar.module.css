@@ -9,6 +9,11 @@
   transition: left 0.3s ease-in-out;
 }
 
+.darkContainer {
+  background-color: #213555 !important;
+  color: white !important;
+}
+
 .open {
   left: 0;
 }
@@ -73,6 +78,10 @@
 
 .notificationItem:hover {
   background-color: #d3d3d3;
+}
+
+.notificationItem:hover .NotificationsText {
+  color: black;
 }
 
 .starBorderIconButton {

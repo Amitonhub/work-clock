@@ -6,7 +6,7 @@ interface IToggleType{
 }
 
 const initialState:IToggleType = {
-    darkMode: false
+    darkMode: localStorage.getItem("darkMode") === "true",
 }
 
 export const theme = createSlice({
@@ -15,6 +15,7 @@ export const theme = createSlice({
     reducers: {
         toggleMode: (state: IToggleType, action: PayloadAction<boolean>) => {
             state.darkMode = action.payload
+            localStorage.setItem("darkMode", action.payload.toString())
         },
     },
 });

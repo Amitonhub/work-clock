@@ -188,8 +188,13 @@
         align-items: center;
     }
     .profileIcon svg {
-        color: #02A4EF !important;
         font-size: 54px !important;
+    }
+    .darkProfileIcon{
+        color: white !important;
+    }
+    .lightProfileIcon{
+        color: #02A4EF !important;
     }
     .mainDiv {
         width: 100%;
