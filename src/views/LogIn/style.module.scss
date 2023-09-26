@@ -7,9 +7,8 @@
     background-color: #275BC4;
     border-radius: 20px;
     color: white;
-    font-family: Roboto, sans-serif;
+    // font-family: 'Plus Jakarta Sans';
     animation: formAnimation 1s ease-in-out;
-
     .ellipse1 {
         position: absolute;
         width: 70px;
@@ -17,7 +16,6 @@
         border-radius: 70px;
         background: #3263C7;
     }
-
     .ellipse2 {
         margin-left: 450px;
         position: absolute;
@@ -26,7 +24,6 @@
         border-radius: 40px;
         background: #3263C7;
     }
-
     .ellipse3 {
         margin-left: 600px;
         position: absolute;
@@ -36,7 +33,6 @@
         background: #3263C7;
         z-index: 0;
     }
-
     .ellipse4 {
         margin-top: 10px;
         margin-left: 200px;
@@ -46,7 +42,6 @@
         border-radius: 70px 70px 0 0;
         background: #3263C7;
     }
-
     .logoContainer {
         display: flex;
         align-items: center;
@@ -57,30 +52,25 @@
         z-index: 10;
         gap: 15px;
     }
-
     .workClockHeading {
         padding: 0px 12px;
         font-size: xx-large;
         font-weight: 600;
     }
-
     .title {
         color: #333;
         text-align: center;
     }
-
     .form {
         display: flex;
         flex-direction: column;
         margin-top: 20px;
         position: relative;
         z-index: 10;
-
         .label {
             margin-bottom: 5px;
             color: white;
         }
-
         .input {
             padding: 10px;
             background-color: #F6F8FF;
@@ -88,22 +78,17 @@
             border-radius: 5px;
             margin-bottom: 10px;
             color: black;
-
             &:focus {
                 outline: none;
             }
-
             &::placeholder {
                 font-size: large;
             }
         }
-
         .error {
             color: #ff6060
         }
-
     }
-
     .button {
         background-color: rgb(59 130 246 / 0.5);
         border: none;
@@ -116,7 +101,6 @@
         margin-top: 20px;
         display: inline;
     }
-
     .SignInText {
         font-weight: 700;
         font-size: x-large;
@@ -128,7 +112,6 @@
         opacity: 0;
         transform: translateY(50px);
     }
-
     100% {
         opacity: 1;
         transform: translateY(0);
@@ -140,15 +123,12 @@
         margin: 50px auto;
         padding: 32px;
     }
-
     .logoContainer {
         margin: 10px;
     }
-
     .workClockHeading {
         font-size: large;
     }
-
     .SignInText {
         font-size: large;
     }
@@ -158,12 +138,10 @@
     .container {
         margin: 50px 20px;
     }
-
     .logoContainer img {
         height: 100px !important;
         width: 100px !important;
     }
-
     .workClockHeading {
         font-size: xxx-large !important;
     }

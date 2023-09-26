@@ -1,48 +1,42 @@
 .mainDiv {
-    background-color: #F1F2F7;
-
-    .tableMainDiv{
+    // background-color: #F1F2F7;
+    .tableMainDiv {
         top: 40px;
         position: relative;
     }
-    
     .header {
-        font-family: system-ui;
+        // font-family: 'Plus Jakarta Sans';
         background-color: #353c48;
         color: white;
         display: flex;
         justify-content: space-between;
         align-items: center;
         height: 50px;
-      }
-
+    }
     .tableHeader {
         margin: 10px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-
         .reportDownload {
             background-color: #02A4EF;
         }
-
         .reportDownload:hover {
             color: black;
             background-color: #02A4EF;
         }
     }
-
     .datePickReports {
         display: flex;
         align-items: baseline;
     }
-
     .reportButton {
         margin: 10px;
         border-radius: 30px;
         color: #2c82e0;
     }
 }
+
 .downloadButton {
     background-color: #02A4EF;
 }

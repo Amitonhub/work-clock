@@ -1,23 +1,37 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+html {
+    height: 100vh;
+}
 
 body {
-  margin: 50px 100px;
-  background-color: #f1f2f7;
+    margin: 50px 100px;
+    height: 100vh;
 }
-html {
-  background-color: #f1f2f7;
+
+.light-dashboard-layout {
+    background-color: #F4F7FF;
+    height: 100%;
 }
-.dashboard-layout {
-  background-color: #f1f2f7;
+
+.dark-dashboard-layout {
+    background-color: #001C30;
+    height: 100%;
 }
+
+@media (max-width:767px) {
+    .dark-dashboard-layout,
+    .light-dashboard-layout {
+        height: unset;
+    }
+}
+
 .login-layout {
-  background-color: #f1f2f7;
+    background-color: #f1f2f7;
 }
 
 ::selection {
-  color: white;
-  background: black;
-  /* text-shadow: 2px 2px #31808c; */
+    color: white;
+    background: black;
 }
