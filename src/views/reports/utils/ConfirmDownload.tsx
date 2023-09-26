@@ -13,6 +13,7 @@ import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import styles from "../reports.module.scss";
 import CsvDownloader from "react-csv-downloader";
 import moment from "moment";
+import { useAppSelector } from "@/redux/store";
 
 type ConfirmDownloadType = {
   user: IUserType;
@@ -23,6 +24,7 @@ type ConfirmDownloadType = {
 export default function ConfirmDownload(props: ConfirmDownloadType) {
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
+  const checkTheme = useAppSelector((state) => state.theme.darkMode);
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
   const columns = [
     {
@@ -77,6 +79,7 @@ export default function ConfirmDownload(props: ConfirmDownloadType) {
         className={styles.reportDownload}
         variant="contained"
         onClick={handleClickOpen}
+        style={{backgroundColor: checkTheme ? "#00092c" : "#02A4EF"}}
       >
         <FileDownloadIcon />
         &nbsp;Report in csv{" "}
@@ -87,17 +90,19 @@ export default function ConfirmDownload(props: ConfirmDownloadType) {
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
       >
-        <DialogTitle id="responsive-dialog-title">
+        <DialogTitle id="responsive-dialog-title" style={{fontFamily: "unset", fontWeight: 600, fontSize: "1.75rem"}}>
           {"You Really want to download file?"}
         </DialogTitle>
-        <DialogContent>
-          <DialogContentText>
+        <DialogContent >
+          <DialogContentText style={{fontFamily: "unset", fontSize: "1.25rem"}}>
             In this file includes all attendance report related to punches and
             overtime of {`${props?.user?.firstname}-${props?.user?.lastname}`}.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={handleClose}>
+          <Button autoFocus onClick={handleClose}
+          style={{color: checkTheme ? "#213555" : "#02A4EF"}}
+          >
             Cancel
           </Button>
           <CsvDownloader
@@ -118,6 +123,7 @@ export default function ConfirmDownload(props: ConfirmDownloadType) {
               className={styles.downloadButton}
               variant="contained"
               onClick={handleClose}
+              style={{backgroundColor: checkTheme ? "#213555" : "#02A4EF"}}
             >
               Download
             </Button>

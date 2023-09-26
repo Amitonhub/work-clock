@@ -234,7 +234,7 @@ function AttendanceDashBoard() {
                       />
                     )}
                   </div>
-                  <div className={styles.profileIcon}>
+                  <div className={`${styles.profileIcon} ${checkTheme ? styles.darkProfileIcon : styles.lightProfileIcon}`}>
                     <Icon
                       component={AccountCircleIcon}
                       color="inherit"
@@ -277,13 +277,12 @@ function AttendanceDashBoard() {
                     style={{
                       margin: "10px 0",
                       borderRadius: "30px",
-                      color: checkTheme ? "steelblue" : "white",
-                      backgroundColor: checkTheme ? "#213555" : "#02A4EF",
+                      backgroundColor: checkTheme ? "#00092c" : "#02A4EF",
                     }}
                     variant="contained"
                   >
                     Go to Detailed Report &nbsp;{" "}
-                    <EastIcon style={{ color: checkTheme ? "black" : "white" }} />{" "}
+                    <EastIcon />{" "}
                   </Button>
                 </div>
               </Link>

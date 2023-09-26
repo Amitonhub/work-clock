@@ -20,6 +20,7 @@ import { userData } from "@/redux/features/userSlice";
 
 function DailyAttendanceBreakDown() {
   const user = useAppSelector((state) => state.user.UserData);
+  const checkTheme = useAppSelector((state) => state.theme.darkMode)
   const {
     isLoading: isUserInfoLoading,
     isFetching: isUserFetching,
@@ -77,12 +78,12 @@ function DailyAttendanceBreakDown() {
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
   const currentRows = userAttendance?.slice(indexOfFirstRow, indexOfLastRow);
 
-  const totalPages = Math.ceil(userAttendance?.length / rowsPerPage);
+  // const totalPages = Math.ceil(userAttendance?.length / rowsPerPage);
 
-  const handleChangePage = (event: ChangeEvent<unknown>, newPage: number) => {
-    event.preventDefault();
-    setPage(newPage);
-  };
+  // const handleChangePage = (event: ChangeEvent<unknown>, newPage: number) => {
+  //   event.preventDefault();
+  //   setPage(newPage);
+  // };
 
   return (
     <>
@@ -93,6 +94,7 @@ function DailyAttendanceBreakDown() {
           hover
           responsive="sm"
           className={styles.attendanceTable}
+          variant={`${checkTheme ? "dark" : ""}`}
         >
           <thead className={styles.tableHead}>
             <tr className={styles.attendanceTableTr}>
@@ -239,7 +241,7 @@ function DailyAttendanceBreakDown() {
               : []}
           </tbody>
         </Table>
-        <Stack
+        {/* <Stack
           spacing={2}
           justifyContent="flex-end"
           alignItems="end"
@@ -252,7 +254,7 @@ function DailyAttendanceBreakDown() {
             variant="outlined"
             color="standard"
           />
-        </Stack>
+        </Stack> */}
       </div>
     </>
   );

@@ -23,6 +23,7 @@ function TimeChart() {
   const threeWeekAgo = moment(new Date()).subtract(3, 'week').format();
   const [duration, setDuration] = useState("1");
   const user = useAppSelector((state) => state.user.UserData);
+  const checkTheme = useAppSelector((state) => state.theme.darkMode)
   const [useGetAllAttendanceByDateAction, { isLoading, isSuccess, error, isError }] = useGetAllAttendanceByPeriodMutation();
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -91,6 +92,7 @@ function TimeChart() {
             label="Duration"
             onChange={handleChange}
             color="secondary"
+            style={{color: checkTheme ? "white" : ""}}
           >
             {dropdownOptions.map((option) => (
               <MenuItem key={option.value} value={option.value}>
