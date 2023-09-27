@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./Logout.module.css";
+import styles from "./Logout.module.scss";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Icon from "@mui/material/Icon";
 import { useRouter } from "next/navigation";
