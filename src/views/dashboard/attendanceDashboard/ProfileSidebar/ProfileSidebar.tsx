@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Drawer } from "@mui/material";
 import { Close } from "@mui/icons-material";
-import styles from "./Sidebar.module.css";
+import styles from "./ProfileSidebar.module.scss";
 import { ProfileInfo } from "../profileInfo";
 import { useAppSelector } from "@/redux/store";
 interface SidebarProps {

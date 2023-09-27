@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@mui/material";
-import styles from "./PunchInOutButton.module.css";
+import styles from "./PunchInOutButton.module.scss";
 import { ShowAlert } from "@/common";
 import moment from "moment";
 import { AttendanceDataType, Punch } from "@/views/dashboard/types/attendanceDataType";
 import { useAppSelector } from "@/redux/store";
 import { useAttendanceMutation } from "@/redux/services/attendanceApi";
 import { AttendanceTypes } from "@/views/dashboard/types/attendanceType";
-import Loader from "@/components/Loader/Loader";
-import { ToastError } from "@/utils/showToastAlerts";
 
 const PunchInOutButton = () => {
   const [isPunchedOut, setIsPunchedOut] = useState(false);

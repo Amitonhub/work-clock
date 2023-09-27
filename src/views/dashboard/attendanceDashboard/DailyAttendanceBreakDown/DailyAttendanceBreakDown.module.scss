@@ -1,0 +1,63 @@
+.mainDiv {
+  width: 100%;
+
+  .attendanceTable {
+    width: 100%;
+    margin-bottom: 20px;
+
+    &Tr {
+      font-weight: bold;
+    }
+
+    td {
+      text-align: center;
+      border-right: none;
+      border-left: none;
+    }
+  }
+
+  .icons {
+    margin-bottom: 4px;
+    margin-right: 3px;
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .rightArrow {
+    color: #2c82e0;
+  }
+
+  @media (max-width: 767px) {
+    overflow: scroll;
+
+    .pagination {
+      margin: 25px 0;
+    }
+
+    .attendanceTable tr > td {
+      min-height: 40px !important;
+      min-width: 160px !important;
+    }
+
+    .attendanceTable tr > th:first-child {
+      position: sticky;
+      left: 0px;
+    }
+
+    .attendanceTable tr > td:first-child {
+      position: sticky;
+      left: 0px;
+    }
+
+    .attendanceTable tr:nth-child(odd) td {
+      background: white;
+    }
+
+    .attendanceTable tr:nth-child(even) td {
+      background: gray.200;
+    }
+  }
+}

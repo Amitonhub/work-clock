@@ -1,6 +1,6 @@
 "use client";
 import { ReactNode, useEffect, useState } from "react";
-import styles from "./profileInfo.module.css";
+import styles from "./profileInfo.module.scss";
 import Avatar from "@mui/material/Avatar";
 import Divider from "@mui/material/Divider";
 import {
