@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import styles from "./dashboard.module.css";
+import styles from "./dashboard.module.scss";
 import { AttendanceDashBoard } from "@/views/dashboard/attendanceDashboard";
 import dynamic from "next/dynamic";
 import { useAppSelector } from "@/redux/store";

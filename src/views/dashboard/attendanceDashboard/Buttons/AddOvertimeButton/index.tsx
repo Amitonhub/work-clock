@@ -8,7 +8,7 @@ import {
   MenuItem,
 } from "@mui/material";
 import Swal from "sweetalert2";
-import styles from "./AddOvertimeButton.module.css";
+import styles from "./AddOvertimeButton.module.scss";
 import moment from "moment";
 
 const AddOvertimeButton = () => {

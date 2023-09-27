@@ -1,90 +1,78 @@
 .container {
-    padding: 0px 10px;
-    height: 600px;
-    width: 332px;
-    display: grid;
-    row-gap: 10px;
-    background-color: white;
-    padding-top: 20px;
-    padding-bottom: 80px;
-    border-radius: 10px;
-    /* box-shadow: 4px 4px 4px #bdbdbd; */
-}
+  padding: 0px 10px;
+  height: 600px;
+  width: 332px;
+  display: grid;
+  row-gap: 10px;
+  background-color: white;
+  padding-top: 20px;
+  padding-bottom: 80px;
+  border-radius: 10px;
 
-.darkContainer {
-    background-color: #213555;
-    color: white;
-}
-
-.darkContainer:hover {
-    background-color: #141E46;
-    color: white;
-}
-
-.profileInfoHeaderMain {
+  .profileInfoHeaderMain {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-}
+  }
 
-.info {
+  .info {
     flex: 1;
-}
+  }
 
-.name {
+  .name {
     margin-bottom: 5px;
     display: flex;
     font-size: 30px;
     font-weight: bold;
     align-items: center;
     justify-content: center;
-}
+  }
 
-.designation {
+  .designation {
     margin-top: 2px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 16px;
     color: #777;
-}
+  }
 
-.avatar {
+  .avatar {
     display: flex;
     align-items: center;
     justify-content: center;
-}
+  }
 
-.Divider {
+  .Divider {
     width: 100%;
     margin: 20px 0;
     border-top: 1px solid grey;
-}
+  }
 
-.timeInfoHeader {
+  .timeInfoHeader {
     color: #5c5a5a;
-}
+  }
 
-.timeInfoHeaderMain {
+  .timeInfoHeaderMain {
     margin-left: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-}
+  }
 
-.timeInfoSubMain {
+  .timeInfoSubMain {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 10px;
     margin-top: 50px;
-}
+  }
 
-.timeInfoHeader {
+  .timeInfoHeader {
     font-size: 32px;
-}
+  }
 
-.timeInfoSub {
+  .timeInfoSub {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -92,35 +80,34 @@
     text-align: center;
     margin-left: 25px;
     margin-right: 25px;
-}
+  }
 
-.timeInfoSubHead {
+  .timeInfoSubHead {
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 5px;
-}
+  }
 
-.timeInfoSubInterval {
+  .timeInfoSubInterval {
     font-size: 14px;
     font-weight: bold;
     color: #777;
-}
+  }
 
-.timestatusHeading {
+  .timestatusHeading {
     margin-bottom: 35px;
-}
+  }
 
-.timeStatusSubMaindiv {
+  .timeStatusSubMaindiv {
     display: flex;
-    /* align-items: center; */
     justify-content: space-between;
-}
+  }
 
-.timeStatusActivityDiv {
+  .timeStatusActivityDiv {
     margin-right: 10px;
-}
+  }
 
-.coloredCircle {
+  .coloredCircle {
     display: inline-block;
     margin-right: 5px;
     border-radius: 50%;
@@ -128,28 +115,39 @@
     border-width: 0.5px;
     height: 10px;
     width: 10px;
-}
+  }
 
-.timeStatusHeading {
+  .timeStatusHeading {
     display: flex;
     align-items: baseline;
-}
+  }
 
-.paragraphMain {
+  .paragraphMain {
     color: #787486;
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-}
+  }
 
-.activeStatus,
-.inactiveStatus,
-.overTimeStatus {
+  .activeStatus,
+  .inactiveStatus,
+  .overTimeStatus {
     margin-bottom: 20px;
     display: block;
+  }
+
+  .statusHeadingDiv {
+    margin-left: 5px;
+  }
 }
 
-.statusHeadingDiv {
-    margin-left: 5px;
+.darkContainer {
+  background-color: #213555;
+  color: white;
+}
+
+.darkContainer:hover {
+  background-color: #141e46;
+  color: white;
 }
