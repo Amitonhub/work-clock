@@ -10,7 +10,7 @@ import {
   Tabs,
 } from "@mui/material";
 import { Notifications, Close } from "@mui/icons-material";
-import styles from "./Sidebar.module.scss";
+import styles from "./Sidebar.module.css";
 import MessageIcon from "@mui/icons-material/Message";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import StarIcon from "@mui/icons-material/Star";

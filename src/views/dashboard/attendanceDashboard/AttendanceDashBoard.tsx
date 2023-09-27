@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
-import styles from "./AttendanceDashboard.module.scss";
+import styles from "./AttendanceDashboard.module.css";
+import Divider from "@mui/material/Divider";
 import dynamic from "next/dynamic";
 import { Modal } from "react-bootstrap";
 import AddOvertimeButton from "./Buttons/AddOvertimeButton";

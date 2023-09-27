@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./DailyAttendance.module.scss";
+import styles from "./DailyAttendance.module.css";
 import Tooltip from "@mui/material/Tooltip";
 import { useAppSelector } from "@/redux/store";
 

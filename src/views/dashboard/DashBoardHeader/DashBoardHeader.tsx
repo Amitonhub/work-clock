@@ -1,6 +1,6 @@
 "use client";
 import { Box, Skeleton } from "@mui/material";
-import styles from "./DashBoardHeader.module.scss";
+import styles from "./DashBoardHeader.module.css";
 import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";

@@ -1,5 +1,5 @@
 import { Box, CircularProgress, Skeleton } from "@mui/material";
-import styles from "./OnTimeLatePunch.module.scss";
+import styles from "./OnTimeLatePunch.module.css";
 import { useEffect, useState } from "react";
 import moment from "moment";
 import { useGetAllAttendanceByIdQuery } from "@/redux/services/attendanceApi";

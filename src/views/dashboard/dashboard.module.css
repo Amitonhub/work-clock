@@ -1,0 +1,31 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    padding: 0 10px;
+}
+
+.lightHeading {
+    background-color: #F4F7FF;
+    color: black;
+}
+
+.darkHeading {
+    color: white;
+    background-color: #001C30;
+}
+
+.mainDiv {
+    /* padding-top: 20px; */
+        padding-top: 10px;
+}
+
+@media (max-width: 767px) {
+    .attendanceDashboardDiv {
+        margin: 0.5rem;
+    }
+    .header {
+        justify-content: baseline;
+    }
+}

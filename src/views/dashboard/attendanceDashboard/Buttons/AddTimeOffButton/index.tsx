@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, Popover, Box, Typography, MenuItem, Select } from "@mui/material";
 import Swal from "sweetalert2";
-import styles from "./AddTimeOffButton.module.scss";
+import styles from "./AddTimeOffButton.module.css";
 import { ShowAlert } from "@/common";
 import { useAttendanceMutation } from "@/redux/services/attendanceApi";
 import { AttendanceTypes } from "@/views/dashboard/types/attendanceType";

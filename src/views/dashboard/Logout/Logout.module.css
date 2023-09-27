@@ -1,0 +1,16 @@
+.logoutMainDiv{
+    padding: 20px;
+}
+.logoutIcon{
+    cursor: pointer;
+    font-size: x-large !important;
+}
+
+@media (max-width: 767px) {
+    .logoutIcon{
+        font-size: 25px !important;
+    }
+    .logoutMainDiv{
+        padding: 7px 8px;
+    }
+}

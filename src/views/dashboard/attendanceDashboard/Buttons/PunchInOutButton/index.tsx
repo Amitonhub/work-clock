@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@mui/material";
-import styles from "./PunchInOutButton.module.scss";
+import styles from "./PunchInOutButton.module.css";
 import { ShowAlert } from "@/common";
 import moment from "moment";
 import { AttendanceDataType, Punch } from "@/views/dashboard/types/attendanceDataType";
 import { useAppSelector } from "@/redux/store";
 import { useAttendanceMutation } from "@/redux/services/attendanceApi";
 import { AttendanceTypes } from "@/views/dashboard/types/attendanceType";
+import Loader from "@/components/Loader/Loader";
+import { ToastError } from "@/utils/showToastAlerts";
 
 const PunchInOutButton = () => {
   const [isPunchedOut, setIsPunchedOut] = useState(false);
@@ -16,6 +18,7 @@ const PunchInOutButton = () => {
   const currentTime = new Date();
   const today = moment(currentTime).format('L')
   const currentHour = currentTime.getHours();
+  const currentMinutes = currentTime.getMinutes();
 
   useEffect(() => {
     const hasAttendanceToday = userAttendance?.some((item: AttendanceDataType) => moment(item.date).format('L') === today);
@@ -44,6 +47,7 @@ const PunchInOutButton = () => {
       text: confirmText,
     }).then((result) => {
       if (result.isConfirmed) {
+        const currentTime = new Date().toLocaleTimeString();
         const punchMessage = `You have punched ${punchAction}.`;
         attendanceAction(AttendanceTypes.punchOut)
         ShowAlert.fire(

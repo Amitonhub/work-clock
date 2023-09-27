@@ -1,31 +1,31 @@
-.mainDiv {
-  .timeInfoHeaderMain {
+.mainDiv {}
+
+.timeInfoHeaderMain {
     color: white;
     margin-bottom: 21px;
-  }
+}
 
-  .timeInfoHeader {
+.timeInfoHeader {
     font-weight: normal;
-  }
+}
 
-  .progressBarContainer {
+.progressBarContainer {
     height: 10px;
     background-color: #f0f0f0;
     border-radius: 5px;
     overflow: hidden;
     display: flex;
-  }
+}
 
-  .progressBarSegment {
+.progressBarSegment {
     height: 100%;
     width: 100%;
-  }
+}
 
-  @media (max-width: 767px) {
+@media (max-width: 767px) {
     .timeInfoHeaderMain {
-      position: relative;
-      margin-bottom: 20px;
-      font-size: 16px;
+        position: relative;
+        margin-bottom: 20px;
+        font-size: 16px;
     }
-  }
 }

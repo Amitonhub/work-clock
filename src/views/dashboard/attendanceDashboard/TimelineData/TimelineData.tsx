@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import styles from "./timelineData.style.module.scss";
 
 //mui imports
 import Timeline from "@mui/lab/Timeline";
@@ -39,6 +40,8 @@ function TimelineData() {
   );
   const currentTime = new Date();
   const today = moment(currentTime).format("L");
+  const currentHour = currentTime.getHours();
+  const currentMinutes = currentTime.getMinutes();
   const hasAttendanceToday = userAttendance?.some(
     (item: AttendanceDataType) => moment(item.date).format("L") === today
   );
@@ -94,7 +97,7 @@ function TimelineData() {
   }, [userAttendance]);
 
   return (
-    <Timeline position="alternate">
+    <Timeline position="alternate" className={styles.timelineMainDiv}>
       <TimelineItem>
         <TimelineOppositeContent
           sx={{ m: "auto 0" }}
@@ -117,7 +120,9 @@ function TimelineData() {
           <Typography variant="h6" component="span">
             Get Started
           </Typography>
-          <Typography sx={{ fontSize: "14px" }}>Code It</Typography>
+          <Typography sx={{ fontSize: "14px" }}>
+            Code It
+          </Typography>
         </TimelineContent>
       </TimelineItem>
       <TimelineItem>
