@@ -1,6 +1,6 @@
 import React from 'react';
 import QRCode from 'react-qr-code';
-import styles from "./QRCodeGenerator.module.css";
+import styles from "./QRCodeGenerator.module.scss";
 
 interface QRCodeGeneratorProps {
   information: string | Date | number;

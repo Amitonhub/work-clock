@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from "./DailyAttendanceBreakDown.module.css";
+import styles from "./DailyAttendanceBreakDown.module.scss";
 import { Table } from "react-bootstrap";
 import MoreTimeIcon from "@mui/icons-material/MoreTime";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
