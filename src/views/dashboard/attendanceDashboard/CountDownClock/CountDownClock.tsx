@@ -1,12 +1,13 @@
 import usePersistantTimer from "./utils/ptimer";
 import styles from "./countDown.module.scss";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Oswald } from 'next/font/google'
 
 const oswald = Oswald({ subsets: ['latin'] })
 
 const CountDownClock = () => {
   const [count, start, pause, reset] = usePersistantTimer(false, { updateFrequency: 1, maximumValue: 0 });
+  const [isTimeUp, setTimeUp] = useState(false);
 
   const countdown = (value: number, count: number): string => {
     const seconds = Math.round(count / 1000);
@@ -19,13 +20,23 @@ const CountDownClock = () => {
       .padStart(2, '0')}:${remainingSecondsFormatted.toString().padStart(2, '0')}`;
   };
 
-  const counter = countdown(32400 , count)
+  let counter = countdown(32400, count)
 
   useEffect(() => {
-    if(counter === "00:00:00"){
+    if (counter === "00:00:00") {
       pause();
+      reset();
+      setTimeUp(true);
     }
-  },[count])
+  }, [count, counter, pause, reset]);
+
+  const TimeIsUp = () => {
+    return (
+      <div>
+        Time's UP!
+      </div>
+    );
+  };
 
   return (
     <div className={`${oswald.className} ${styles.timerDiv}`}>
@@ -35,7 +46,7 @@ const CountDownClock = () => {
         <button onClick={reset}>reset</button>
       </div> */}
       <div className={styles.countdownCircle}>
-        <div className={styles.countdownText}>{counter}</div>
+        <div className={styles.countdownText}>{isTimeUp ? <TimeIsUp /> : counter}</div>
       </div>
     </div>
   );
