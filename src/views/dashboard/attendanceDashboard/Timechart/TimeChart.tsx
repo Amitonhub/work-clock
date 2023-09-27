@@ -6,7 +6,7 @@ import {
   YAxis,
   Tooltip,
 } from "recharts";
-import styles from "./TimeChart.module.css";
+import styles from "./TimeChart.module.scss";
 import {
   Select,
   MenuItem,

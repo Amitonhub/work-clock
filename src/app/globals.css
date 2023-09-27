@@ -10,6 +10,10 @@ body {
     height: 100vh;
 }
 
+body::-webkit-scrollbar {
+    display: none;
+}
+
 .light-dashboard-layout {
     background-color: #F4F7FF;
     /* height: 100%; */

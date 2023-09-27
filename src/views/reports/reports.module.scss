@@ -1,6 +1,5 @@
 .mainDiv {
   background-color: #f4f7ff;
-  // padding-top: 20px;
   padding-top: 10px;
   height: 100vh;
 
@@ -9,7 +8,6 @@
     position: relative;
   }
   .header {
-    // font-family: 'Plus Jakarta Sans';
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -20,9 +18,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    // .reportDownload:hover {
-    //   color: black;
-    // }
   }
   .datePickReports {
     display: flex;

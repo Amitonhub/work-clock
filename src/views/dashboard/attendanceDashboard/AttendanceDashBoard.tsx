@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
-import styles from "./AttendanceDashboard.module.css";
-import Divider from "@mui/material/Divider";
+import styles from "./AttendanceDashboard.module.scss";
 import dynamic from "next/dynamic";
 import { Modal } from "react-bootstrap";
 import AddOvertimeButton from "./Buttons/AddOvertimeButton";
@@ -362,7 +361,7 @@ function AttendanceDashBoard() {
                       sx={{
                         width: "315px",
                         height: "140px",
-                        backgroundColor: checkTheme ? "#00092C" : "black",
+                        backgroundColor: checkTheme ? "#00092C" : "#2F2F2F",
                         color: "white",
                         padding: "5px",
                         "&:hover": {
