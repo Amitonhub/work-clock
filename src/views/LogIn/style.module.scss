@@ -1,13 +1,10 @@
 .container {
     position: relative;
-    overflow: hidden;
-    max-width: 700px;
-    margin: 100px 441px;
+    width: 700px;
     padding: 52px;
     background-color: #275BC4;
     border-radius: 20px;
     color: white;
-    // font-family: 'Plus Jakarta Sans';
     animation: formAnimation 1s ease-in-out;
     .ellipse1 {
         position: absolute;
@@ -145,4 +142,9 @@
     .workClockHeading {
         font-size: xxx-large !important;
     }
+}
+
+.darkContainer {
+    background: black;
+    color: white;
 }

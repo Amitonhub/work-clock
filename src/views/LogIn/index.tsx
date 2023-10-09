@@ -15,11 +15,13 @@ import CryptoJS from "crypto-js";
 import { useLogInMutation } from "@/redux/services/authApi"
 import Loader from "@/components/Loader/Loader"
 import { useEffect } from "react"
+import { useAppSelector } from "@/redux/store"
 
 function LogInPage() {
   const router = useRouter()
   const { register, handleSubmit, formState: { errors } } = useForm<LoginForm>()
   const dispatch = useDispatch()
+  const checkTheme = useAppSelector((state) => state.theme.darkMode)
   const [LoginAction, { isLoading, isSuccess, error, isError }] = useLogInMutation();
   const secretPass = "XkhZG4fW2t2W";
 
@@ -53,9 +55,8 @@ function LogInPage() {
       <Loader/>
     }
   }, [isSuccess, isLoading, isError])
-
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${checkTheme ? styles.darkContainer : ''}`}>
       <div className={styles.ellipse1} />
       <div className={styles.ellipse2} />
       <div className={styles.logoContainer}>
