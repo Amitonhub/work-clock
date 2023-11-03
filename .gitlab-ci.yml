@@ -1,0 +1,34 @@
+image: node:latest
+
+stages:          # List of stages for jobs, and their order of execution
+  - build
+  - deploy
+
+cache:
+  paths:
+    - node_modules/
+
+build-job:       # This job runs in the build stage, which runs first.
+  stage: build
+  script:
+    - echo "Compiling the code..."
+    - echo "Compile complete."
+    - echo "Production Build Start."
+    - npm install
+    - npm run build
+
+deploy-dev:
+  when: manual  
+  stage: deploy
+  environment: development
+  script:
+    - echo "Deploying application..."
+    - echo "Application successfully deployed."
+
+deploy-prod:
+  when: manual
+  stage: deploy 
+  environment: production
+  script:
+    - echo "Deploying application..."
+    - echo "Application successfully deployed."
